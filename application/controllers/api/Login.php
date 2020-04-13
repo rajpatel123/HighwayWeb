@@ -338,7 +338,9 @@ class Login extends REST_Controller {
                 "Otp_Status" => 0,
             ),$Mobile,$RoleId);
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "http://sms24.infonetservices.in/API/WebSMS/Http/v1.0a/index.php?username=medeg&password=631616&sender=DNAAPP&to=$Mobile&message=Please+enter+your+otp:+$Otp+for+verify+your+mobile+number.&reqid=1&format={json|text}&route_id=197");
+            //curl_setopt($ch, CURLOPT_URL, "http://sms24.infonetservices.in/API/WebSMS/Http/v1.0a/index.php?username=medeg&password=631616&sender=DNAAPP&to=$Mobile&message=Please+enter+your+otp:+$Otp+for+verify+your+mobile+number.&reqid=1&format={json|text}&route_id=197");
+            curl_setopt($ch, CURLOPT_URL, "http://2factor.in/API/V1/4917de67-4756-11ea-9fa5-0200cd936042/SMS/".$Mobile."/".$Otp."");
+           
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_exec($ch);
             curl_close($ch);  
@@ -376,7 +378,8 @@ class Login extends REST_Controller {
                
             ));
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "http://sms24.infonetservices.in/API/WebSMS/Http/v1.0a/index.php?username=medeg&password=631616&sender=DNAAPP&to=$Mobile&message=Please+enter+your+otp:+$Otp+for+verify+your+mobile+number.&reqid=1&format={json|text}&route_id=197");
+           // curl_setopt($ch, CURLOPT_URL, "http://sms24.infonetservices.in/API/WebSMS/Http/v1.0a/index.php?username=medeg&password=631616&sender=DNAAPP&to=$Mobile&message=Please+enter+your+otp:+$Otp+for+verify+your+mobile+number.&reqid=1&format={json|text}&route_id=197");
+           curl_setopt($ch, CURLOPT_URL, "http://2factor.in/API/V1/4917de67-4756-11ea-9fa5-0200cd936042/SMS/".$Mobile."/".$Otp."");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_exec($ch);
             curl_close($ch);
