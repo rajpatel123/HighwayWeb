@@ -32,6 +32,8 @@ class Vehicle_type_model extends CI_Model {
     public function get_vehicle_type_info() { 
         $this->db->select('*') 
                 ->from('tbl_vehicle_type')
+                ->join('tbl_vehicle_load_capacity', 'tbl_vehicle_load_capacity.v_l_c_id=tbl_vehicle_type.v_t_vehicle_size_id')
+                ->join('tbl_vehicle_dimension_size', 'tbl_vehicle_dimension_size.v_d_s_id=tbl_vehicle_type.v_t_vehicle_load_capacity_id')
                 ->where(array("tbl_vehicle_type.v_t_delete" => 0));
         $query_result = $this->db->get(); 
         $result = $query_result->result_array(); 
@@ -65,4 +67,30 @@ class Vehicle_type_model extends CI_Model {
         $this->db->update($this->_vehicle_type, array('v_t_delete' => 1), array('v_t_id' => $vehicle_id)); 
         return $this->db->affected_rows(); 
     }   
+    public function get_dropdownSizeData() { 
+        $this->db->select(array('*')) 
+                ->from('tbl_vehicle_dimension_size')
+                ->where(array('v_d_s_status' => 1,'v_d_s_delete'=>0));
+        $query_result = $this->db->get(); 
+        $result = $query_result->result(); 
+        if($query_result->num_rows() > 0){
+            return $result;
+            } else {
+               return array();  
+            }
+            
+    }
+    public function get_dropdownLoadCapaData() { 
+        $this->db->select(array('*')) 
+                ->from('tbl_vehicle_load_capacity')
+                ->where(array('v_l_c_status' => 1,'v_l_c_delete'=>0));
+        $query_result = $this->db->get(); 
+        $result = $query_result->result(); 
+        if($query_result->num_rows() > 0){
+            return $result;
+            } else {
+               return array();  
+            }
+            
+    }
 }

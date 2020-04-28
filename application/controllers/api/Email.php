@@ -39,8 +39,29 @@ class Email extends REST_Controller {
         } 
         $this->load->model("book_trip_link_model");
         $this->load->model("role_model");
+        $this->load->model("trip_model");
         $roleData = $this->role_model->getroleByUserid($driverId);
         $roleId = $roleData->Role_Id;
+        //==================Distance==========//
+        $latLondgData=$this->trip_model->getLatLongDataDriver($tripId,$driverId);
+//        echo '<pre>' ;print_r($latLondgData);die;
+        if($latLondgData){
+          
+        $startlat=$latLondgData->t_start_latitude;
+        $startLong=$latLondgData->t_start_longitude;
+        $endlat=$latLondgData->t_end_latitude;
+        $endLong=$latLondgData->t_end_longitude;
+        $unit = "K";  // K = kilometer
+        $distanceData=$this->trip_model->distance($startlat,$startLong,$endlat,$endLong,$unit);
+        $time = '00:1:00';   // 1 min me 1 km
+        $distance = $distanceData;
+        list($h,$m,$s) = explode(':',$time);
+        $nbSec = $h * 3600 + $m * 60 + $s;
+        $totalDuration = $nbSec * $distance;
+        //=========================Total time=====================//
+        $totalTime=$this->trip_model->nbSecToString($totalDuration); // for total time
+        }
+         //=========================Total time End=====================//
         
         if($roleId==3){
         if (isset($error) && !empty($error)) {
@@ -55,7 +76,7 @@ class Email extends REST_Controller {
         } else {
             $this->set_response([
                 'status' => true,
-                "driverInvoice" => $this->book_trip_link_model->getDriverInvoiceData($tripId,$driverId),
+                "driverInvoice" => $this->book_trip_link_model->getDriverInvoiceData($tripId,$driverId,$distanceData,$totalTime),
                     ], REST_Controller::HTTP_OK);
         }
         
@@ -84,8 +105,32 @@ class Email extends REST_Controller {
         } 
         $this->load->model("book_trip_link_model");
         $this->load->model("role_model");
+        $this->load->model("trip_model");
         $roleData = $this->role_model->getroleByUserid($customerId);
         $roleId = $roleData->Role_Id;
+        
+       
+          //==================Distance==========//
+        $latLondgData=$this->trip_model->getLatLongData($tripId,$customerId);
+//        echo '<pre>' ;print_r($latLondgData);die;
+        if($latLondgData){
+          
+        $startlat=$latLondgData->t_start_latitude;
+        $startLong=$latLondgData->t_start_longitude;
+        $endlat=$latLondgData->t_end_latitude;
+        $endLong=$latLondgData->t_end_longitude;
+        $unit = "K";  // K = kilometer
+        $distanceData=$this->trip_model->distance($startlat,$startLong,$endlat,$endLong,$unit);
+        $time = '00:1:00';   // 1 min me 1 km
+        $distance = $distanceData;
+        list($h,$m,$s) = explode(':',$time);
+        $nbSec = $h * 3600 + $m * 60 + $s;
+        $totalDuration = $nbSec * $distance;
+        //=========================Total time=====================//
+        $totalTime=$this->trip_model->nbSecToString($totalDuration); // for total time
+         
+         //=========================Total time End=====================//
+        }
         if($roleId==4){
         if (isset($error) && !empty($error)) {
             echo json_encode($error);
@@ -97,7 +142,7 @@ class Email extends REST_Controller {
         } else {
             $this->set_response([
                 'status' => true,
-                "customerInvoice" => $this->book_trip_link_model->getCustomerInvoiceData($tripId,$customerId),
+                "customerInvoice" => $this->book_trip_link_model->getCustomerInvoiceData($tripId,$customerId,$distanceData,$totalTime),
                     ], REST_Controller::HTTP_OK);
         }
     } else {
@@ -111,33 +156,46 @@ class Email extends REST_Controller {
     }
     
     
+   
+    
+    
+    
     function distanceTrip_post() {
         $error = "";
-        $tripId= $this->post('bookingId');
-        $startLatitude= $this->post('startLatitude');
-        $startlongitude= $this->post('startlongitude');
-        $endLatitude= $this->post('endLatitude');
-        $endlongitude= $this->post('endlongitude');
+       // $tripId= $this->post('bookingId');
+//        $startLatitude= $this->post('startLatitude');
+//        $startlongitude= $this->post('startlongitude');
+//        $endLatitude= $this->post('endLatitude');
+//        $endlongitude= $this->post('endlongitude');
         
-        if (empty($tripId)) {
-            $error = "please provide booking id";
-        } 
-        if (empty($startLatitude)) {
-            $error = "please provide start Latitude";
-        } 
-        if (empty($startlongitude)) {
-            $error = "please provide start longitude";
-        } 
-        if (empty($endLatitude)) {
-            $error = "please provide start latitude";
-        } 
-        if (empty($endlongitude)) {
-            $error = "please provide end longitude";
-        } 
-        $this->load->model("trip_model");
-        $this->load->model("role_model");
-        $roleData = $this->role_model->getroleByUserid($customerId);
-        $roleId = $roleData->Role_Id;
+//        if (empty($tripId)) {
+//            $error = "please provide booking id";
+//        } 
+//        if (empty($startLatitude)) {
+//            $error = "please provide start Latitude";
+//        } 
+//        if (empty($startlongitude)) {
+//            $error = "please provide start longitude";
+//        } 
+//        if (empty($endLatitude)) {
+//            $error = "please provide start latitude";
+//        } 
+//        if (empty($endlongitude)) {
+//            $error = "please provide end longitude";
+//        } 
+//        $this->load->model("trip_model");
+//        $this->load->model("role_model");
+//        $roleData = $this->role_model->getroleByUserid($customerId);
+//        $roleId = $roleData->Role_Id;
+        
+        
+        
+            $origin =$this->post('o'); 
+            $destination = $this->post('d');
+            $api = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=".$origin."&destinations=".$destination."&key=AIzaSyDRMI4wJHUfwtsX3zoNqVaTReXyHtIAT6U");
+            
+           // echo '<pre>' ;print_r($origin);
+            $data = json_decode($api);
         
         if (isset($error) && !empty($error)) {
             echo json_encode($error);
@@ -154,6 +212,7 @@ class Email extends REST_Controller {
         }
   
     }
+    
     
     
     

@@ -33,7 +33,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                             <tr>
                                 <th>SL#</th>
+                                <th>Vehicle Type</th>
                                 <th>Name</th>
+                                <th>Vehicle Size</th>
+                                <th>Vehicle Load Capacity</th>
+                                <th>Per Km Charge</th>
+                                <th>Vehicle Night Charge Per KM</th>
+                                <th>GST</th>
+                                <th>MIN KM</th>
                                 <th>Added By</th> 
                                 <th>Status</th> 
                                 <th>Action</th>
@@ -45,7 +52,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php $memberObj = $this->session->userdata; ?>
                             <tr>
                                     <td><?php echo $sl++; ?></td>
+                                    <td><?php echo $user_data['v_type']; ?></td>
                                     <td><?php echo $user_data['v_t_vehicle_name']; ?></td>
+                                    <td><?php echo $user_data['v_d_s_dimension_size']; ?></td>
+                                    <td><?php echo $user_data['v_l_c_load_capacity']; ?></td>
+                                    <td><?php echo $user_data['v_t_per_km_charge']; ?></td>
+                                    <td><?php echo $user_data['v_t_nigh_charge_per_km']; ?></td>
+                                    <td><?php echo $user_data['v_t_gst']; ?></td>
+                                    <td><?php echo $user_data['v_t_min_km']; ?></td>
                                     <td><?php echo $memberObj['admin_name']; ?></td>
                                     <td>
                                         <?php

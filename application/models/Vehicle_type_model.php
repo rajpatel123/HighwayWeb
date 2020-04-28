@@ -22,4 +22,23 @@ class Vehicle_type_model extends CI_Model {
             return $cat;
         }
     }   
+    
+    public function getFareAccordingToVehicle($vehicleTypeID) {
+         if(isset($vehicleTypeID)>0) {
+            $this->db->select(array("*"))
+                ->from("tbl_vehicle_type");
+            $this->db->where(array("tbl_vehicle_type.v_t_id" => $vehicleTypeID));
+                }
+        $query = $this->db->get();
+        $resultData = $query->result();
+        if ($query->num_rows() > 0) {
+            $result = $resultData[0];
+            return $result;
+        } else {
+            return array();
+        }
+        
+        
+        
+    }
 }

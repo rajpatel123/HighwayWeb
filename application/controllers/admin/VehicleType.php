@@ -27,6 +27,8 @@ class VehicleType extends CI_Controller {
         $data['active_menu'] = 'vehicle type';
         $data['active_sub_menu'] = 'vehicle type';
         $data['active_sub_sub_menu'] = '';
+        $data['SizeDropdownData'] = $this->vehicle_type_mdl->get_dropdownSizeData();
+        $data['LoadCapacityDropdownData'] = $this->vehicle_type_mdl->get_dropdownLoadCapaData();
         $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('admin_views/vehicleType/add_vehicle_type_v', $data, TRUE);
         $this->load->view('admin_views/admin_master_v', $data);
@@ -37,13 +39,55 @@ class VehicleType extends CI_Controller {
                 'field' => 'v_vehicle_name',
                 'label' => 'v_vehicle_name',
                 'rules' => 'trim|required|max_length[250]'
-            )
+            ),
+            array(
+                'field' => 'v_t_fare',
+                'label' => 'v_t_fare',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_per_km_charge',
+                'label' => 'v_t_per_km_charge',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_nigh_charge_per_km',
+                'label' => 'v_t_nigh_charge_per_km',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_gst',
+                'label' => 'v_t_gst',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_min_km',
+                'label' => 'v_t_min_km',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_vehicle_load_capacity_id',
+                'label' => 'v_t_vehicle_load_capacity_id',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'v_t_vehicle_size_id',
+                'label' => 'v_t_vehicle_size_id',
+                'rules' => 'trim|required'
+            ),
             );
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run() == FALSE) {
             $this->add_vehicle();
             } else {
             $data['v_t_vehicle_name'] = $this->input->post('v_vehicle_name', TRUE); 
+            $data['v_t_fare'] = $this->input->post('v_t_fare', TRUE); 
+            $data['v_t_per_km_charge'] = $this->input->post('v_t_per_km_charge', TRUE); 
+            $data['v_t_nigh_charge_per_km'] = $this->input->post('v_t_nigh_charge_per_km', TRUE); 
+            $data['v_t_gst'] = $this->input->post('v_t_gst', TRUE); 
+            $data['v_t_min_km'] = $this->input->post('v_t_min_km', TRUE); 
+            $data['v_t_vehicle_size_id'] = $this->input->post('v_t_vehicle_size_id', TRUE); 
+            $data['v_t_vehicle_load_capacity_id'] = $this->input->post('v_t_vehicle_load_capacity_id', TRUE); 
             $data['v_t_status'] = 1; 
             $data['v_t_add_by'] = $this->session->userdata('admin_id'); 
             $data['v_t_date'] = date('Y-m-d'); 
@@ -68,6 +112,8 @@ class VehicleType extends CI_Controller {
             $data['active_menu'] = 'vehicle type'; 
             $data['active_sub_menu'] = 'vehicle type'; 
             $data['active_sub_sub_menu'] = ''; 
+            $data['SizeDropdownData'] = $this->vehicle_type_mdl->get_dropdownSizeData();
+            $data['LoadCapacityDropdownData'] = $this->vehicle_type_mdl->get_dropdownLoadCapaData();
             $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
             $data['main_content'] = $this->load->view('admin_views/vehicleType/edit_vehicle_type_v', $data, TRUE);
             $this->load->view('admin_views/admin_master_v', $data); 
@@ -87,12 +133,54 @@ class VehicleType extends CI_Controller {
                 'label' => 'v_vehicle_name',
                 'rules' => 'trim|required|max_length[250]'
             ),
+            array(
+                'field' => 'v_t_fare',
+                'label' => 'v_t_fare',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_per_km_charge',
+                'label' => 'v_t_per_km_charge',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_nigh_charge_per_km',
+                'label' => 'v_t_nigh_charge_per_km',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_gst',
+                'label' => 'v_t_gst',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_min_km',
+                'label' => 'v_t_min_km',
+                'rules' => 'trim|required|max_length[250]'
+            ),
+            array(
+                'field' => 'v_t_vehicle_load_capacity_id',
+                'label' => 'v_t_vehicle_load_capacity_id',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'v_t_vehicle_size_id',
+                'label' => 'v_t_vehicle_size_id',
+                'rules' => 'trim|required'
+            ),
         );
             $this->form_validation->set_rules($config); 
             if ($this->form_validation->run() == FALSE) { 
                 $this->edit_vehicle($vehicle_id); 
             } else { 
                 $data['v_t_vehicle_name'] = $this->input->post('v_vehicle_name', TRUE); 
+                $data['v_t_fare'] = $this->input->post('v_t_fare', TRUE); 
+                $data['v_t_per_km_charge'] = $this->input->post('v_t_per_km_charge', TRUE); 
+                $data['v_t_nigh_charge_per_km'] = $this->input->post('v_t_nigh_charge_per_km', TRUE); 
+                $data['v_t_gst'] = $this->input->post('v_t_gst', TRUE); 
+                $data['v_t_min_km'] = $this->input->post('v_t_min_km', TRUE); 
+                $data['v_t_vehicle_size_id'] = $this->input->post('v_t_vehicle_size_id', TRUE); 
+                $data['v_t_vehicle_load_capacity_id'] = $this->input->post('v_t_vehicle_load_capacity_id', TRUE); 
                 $data['v_t_status'] = 1;
                 $result = $this->vehicle_type_mdl->update_vehicle_type($vehicle_id, $data); 
                 if (!empty($result)) { 

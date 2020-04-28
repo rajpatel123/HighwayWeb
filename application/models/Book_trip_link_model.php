@@ -352,14 +352,15 @@ class Book_trip_link_model extends CI_Model {
         }
     }
     
-    public  function getDriverInvoiceData($tripId,$driverId) {
+    public  function getDriverInvoiceData($tripId,$driverId,$distanceData,$totalTime) {
        // print_r($tripId);die;
         if(isset($tripId)>0){
         $this->db->select(array("*"))
                 ->from("tbl_book_trip_link b")
                 ->join('tbl_trip t', 't.t_id=b.b_l_t_trip_id','left')
                 ->join('tbl_accept_booking_trip ab', 'ab.a_b_t_booking_trip_id=b.b_l_t_trip_id','left')
-                ->join('users u', 'u.Id=b.b_l_t_driver_id','left');
+                ->join('users u', 'u.Id=b.b_l_t_driver_id','left')
+                ->join('tbl_vehicle_type v', 'v.v_t_Id=b.b_l_t_vehicle_type','left');
          //echo '<pre>' ;print_r($driverId);die;
          $this->db->where(array(
                     "b.b_l_t_trip_id" => $tripId,
@@ -379,23 +380,28 @@ class Book_trip_link_model extends CI_Model {
                 $cat = array();
                // echo '<pre>' ;print_r($data);die;
                 foreach($data as $row){
+                     $distancePrice = $row->v_t_per_km_charge*$distanceData;
+                    $gstPrise = $row->v_t_gst*$distancePrice/100;
+                    $totalAmount=$distancePrice+$gstPrise;
                     $cat['bookingId']=$row->b_l_t_trip_id ;
                     $cat['bookingTripCode']=$row->t_trip_id ;
                     $cat['startDate']=$row->a_b_t_start_date;
                     $cat['endDate']=$row->a_b_t_end_date ;
                     $cat['startTime']=$row->a_b_t_start_time;
                     $cat['endTime']=$row->a_b_t_end_time ;
-                    $cat['totDistance']='100';
-                    $cat['travelTime']='100';
-                    $cat['basedFarefixed']='100';
-                    $cat['distancePrice']='100';
-                    $cat['peekHourCharges']='10';
-                    $cat['nightFare']='100';
-                    $cat['tax']='100';
-                    $cat['totalAmount']='600';
-                    $cat['walletDetection']='550';
-                    $cat['discount']='50';
+                    $cat['totDistance']=$distanceData;
+                     $cat['travelTime']=$totalTime;
+                    $cat['basedFarefixed']=$row->v_t_fare;
+                    $cat['distancePrice']=$distancePrice ;
+                    $cat['peekHourCharges']=$row->v_t_per_km_charge;
+                    $cat['nightFare']=$row->v_t_nigh_charge_per_km;
+                    $cat['tax']=$row->v_t_gst;
+                    $cat['totalAmount']=$totalAmount;
+                    $cat['walletDetection']=$totalAmount;
+                    $cat['discount']='';
                     $cat['paymentMode']='paytm';
+                    
+                    
                     
                     
                 }
@@ -406,12 +412,13 @@ class Book_trip_link_model extends CI_Model {
         }
     }
     
-     public  function getCustomerInvoiceData($tripId,$customerId) {
+     public  function getCustomerInvoiceData($tripId,$customerId,$distanceData,$totalTime) {
         $this->db->select(array("*"))
                 ->from("tbl_book_trip_link b")
                 ->join('tbl_trip t', 't.t_id=b.b_l_t_trip_id','left')
                 ->join('tbl_accept_booking_trip ab', 'ab.a_b_t_booking_trip_id=b.b_l_t_trip_id','left')
-                ->join('users u', 'u.Id=b.b_l_t_customer_id','left');
+                ->join('users u', 'u.Id=b.b_l_t_customer_id','left')
+                ->join('tbl_vehicle_type v', 'v.v_t_Id=b.b_l_t_vehicle_type','left');
          //echo '<pre>' ;print_r($driverId);die;
          if(isset($tripId)>0){
              $this->db->where(array(
@@ -427,30 +434,28 @@ class Book_trip_link_model extends CI_Model {
                 $data= $query->result();
                 $cat = array();
                 foreach($data as $row){
+                    $distancePrice = $row->v_t_per_km_charge*$distanceData;
+                    $gstPrise = $row->v_t_gst*$distancePrice/100;
+                    $totalAmount=$distancePrice+$gstPrise;
+                    
                     $cat['bookingId']=$row->b_l_t_trip_id ;
                     $cat['bookingTripCode']=$row->t_trip_id ;
                     $cat['startDate']=$row->a_b_t_start_date;
                     $cat['endDate']=$row->a_b_t_end_date ;
                     $cat['startTime']=$row->a_b_t_start_time;
                     $cat['endTime']=$row->a_b_t_end_time;
-                    $cat['totDistance']='100';
-                    $cat['travelTime']='100';
-                    $cat['basedFarefixed']='100';
-                    $cat['distancePrice']='100';
-                    $cat['peekHourCharges']='10';
-                    $cat['nightFare']='100';
-                    $cat['tax']='100';
-                    $cat['totalAmount']='600';
-                    $cat['walletDetection']='550';
-                    $cat['discount']='50';
+                    $cat['totDistance']=$distanceData;
+                    $cat['travelTime']=$totalTime;
+                    $cat['basedFarefixed']=$row->v_t_fare;
+                    $cat['distancePrice']=$distancePrice ;
+                    $cat['peekHourCharges']=$row->v_t_per_km_charge;
+                    $cat['nightFare']=$row->v_t_nigh_charge_per_km;
+                    $cat['tax']=$row->v_t_gst;
+                    $cat['totalAmount']=$totalAmount;
+                    $cat['walletDetection']=$totalAmount;
+                    $cat['discount']='';
                     $cat['paymentMode']='paytm';
-                   
-                    
-                    
-                    
-                    
-                    
-                }
+                    }
                 return $cat;
                 
             } else {
