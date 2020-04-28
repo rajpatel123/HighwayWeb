@@ -447,7 +447,7 @@ class Vehicle_model extends CI_Model {
             return array();
         }
     }
-    public  function getAllVehicleListApi() {
+    public  function getAllVehicleListApi($distanceData) {
         $this->db->select(array("*"))
                 ->from("tbl_vehicle_type v")
                 ->where(array("v.v_t_status" => 1,"v.v_t_delete" => 0));
@@ -470,19 +470,20 @@ class Vehicle_model extends CI_Model {
                    $info['info5']= $vinfo[4]->v_i_information;
                    $info['info6']= $vinfo[5]->v_i_information;
                    $info['VehicleName']='Tata';
-                $info['VehicleCapacity']='cap' ;
-                $info['VehicleSize']='size';
+                    $info['VehicleCapacity']='cap' ;
+                    $info['VehicleSize']='size';
                   
                 }
               // echo  '<pre>' ;print_r($vinfo);die;
               
               
                 foreach($data as $row){
+                    $distancePrice = $row->v_t_per_km_charge*$distanceData;
                     $cat[$counter]['VehicleId']=$row->v_t_id ;
                     $cat[$counter]['VehicleTypeId']=$row->v_t_id ;
                     $cat[$counter]['VehicleName']=$row->v_t_vehicle_name ;
                     $cat[$counter]['VehicleType']=$row->v_type ;
-                    $cat[$counter]['VehicleFare']=$row->v_t_fare;
+                    $cat[$counter]['VehicleFare']=$distancePrice;
                     
                     $cat[$counter]['v_info']=$info;
                     $counter++;

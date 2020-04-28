@@ -391,7 +391,7 @@ class Book_trip_link_model extends CI_Model {
                     $cat['endTime']=$row->a_b_t_end_time ;
                     $cat['totDistance']=$distanceData;
                      $cat['travelTime']=$totalTime;
-                    $cat['basedFarefixed']=$row->v_t_fare;
+                    $cat['basedFarefixed']=$distancePrice;
                     $cat['distancePrice']=$distancePrice ;
                     $cat['peekHourCharges']=$row->v_t_per_km_charge;
                     $cat['nightFare']=$row->v_t_nigh_charge_per_km;
@@ -446,7 +446,7 @@ class Book_trip_link_model extends CI_Model {
                     $cat['endTime']=$row->a_b_t_end_time;
                     $cat['totDistance']=$distanceData;
                     $cat['travelTime']=$totalTime;
-                    $cat['basedFarefixed']=$row->v_t_fare;
+                    $cat['basedFarefixed']=$distancePrice;
                     $cat['distancePrice']=$distancePrice ;
                     $cat['peekHourCharges']=$row->v_t_per_km_charge;
                     $cat['nightFare']=$row->v_t_nigh_charge_per_km;

@@ -1045,6 +1045,7 @@ curl_close( $ch );
             $this->load->model("book_trip_link_model");
             $this->load->model("trip_rating_model");
          $roleData = $this->user_model->getUserDetailsById($customer_id);
+         if($roleData){
          $roleId = $roleData->Role_Id;
         if($roleId==4){
         if (isset($error) && !empty($error)) {
@@ -1157,7 +1158,7 @@ curl_close( $ch );
                         ], REST_Controller::HTTP_BAD_REQUEST);
             }
         }
-        } else {
+         } }else {
             $this->set_response([
                     'status' => false,
                     'message' => "You are not customer",
@@ -1189,6 +1190,7 @@ curl_close( $ch );
          $this->load->model("user_model");
          $this->load->model("trip_rating_model");
          $roleData = $this->user_model->getUserDetailsById($driver_id);
+         if($roleData){
          $roleId = $roleData->Role_Id;
         if($roleId==3){
         if (isset($error) && !empty($error)) {
@@ -1352,7 +1354,7 @@ curl_close( $ch );
                         ], REST_Controller::HTTP_BAD_REQUEST);
             }
         }
-         } else {
+        }} else {
             $this->set_response([
                     'status' => false,
                     'message' => "You are not driver",

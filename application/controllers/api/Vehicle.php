@@ -210,10 +210,34 @@ class Vehicle extends REST_Controller {
     function bookingVehicleList_post() {
         $error = "";
         $user_id = $this->post('user_id');
+        $startLat = $this->post('startLat');
+        $startLong = $this->post('startLong');
+        $endLat = $this->post('endLat');
+        $endLong = $this->post('endLong');
         if (empty($user_id)) {
             $error = "please provide user id";
+        }  else if (empty($startLat)) {
+            $error = "please provide start lat";
+        } else if (empty($startLong)) {
+            $error = "please provide start Long";
+        } else if (empty($endLat)) {
+            $error = "please provide end lat";
+        } else if (empty($endLong)) {
+            $error = "please provide end long";
         } 
         $this->load->model("vehicle_model");
+        
+        $this->load->model("role_model");
+        $this->load->model("trip_model");
+        $roleData = $this->role_model->getroleByUserid($user_id);
+        if($roleData){
+        $roleId = $roleData->Role_Id;
+        if($roleId==4){
+        //==================Distance==========//
+        $unit = "K";  // K = kilometer
+        $distanceData=$this->trip_model->distance($startLat,$startLong,$endLat,$endLong,$unit);
+        //=========================Distance End=====================//
+        //echo '<pre>' ;print_r($distanceData);die;
         if (isset($error) && !empty($error)) {
             
             echo json_encode($error);
@@ -226,8 +250,14 @@ class Vehicle extends REST_Controller {
         } else {
             $this->set_response([
                 'status' => true,
-                "vehicleData" => array("vehicle_list" => $this->vehicle_model->getAllVehicleListApi()),
+                "vehicleData" => array("vehicle_list" => $this->vehicle_model->getAllVehicleListApi($distanceData)),
                     ], REST_Controller::HTTP_OK);
+        }
+        } }else {
+                 $this->set_response([
+                'status' => false,
+                'message' => "You are not a customer",
+                ], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
     
