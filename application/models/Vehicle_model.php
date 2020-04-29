@@ -482,7 +482,7 @@ class Vehicle_model extends CI_Model {
                     $cat[$counter]['VehicleId']=$row->v_t_id ;
                     $cat[$counter]['VehicleTypeId']=$row->v_t_id ;
                     $cat[$counter]['VehicleName']=$row->v_t_vehicle_name ;
-                    $cat[$counter]['VehicleType']=$row->v_type ;
+                    $cat[$counter]['VehicleType']=$row->v_t_type ;
                     $cat[$counter]['VehicleFare']=$distancePrice;
                     
                     $cat[$counter]['v_info']=$info;
@@ -494,35 +494,7 @@ class Vehicle_model extends CI_Model {
             return array();
         }
     }
-//     public  function getAllVehicleListApi() {
-//        $this->db->select(array('v.v_Id','v.v_type_id','vt.v_t_vehicle_name','a.a_v_t_d_vehicle_id','vc.v_l_c_load_capacity','vd.v_d_s_dimension_size','vt.v_t_fare'))
-//                ->from("tbl_assign_vehicle_to_driver a")
-//                ->join('vehicle v', 'v.v_Id=a.a_v_t_d_vehicle_id','left')
-//                ->join('tbl_vehicle_type vt', 'v.v_type_id=vt.v_t_id','left')
-//                ->join('tbl_vehicle_load_capacity vc', 'v.v_vehicle_capacity_id =vc.v_l_c_id ','left')
-//                ->join('tbl_vehicle_dimension_size vd', 'v.v_vehicle_size_id=vd.v_d_s_id','left')
-//                ->where(array("a.a_v_t_d_status" => 1,"a.a_v_t_d_delete" => 0));
-//        $query = $this->db->get();
-//         if($query->num_rows() > 0){
-//                $data= $query->result();
-//                $counter=0;
-//                $cat=$ubniqueUser = array();
-//                foreach($data as $row){
-//                if(!in_array($row->v_type_id,$ubniqueUser)){
-//                    $ubniqueUser[] = $row->v_type_id;
-//                    $cat[$counter]['VehicleId']=$row->a_v_t_d_vehicle_id ;
-//                    $cat[$counter]['VehicleTypeId']=$row->v_type_id ;
-//                    $cat[$counter]['VehicleName']=$row->v_t_vehicle_name ;
-//                    $cat[$counter]['VehicleFare']=$row->v_t_fare;
-//                    $counter++;
-//                    }
-//                }
-//                return $cat;
-//                
-//            } else {
-//            return array();
-//        }
-//    }
+
     public  function getVehicleinfoApi($vehicle_id) {
         $this->db->select(array("*"))
                 ->from("vehicle")

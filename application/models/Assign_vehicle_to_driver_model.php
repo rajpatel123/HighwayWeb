@@ -68,8 +68,8 @@ class Assign_vehicle_to_driver_model extends CI_Model {
                     $cat['driverMobile']=$row->Mobile;
                     $cat['vehicleId']=$row->a_v_t_d_vehicle_id ;
                     $cat['vehicleTypeId']=$row->v_t_id ;
-                    $cat['vehicleType']=$row->v_t_vehicle_name ;
-                    $cat['vehicleName']= ucwords($row->v_vehicle_name).' '.$row->v_vehicle_number;
+                    $cat['vehicleType']=$row->v_t_type ;
+                    $cat['vehicleName']= ucwords($row->v_type).' '.$row->v_vehicle_number;
                     $cat['tripAcceptStatus']=$row->a_b_t_accept_status;
                     }
                 return $cat;
@@ -110,8 +110,8 @@ class Assign_vehicle_to_driver_model extends CI_Model {
                     $cat['driverMobile']=$row->Mobile;
                     $cat['vehicleId']=$row->a_v_t_d_vehicle_id ;
                     $cat['vehicleTypeId']=$row->v_t_id ;
-                    $cat['vehicleType']=$row->v_t_vehicle_name ;
-                    $cat['vehicleName']= ucwords($row->v_vehicle_name).' '.$row->v_vehicle_number;
+                    $cat['vehicleType']=$row->v_t_type ;
+                    $cat['vehicleName']= ucwords($row->v_type).' '.$row->v_vehicle_number;
                     $cat['tripAcceptStatus']=$row->a_b_t_accept_status;
                     }
                 return $cat;
@@ -152,8 +152,8 @@ class Assign_vehicle_to_driver_model extends CI_Model {
                     $cat['driverMobile']=$row->Mobile;
                     $cat['vehicleId']=$row->a_v_t_d_vehicle_id ;
                     $cat['vehicleTypeId']=$row->v_t_id ;
-                    $cat['vehicleType']=$row->v_t_vehicle_name ;
-                    $cat['vehicleName']= ucwords($row->v_vehicle_name).' '.$row->v_vehicle_number;
+                    $cat['vehicleType']=$row->v_t_type ;
+                    $cat['vehicleName']= ucwords($row->v_type).' '.$row->v_vehicle_number;
                     $cat['tripNoResponce']=$row->a_b_t_accept_status;
                     }
                 return $cat;

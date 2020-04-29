@@ -485,8 +485,9 @@ curl_close( $ch );
               $this->load->model("accept_booking_trip_model");
               $this->load->model("user_model");
               $this->load->model("assign_vehicle_to_driver_model");
-              $checkRole =$this->user_model->getCheckUserRoleByUserId($userId);
               
+              $checkRole =$this->user_model->getCheckUserRoleByUserId($userId);
+              if($checkRole){
               if($checkRole[0]->Role_Id==3){
               $driverData = $this->assign_vehicle_to_driver_model->geDriverDetailsById($userId); 
               
@@ -619,7 +620,7 @@ $customerData = $this->book_trip_link_model->getBookTripCustomerDetailsByTripIdA
             
                }
               
-           }else {
+              } }else {
                 $this->set_response([
                     'status' => false,
                     'message' => "You are not a driver",
@@ -671,7 +672,7 @@ $customerData = $this->book_trip_link_model->getBookTripCustomerDetailsByTripIdA
              $driverData = $this->assign_vehicle_to_driver_model->geDriverTripStartData($userId,$bookTripId); 
               if($driverData){
                   $vehicleId=$driverData['vehicleId'];
-                  if($tripStatus=='TRIP_START'){
+                  if($tripStatus=='TRIP_STARTED'){
             $bookStatusUpdate= $this->book_trip_link_model->updateBookingStatusApi(array(
                 "b_l_t_status"=>2,
                 "b_l_t_vehicle_id"=>$vehicleId,
@@ -914,9 +915,11 @@ curl_close( $ch );
                 ),$booktrip_id,$userId);
              $driverData = $this->assign_vehicle_to_driver_model->geDriverTripEndData($userId,$bookTripId); 
               if($driverData){
+                  if($tripStatus=='TRIP_END'){
             $bookStatusUpdate= $this->book_trip_link_model->updateBookingStatusApi(array(
                 "b_l_t_status"=>3,
             ),$bookTripId);
+                  }
             if (($updateData) && ($bookStatusUpdate)) {
                 $this->load->model("mobile_token_model");
         $customerMobileToken = $this->mobile_token_model->getCustomerTokenById($driverData['customerId']);

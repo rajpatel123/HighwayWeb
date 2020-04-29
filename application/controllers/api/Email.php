@@ -40,8 +40,7 @@ class Email extends REST_Controller {
         $this->load->model("book_trip_link_model");
         $this->load->model("role_model");
         $this->load->model("trip_model");
-        $roleData = $this->role_model->getroleByUserid($driverId);
-        $roleId = $roleData->Role_Id;
+       
         //==================Distance==========//
         $latLondgData=$this->trip_model->getLatLongDataDriver($tripId,$driverId);
 //        echo '<pre>' ;print_r($latLondgData);die;
@@ -62,7 +61,9 @@ class Email extends REST_Controller {
         $totalTime=$this->trip_model->nbSecToString($totalDuration); // for total time
         }
          //=========================Total time End=====================//
-        
+         $roleData = $this->role_model->getroleByUserid($driverId);
+         if($roleData){
+        $roleId = $roleData->Role_Id;
         if($roleId==3){
         if (isset($error) && !empty($error)) {
             
@@ -83,7 +84,7 @@ class Email extends REST_Controller {
          
         
         
-    } else {
+         }} else {
                  $this->set_response([
                 'status' => false,
                 'message' => "You are not a driver",
@@ -106,8 +107,7 @@ class Email extends REST_Controller {
         $this->load->model("book_trip_link_model");
         $this->load->model("role_model");
         $this->load->model("trip_model");
-        $roleData = $this->role_model->getroleByUserid($customerId);
-        $roleId = $roleData->Role_Id;
+       
         
        
           //==================Distance==========//
@@ -131,6 +131,10 @@ class Email extends REST_Controller {
          
          //=========================Total time End=====================//
         }
+        
+         $roleData = $this->role_model->getroleByUserid($customerId);
+         if($roleData){
+        $roleId = $roleData->Role_Id;
         if($roleId==4){
         if (isset($error) && !empty($error)) {
             echo json_encode($error);
@@ -145,17 +149,15 @@ class Email extends REST_Controller {
                 "customerInvoice" => $this->book_trip_link_model->getCustomerInvoiceData($tripId,$customerId,$distanceData,$totalTime),
                     ], REST_Controller::HTTP_OK);
         }
-    } else {
+         }} else {
                  $this->set_response([
                 'status' => false,
                 'message' => "You are not a customer",
                 ], REST_Controller::HTTP_BAD_REQUEST);
         }
-    
+
     
     }
-    
-    
    
     
     
@@ -211,13 +213,5 @@ class Email extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
   
-    }
-    
-    
-    
-    
-     
-    
+    }   
 }
-
-

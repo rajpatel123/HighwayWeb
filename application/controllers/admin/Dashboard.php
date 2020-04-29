@@ -25,6 +25,7 @@ class Dashboard extends CI_Controller {
         }
       $this->load->model('admin_models/dashboard_model', 'dash_mdl');	
       $this->load->model('admin_models/customer_model', 'customer_mdl'); 
+      $this->load->model('admin_models/trip_model', 'trip_mdl'); 
          
     }
 
@@ -34,6 +35,11 @@ class Dashboard extends CI_Controller {
       $data['active_menu'] = 'dashboard';
       $data['active_sub_menu'] = '';
       $data['active_sub_sub_menu'] = '';
+      
+      
+        $data['trip_info'] = $this->trip_mdl->get_trip_info();
+      
+      
 	  
       $data['total_listing'] = 1;
       $data['total_users'] = 10;

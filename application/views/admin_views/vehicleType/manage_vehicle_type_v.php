@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php $memberObj = $this->session->userdata; ?>
                             <tr>
                                     <td><?php echo $sl++; ?></td>
-                                    <td><?php echo $user_data['v_type']; ?></td>
+                                    <td><?php echo $user_data['v_t_type']; ?></td>
                                     <td><?php echo $user_data['v_t_vehicle_name']; ?></td>
                                     <td><?php echo $user_data['v_d_s_dimension_size']; ?></td>
                                     <td><?php echo $user_data['v_l_c_load_capacity']; ?></td>
