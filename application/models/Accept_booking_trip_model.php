@@ -129,4 +129,19 @@ class Accept_booking_trip_model extends CI_Model {
         }
     }
     
+    public function getDriverTripdataByDriverId($userId) {
+        $this->db->select(array("*"))
+                ->from("tbl_accept_booking_trip a")
+                ->where(array("a.a_b_t_driver_id" => $userId ,'a_b_t_status'=>1,'a_b_t_accept_status'=>'TRIP_STARTED'));
+                $this->db->order_by("a.a_b_t_id", "desc");
+                $this->db->limit(1);
+                
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    
 }

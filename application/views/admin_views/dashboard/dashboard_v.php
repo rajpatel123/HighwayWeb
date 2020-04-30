@@ -143,7 +143,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="box-body">
             <div class="row">
                 <div class="col-md-12" >
-<!--                    <a href="<?php // echo base_url('admin/trip/add_trip'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Add Trips </a>-->
                 </div>
                 <div class="col-md-12" style="margin-top: 25px;">
                     <table id="example2" class="table table-bordered table-striped">

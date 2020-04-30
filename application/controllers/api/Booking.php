@@ -1509,7 +1509,15 @@ curl_close( $ch );
         $driver_id = $this->post('driverId');
         $this->load->model("driver_location_model");
         $this->load->model("assign_vehicle_to_driver_model");
+        $this->load->model("accept_booking_trip_model");
         $chekDriver = $this->assign_vehicle_to_driver_model->geDriverDetailsById($driver_id);
+        $tripDataDriver = $this->accept_booking_trip_model->getDriverTripdataByDriverId($driver_id);
+        if($tripDataDriver){
+            $tripId = $tripDataDriver[0]->a_b_t_booking_trip_id;
+        } else {
+            $tripId= 0;
+        }
+       
         if($chekDriver){
        if (empty($latitude)) {
             $error = "please provide latitude";
@@ -1529,11 +1537,67 @@ curl_close( $ch );
                 "d_l_driver_id" => $driver_id,
                 "d_l_latitude" => $latitude,
                 "d_l_longitude" => $longitude,
+                "d_l_trip_id" => $tripId,
                 "d_l_delete" =>0,
                 "d_l_add_by" =>$driver_id,
                 "d_l_date" =>date("Y-m-d"),
             ));
             if ($saveData) {
+                if(($tripId)>0){
+                    //==================push notification start====================// 
+               
+               $checkCustomerData = $this->book_trip_link_model->getViewTripDataById($tripId,$driver_id);  
+    if($checkCustomerData){        
+        $this->load->model("mobile_token_model");
+        $bookTripData = $this->book_trip_link_model->getBookTripDataByTripId($tripId);
+        if($bookTripData){
+      //  echo '<pre>' ;print_r($bookTripData->t_end_latitude); die;
+            $customer_id = $checkCustomerData[0]->b_l_t_customer_id; 
+      $customerTokenData = $this->mobile_token_model->getCustomerTokenById($customer_id);
+    // echo '<pre>' ;print_r($customerTokenData); die;
+      
+    define( 'API_ACCESS_KEY', 'AAAAC-LH2JY:APA91bHF18YDdTSldhyjKAQO368TLVhHi2Re4kR6tVLWye5_lQirRCxghOMs99qhtZ19NqLIeunrUSrC5SIGDsp1h3W4NIlt6JFWXnwX80LjI13wdz8XM1ZMD-3DbQfg4NSA143KJT9q' );
+  $fields = array
+(
+    'registration_ids' => $customerTokenData,
+    'data' => array(
+                'message' => 'Current Location of Driver After Trip Start',
+                'Latitude' => $latitude,
+                'Longitude' => $longitude, 
+                'tripId' => $bookTripData->b_l_t_trip_id, 
+                'bookTripCode' => $bookTripData->t_trip_id,
+                'type' => $bookTripData->a_b_t_accept_status,
+            ),
+    'priority' => 'high'
+    
+);
+//echo '<pre>' ;print_r(json_encode( $fields )); die;
+$headers = array
+(
+	'Authorization: key=' . API_ACCESS_KEY,
+	'Content-Type: application/json'
+);
+ 
+$ch = curl_init();
+curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+curl_setopt( $ch,CURLOPT_POST, true );
+curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+curl_exec($ch );
+curl_close( $ch );
+}
+}
+//echo $result;
+
+//==================push notification End====================// 
+                    
+                    
+                    
+                    
+                }
+                
                 $this->set_response([
                     'status' => true,
                     'message' => 'success',

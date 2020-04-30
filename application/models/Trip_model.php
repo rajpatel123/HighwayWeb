@@ -84,6 +84,60 @@ class Trip_model extends CI_Model {
                     $s = str_pad($s, 2, "0", STR_PAD_LEFT);
                     return "$h:$m:$s";
                 }
+                
+                
+        public function getViewTripDataByTrip($bookTripId) {
+       
+        if(isset($bookTripId)>0){
+        $this->db->select(array("*"))
+                ->from("tbl_accept_booking_trip a ")
+                ->join('tbl_trip t', 't.t_id=a.a_b_t_booking_trip_id','left')
+                ->join('users u', 'u.Id=a.a_b_t_driver_id','left');
+               
+                $this->db->where(array(
+                    "a.a_b_t_booking_trip_id" => $bookTripId,
+                    "a.a_b_t_status"=> 1,
+                    "u.deletion_status"=> 0
+                    ));
+                }
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+                $data= $query->result();
+                $cat = array();
+                   foreach($data as $row){
+                    $cat['driverName']=$row->Name ;
+                    $cat['tripId']=$row->a_b_t_booking_trip_id ;
+                    $cat['bookTripCode']=$row->t_trip_id ;
+                    }
+                return $cat;
+                
+            } else {
+            return array();
+        }
+    }
     
-     
+     public function getDriverLocationAfterTripStart($tripId) {
+         if((isset($tripId)>0)) {
+            $this->db->select(array("*"))
+                ->from("tbl_driver_location d")
+                ->join('tbl_accept_booking_trip a', 'd.d_l_trip_id=a.a_b_t_booking_trip_id','left');
+            $this->db->where(array("d.d_l_trip_id" => $tripId,"a.a_b_t_accept_status" => 'TRIP_STARTED'));
+                }
+        $query = $this->db->get();
+        // echo  $this->db->last_query();die;
+        if($query->num_rows() > 0){
+                $data= $query->result();
+                $cat = array();
+                $counter=0;
+                   foreach($data as $row){
+                    $cat[$counter]['latitude']=$row->d_l_latitude ;
+                    $cat[$counter]['longitude']=$row->d_l_longitude ;
+                    $counter++;
+                    }
+                return $cat;
+                
+            } else {
+            return array();
+        }
+    }
 }

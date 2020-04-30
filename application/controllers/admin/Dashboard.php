@@ -35,12 +35,7 @@ class Dashboard extends CI_Controller {
       $data['active_menu'] = 'dashboard';
       $data['active_sub_menu'] = '';
       $data['active_sub_sub_menu'] = '';
-      
-      
-        $data['trip_info'] = $this->trip_mdl->get_trip_info();
-      
-      
-	  
+      $data['trip_info'] = $this->trip_mdl->get_trip_info();
       $data['total_listing'] = 1;
       $data['total_users'] = 10;
       $data['total_classified'] = 10;
@@ -50,21 +45,16 @@ class Dashboard extends CI_Controller {
       $data['total_cities'] = 3000;
       $data['all_notifications']= 400;
       $data['main_content']='';
-      
       $data['customer'] = $this->customer_mdl->newCustomerList(); 
       //echo '<pre>' ;print_r($data['customer']);die;
       
       $data['upcoming'] = $this->dash_mdl->count_total_upcoming_trip(); 
       $data['ongoing'] = $this->dash_mdl->count_total_ongoing_trip(); 
       $data['completed'] = $this->dash_mdl->count_total_completed_trip(); 
-      $data['cancel'] = $this->dash_mdl->count_total_cancel_trip(); 
-      
-      
-      
+      $data['cancel'] = $this->dash_mdl->count_total_cancel_trip();
       $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
       $data['main_content'] = $this->load->view('admin_views/dashboard/dashboard_v', '', TRUE);
       $this->load->view('admin_views/admin_master_v', $data);
-      
     }		
 	
 	

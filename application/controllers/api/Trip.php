@@ -360,5 +360,27 @@ function shareTrip_post() {
         
         
     }
+    
+    
+    function getAllLocationByTrip_post() {
+        $error = "";
+        $tripId = $this->post('tripId');
+        if (empty($tripId)) {
+            $error = "please provide trip id";
+        }
+         $this->load->model("trip_model");
+        if (isset($error) && !empty($error)) {
+            $this->set_response([
+                'status' => false,
+                'message' => $error,
+                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+            return;
+        } else {
+            $this->set_response([
+                'status' => true,
+                "driverLocationData" =>array("driverData" =>$this->trip_model->getViewTripDataByTrip($tripId),"locationList"=>$this->trip_model->getDriverLocationAfterTripStart($tripId))
+                    ], REST_Controller::HTTP_OK);
+        }
+    }
 
 }
