@@ -90,16 +90,18 @@ class Trip_model extends CI_Model {
        
         if(isset($bookTripId)>0){
         $this->db->select(array("*"))
-                ->from("tbl_accept_booking_trip a ")
-                ->join('tbl_trip t', 't.t_id=a.a_b_t_booking_trip_id','left')
-                ->join('users u', 'u.Id=a.a_b_t_driver_id','left');
-               
+                ->from("tbl_driver_location d")
+                ->join('users u', 'u.Id=d.d_l_driver_id','left')
+                ->join('tbl_trip t', 't.t_id=d.d_l_trip_id','left')
+               ->join('tbl_accept_booking_trip a', 'd.d_l_trip_id=a.a_b_t_booking_trip_id','left');
                 $this->db->where(array(
-                    "a.a_b_t_booking_trip_id" => $bookTripId,
-                    "a.a_b_t_status"=> 1,
+                    "d.d_l_trip_id" => $bookTripId,
+                    "a.a_b_t_accept_status" => 'TRIP_STARTED',
                     "u.deletion_status"=> 0
                     ));
                 }
+                $this->db->order_by("d_l_id", "DESC");
+                $this->db->limit(1);
         $query = $this->db->get();
         if($query->num_rows() > 0){
                 $data= $query->result();
@@ -130,6 +132,7 @@ class Trip_model extends CI_Model {
                 $cat = array();
                 $counter=0;
                    foreach($data as $row){
+                    $cat[$counter]['driverLocationId']=$row->d_l_id ;
                     $cat[$counter]['latitude']=$row->d_l_latitude ;
                     $cat[$counter]['longitude']=$row->d_l_longitude ;
                     $counter++;
