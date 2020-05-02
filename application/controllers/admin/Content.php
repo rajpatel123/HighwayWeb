@@ -9,6 +9,7 @@ class Content extends CI_Controller {
             redirect('admin', 'refresh');
         }
         $this->load->model('admin_models/content_model', 'content_mdl'); 
+       // $this->load->library('ckeditor');
         
         // $memberObj = $this->session->userdata;
        // echo '<pre>' ; print_r($memberObj);die;
@@ -118,6 +119,8 @@ class Content extends CI_Controller {
     public function edit_content($content_id) { 
         $data = array(); 
         $data['user_data'] = $this->content_mdl->get_content_by_content_id($content_id);  
+        //echo '<pre>' ;print_r($data);die;
+        
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Content'; 
             $data['active_menu'] = 'content'; 
@@ -138,8 +141,8 @@ class Content extends CI_Controller {
         if (!empty($content_info)) { 
             $config = array( 
                 array(
-                'field' => 'c_content',
-                'label' => 'c_content',
+                'field' => 'ckeditor-textarea',
+                'label' => 'ckeditor-textarea',
                 'rules' => 'trim|required'
             ),
             array(
@@ -148,17 +151,22 @@ class Content extends CI_Controller {
                 'rules' => 'trim|required|max_length[250]'
             ),
             );
+           
             $this->form_validation->set_rules($config); 
             if ($this->form_validation->run() == FALSE) { 
                 $this->edit_content($content_id); 
+                 //echo '<pre>' ;print_r($content_id);die;
             } else { 
-                $data['c_content'] = $this->input->post('c_content', TRUE); 
+                 
+                $data['c_content'] = $this->input->post('ckeditor-textarea', TRUE); 
                 $data['c_title'] = $this->input->post('c_title', TRUE); 
                 $data['c_status'] = 1; 
                 $data['c_user_Id'] = $this->session->userdata('admin_id'); 
                 $data['c_add_by'] = $this->session->userdata('admin_id'); 
                 $data['c_date'] = date('Y-m-d H:i:s');  
+               //  echo '<pre>' ;print_r($data);die;
                 $result = $this->content_mdl->update_content($content_id, $data); 
+               
                 if (!empty($result)) { 
                     $sdata['success'] = 'Update successfully .'; 
                     $this->session->set_userdata($sdata); 
