@@ -43,27 +43,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     
-                   
+                     </div>
+                  
                     
+                    <div class="row">
                     
-                    
-                     <div class="col-md-6">
+                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="Content">Content</label>
-                            <textarea id="c_content" name="c_content" value="<?php echo $user_data['c_content']; ?>" ></textarea>
-                                <script src="<?php echo base_url(); ?>ckeditor/ckeditor.js"></script>
-                                 <script>
-                                      CKEDITOR.replace( 'c_content' );
-                                </script>
-                            <script src="<?php echo base_url(); ?>ckeditor/config.js"></script>
-                              
-                            <span class="help-block error-message"><?php echo form_error('c_content'); ?></span>
+                            <textarea id="c_content" name="ckeditor-textarea"><?=htmlspecialchars_decode($user_data['c_content']);?></textarea>
+                                <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+                   <script type="text/javascript">
+                        CKEDITOR.replace( 'ckeditor-textarea' ); 
+		
+                			</script>
+                             <span class="help-block error-message"><?php// echo form_error('c_content'); ?></span>
                         </div>
                     </div>
                     
-                    
+                    </div>
                   
-                </div>
+              
                 <!-- /.row -->
             </div>
                 
@@ -78,5 +78,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    </div>
 </section>
 <script type="text/javascript">
-    
+    var editor1=CKEDITOR.instances.c_content.getData();
 </script>

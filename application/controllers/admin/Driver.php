@@ -395,7 +395,7 @@ class Driver extends CI_Controller {
     public function view_driver($driver_id) { 
         $data = array(); 
         $data['user_data'] = $this->driver_mdl->getDriverViewData($driver_id);  
-//        echo '<pre>' ;print_r($data);die;
+        //echo '<pre>' ;print_r($data);die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Driver'; 
             $data['active_menu'] = 'driver'; 

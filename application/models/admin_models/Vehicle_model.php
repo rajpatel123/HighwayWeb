@@ -35,10 +35,11 @@ class Vehicle_model extends CI_Model {
         
        // echo 'hi'; die;
         $this->db->select('*') 
-                ->from('vehicle')
-                ->join('tbl_vehicle_type', 'tbl_vehicle_type.v_t_id=vehicle.v_type_id','left')
-                ->join('users', 'users.Id=vehicle.v_vehicle_driver_id','left')
-                ->where('v_status', 1)
+                ->from('vehicle v')
+                ->join('tbl_vehicle_type vt', 'vt.v_t_id=v.v_type_id','left')
+               ->join('tbl_assign_vehicle_to_driver a', 'a.a_v_t_d_vehicle_id=v.v_Id','left')  
+                ->join('users d', 'd.Id=a.a_v_t_d_driver_id','left')
+                ->where('v.v_status', 1)
                 ;
         $query_result = $this->db->get(); 
        // echo  $this->db->last_query();die;

@@ -147,5 +147,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     document.forms['edit_form'].elements['vehicle_type'].value = '<?php echo $user_data['v_type_id']; ?>';
-//    document.forms['edit_form'].elements['v_vehicle_driver_id'].value = '<?php echo $user_data['v_vehicle_driver_id']; ?>';
 </script>

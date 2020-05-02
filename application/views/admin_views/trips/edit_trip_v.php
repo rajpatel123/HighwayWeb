@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <!-- form start -->
-        <form role="form" name="edit_form" action="<?php echo base_url('admin/trip/update_trip/' . $tripData[0]['t_id'] . ''); ?>" method="post" class="form-validation" >
+        <form role="form" name="edit_form" action="<?php echo base_url('admin/trip/update_trip/' . $tripData['t_id'] . ''); ?>" method="post" class="form-validation" >
            
             <div class="box-body">
                 <div class="row">
@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Source latitude">Source latitude</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_start_latitude" value="<?php echo $tripData[0]['t_start_latitude']; ?>" class="form-control required" id="t_start_latitude" placeholder="Enter Source Latitude">
+                                <input type="text" name="t_start_latitude" value="<?php echo $tripData['t_start_latitude']; ?>" class="form-control required" id="t_start_latitude" placeholder="Enter Source Latitude">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_start_latitude'); ?></span>
                         </div>
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Source Longitude">Source Longitude</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_start_longitude" value="<?php echo $tripData[0]['t_start_longitude']; ?>" class="form-control required" id="t_start_longitude" placeholder="Enter Source longitude">
+                                <input type="text" name="t_start_longitude" value="<?php echo $tripData['t_start_longitude']; ?>" class="form-control required" id="t_start_longitude" placeholder="Enter Source longitude">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_start_longitude'); ?></span>
                         </div>
@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Source Latitude">Destination Latitude</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_end_latitude" value="<?php echo $tripData[0]['t_end_latitude']; ?>" class="form-control required" id="t_end_latitude" placeholder="Enter Destination Latitude">
+                                <input type="text" name="t_end_latitude" value="<?php echo $tripData['t_end_latitude']; ?>" class="form-control required" id="t_end_latitude" placeholder="Enter Destination Latitude">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_end_latitude'); ?></span>
                         </div>
@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Destination Longitude">Destination Longitude</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_end_longitude" value="<?php echo $tripData[0]['t_end_longitude']; ?>" class="form-control required" id="t_end_longitude" placeholder="Enter Destination longitude">
+                                <input type="text" name="t_end_longitude" value="<?php echo $tripData['t_end_longitude']; ?>" class="form-control required" id="t_end_longitude" placeholder="Enter Destination longitude">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_end_longitude'); ?></span>
                         </div>
@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Start Date">Start Date</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_start_date" value="<?php echo $tripData[0]['t_start_date']; ?>" class="form-control required" id="t_start_date" placeholder="Enter start date">
+                                <input type="text" name="t_start_date" value="<?php echo $tripData['t_start_date']; ?>" class="form-control required" id="t_start_date" placeholder="Enter start date">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_start_date'); ?></span>
                         </div>
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="End Date">End Date</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_end_date" value="<?php echo $tripData[0]['t_end_date']; ?>" class="form-control required" id="t_end_date" placeholder="Enter End Date">
+                                <input type="text" name="t_end_date" value="<?php echo $tripData['t_end_date']; ?>" class="form-control required" id="t_end_date" placeholder="Enter End Date">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_end_date'); ?></span>
                         </div>
@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Start Time">Start Time</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_start_time" value="<?php echo $tripData[0]['t_start_time']; ?>" class="form-control required" id="t_start_time" placeholder="Enter start time">
+                                <input type="text" name="t_start_time" value="<?php echo $tripData['t_start_time']; ?>" class="form-control required" id="t_start_time" placeholder="Enter start time">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_start_date'); ?></span>
                         </div>
@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="End Time">End Time</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="t_end_time" value="<?php echo $tripData[0]['t_end_time']; ?>" class="form-control required" id="t_end_date" placeholder="Enter End Time">
+                                <input type="text" name="t_end_time" value="<?php echo $tripData['t_end_time']; ?>" class="form-control required" id="t_end_date" placeholder="Enter End Time">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('t_end_date'); ?></span>
                         </div>

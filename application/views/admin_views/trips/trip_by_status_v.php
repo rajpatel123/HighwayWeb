@@ -33,17 +33,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                             <tr>
                                 <th>SL#</th>
-                                <th>Trip<br>Id</th>
-                                <th>Trip<br>Type</th>
-                                <th>Trip<br>By</th>
-                                <th>Trip<br>User</th>
-                                <th>vehicle<br>Name</th> 
-                                <th>Driver<br>Name</th> 
-                                <th>Owner<br>Name</th> 
-                                <th>Trip<br>Status</th> 
-                                <th>Trip<br>Start<br>Date</th> 
-                                <th>Trip<br>End<br>Date</th> 
-                                <th>Added<br>Date</th> 
+                                <th>Trip Id</th>
+                                <th>Trip Type</th>
+                                <th>Trip By</th>
+                                <th>Trip User</th>
+                                <th>Trip Status</th> 
+                                <th>Added Date</th> 
                                 <th>Status</th> 
                                 <th>Action</th> 
                             </tr>
@@ -58,12 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $t_data['tripType']; ?></td>
                                     <td><?php echo $t_data['userRole']; ?></td>
                                     <td><?php echo $t_data['userName']; ?></td>
-                                    <td><?php echo $t_data['vehicleName']; ?></td>
-                                    <td><?php echo $t_data['driverName']; ?></td>
-                                    <td><?php echo $t_data['ownerName']; ?></td>
                                     <td><?php echo $t_data['tripStatus']; ?></td>
-                                    <td><?php echo $t_data['t_start_date']; ?></td>
-                                    <td><?php echo $t_data['t_end_date']; ?></td>
                                     <td><?php echo $t_data['t_add_date']; ?></td>
                                     <td>
                                         <?php

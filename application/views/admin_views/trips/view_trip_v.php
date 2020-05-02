@@ -31,37 +31,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="table-responsive panel">
     <table class="table">
     <tbody>
-        <tr>
-            <td class="text-success">Trip Start Date :</td>
-            <td><?php echo $user_data[0]['t_start_date']; ?></td>
+       <tr>
+            <td class="text-success">Trip ID :</td>
+            <td><?php echo $user_data['t_trip_id']; ?></td>
         </tr>
         <tr>
+            <td class="text-success">Trip Start Date :</td>
+            <td><?php echo $user_data['t_start_date']; ?></td>
+        </tr>
+        
+        <tr>
             <td class="text-success">Trip End Date :</td>
-            <td><?php echo $user_data[0]['t_end_date']; ?></td>
+            <td><?php echo $user_data['t_end_date']; ?></td>
         </tr>
         <tr>
             <td class="text-success">Trip Start time :</td>
-            <td><?php echo $user_data[0]['t_start_time']; ?></td>
+            <td><?php echo $user_data['t_start_time']; ?></td>
         </tr>
         <tr>
             <td class="text-success">Trip End Time :</td>
-            <td><?php echo $user_data[0]['t_end_time']; ?></td>
+            <td><?php echo $user_data['t_end_time']; ?></td>
         </tr>
         <tr>
             <td class="text-success">DRIVER:</td>
-            <td><?php echo $user_data[0]['driverName']; ?></td>
+            <td><?php echo $user_data['driverName']; ?></td>
+        </tr>
+        <tr>
+            <td class="text-success">VEHICLE Type :</td>
+            <td><?php echo $user_data['vehicleType']; ?></td>
         </tr>
         <tr>
             <td class="text-success">VEHICLE :</td>
-            <td><?php echo $user_data[0]['vehicleName']; ?></td>
+            <td><?php echo $user_data['vehicleName']; ?></td>
         </tr>
         <tr>
             <td class="text-success">OWNER:</td>
-            <td><?php echo $user_data[0]['ownerName']; ?></td>
+            <td><?php echo $user_data['ownerName']; ?></td>
         </tr>
         <tr>
             <td class="text-success">TRIP STATUS :</td>
-            <td><?php echo $user_data[0]['tripStatus']; ?></td>
+            <td><?php echo $user_data['tripStatus']; ?></td>
         </tr>
         
 

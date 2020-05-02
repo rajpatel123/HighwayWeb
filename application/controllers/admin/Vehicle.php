@@ -87,7 +87,6 @@ class Vehicle extends CI_Controller {
             $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
             $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
             $data['v_vehicle_model_no'] = $this->input->post('vehicle_model_no', TRUE); 
-           // $data['v_vehicle_driver_id'] = $this->input->post('v_vehicle_driver_id', TRUE); 
 //            $data['v_vehicle_Color'] = $this->input->post('v_vehicle_Color', TRUE); 
             $data['v_status'] = 1; 
            // $data['Image'] = $this->input->post('Image', TRUE); 
@@ -277,7 +276,6 @@ class Vehicle extends CI_Controller {
                 $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
                 $data['v_vehicle_model_no'] = $this->input->post('vehicle_model_no', TRUE); 
                 $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
-               // $data['v_vehicle_driver_id'] = $this->input->post('v_vehicle_driver_id', TRUE); 
 //                $data['v_vehicle_Color'] = $this->input->post('v_vehicle_Color', TRUE); 
                 $data['v_status'] = 1; 
                 $data['v_add_by'] = $this->session->userdata('admin_id');

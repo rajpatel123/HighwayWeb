@@ -146,56 +146,73 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div class="col-md-12" style="margin-top: 25px;">
                     <table id="example2" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>SL#</th>
-                                <th>Trip<br>Id</th>
-                                <th>Trip<br>Type</th>
-                                <th>Trip<br>By</th>
-                                <th>Trip<br>User</th>
-                                <th>vehicle<br>Name</th> 
-                                <th>Driver<br>Name</th> 
-                                <th>Owner<br>Name</th> 
-                                <th>Trip<br>Status</th> 
-                                <th>Trip<br>Start<br>Date</th> 
-                                <th>Trip<br>End<br>Date</th> 
-                                <th>Added<br>Date</th> 
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                        <h2>Recent Booking</h2>
                         <tbody>
                             <?php $sl = 1; ?>
                             <?php foreach ($trip_info as $t_data) { ?>
                                 <?php $memberObj = $this->session->userdata; ?>
-                            <tr>
+                                <tr>
+                                
+                                
                                     <td><?php echo $sl++; ?></td>
-                                    <td><?php echo $t_data['t_trip_id']; ?></td>
-                                    <td><?php echo $t_data['tripType']; ?></td>
-                                    <td><?php echo $t_data['userRole']; ?></td>
-                                    <td><?php echo $t_data['userName']; ?></td>
-                                    <td><?php echo $t_data['vehicleName']; ?></td>
-                                    <td><?php echo $t_data['driverName']; ?></td>
-                                    <td><?php echo $t_data['ownerName']; ?></td>
-                                    <td><?php echo $t_data['tripStatus']; ?></td>
-                                    <td><?php echo $t_data['t_start_date']; ?></td>
-                                    <td><?php echo $t_data['t_end_date']; ?></td>
+                                    <td><?php echo ucfirst($t_data['userName']); ?></td>
+                                    <td><?php 
+                                        if($t_data['b_l_t_status']!=4){
+                                             echo "<a href='" . base_url('admin/dashboard/view_trip/' . $t_data['t_id'] . '') . "'>View Booking Details</a>";;
+                                        } else {
+                                            echo 'No Details Found';
+                                        }
+                                ?></td>
+                                    <td><?php
+                                    $date1=$t_data['t_add_date'];
+                                    $date2=date('Y-m-d');
+                                    $FromDate = new DateTime($date1);
+                                      $ToDate   = new DateTime($date2);
+                                      $Interval = $FromDate->diff($ToDate);
+
+                                      $Difference["Weeks"] = floor($Interval->d/7);
+                                      $Difference["Days"] = $Interval->d % 7;
+                                      $Difference["Months"] = $Interval->m;
+
+                                      //echo '<pre>' ;print_r($Difference);die;
+                                      if($Difference["Months"]>0){
+                                          $months = $Difference["Months"].' months ';
+                                      } else {
+                                          $months='';
+                                      }
+
+                                      if($Difference["Weeks"]>0){
+                                          $weeks = $Difference["Weeks"].' weeks ';
+                                      } else {
+                                          $weeks='';
+                                      }
+
+                                      if($Difference["Days"]>0){
+                                          $days = $Difference["Days"].' days ';
+                                      } else {
+                                          $days='';
+                                      }
+                                      if($date2==$date1){
+                                         $ago = 'Today' ;
+                                      } else {
+
+                                      $ago = 'ago';
+
+                                      }
+
+                                      echo $months,$weeks,$days .$ago;
+                                    ?></td>
                                     <td><?php echo $t_data['t_add_date']; ?></td>
                                     <td>
-                                         <?php
-                                        $status = $t_data['t_active_status'];
-                                        if ($status == 1) {
-                                            echo "<a href='" . base_url('admin/trip/inactive_trip/' . $t_data['t_id'] . '') . "' class='btn btn-block btn-success btn-xs' data-toggle='tooltip' title='Click to inactive'><i class='fa fa-arrow-down'></i>Active</a>";
-                                        } else {
-                                            echo "<a href='" . base_url('admin/trip/active_trip/' . $t_data['t_id'] . '') . "' class='btn btn-block btn-warning btn-xs' data-toggle='tooltip' title='Click to active'><i class='fa fa-arrow-up'></i>Inactive</a>";
-                                        }
-                                        ?>
-                                        </td>
-                                        <td>
-                                        <a href="<?php echo base_url('admin/trip/edit_trip/' . $t_data['t_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                                        <a href="<?php echo base_url('admin/trip/view_trip/' . $t_data['t_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>
-                                        <a href="<?php echo base_url('admin/trip/remove_trip/' . $t_data['t_id'] . '') ?>" class="btn btn-danger btn-xs check_delete" data-toggle="tooltip" title="Delete"><i class="fa fa-remove"></i></a>
+                                        <?php if($t_data['b_l_t_status']==4){?>
+                                        <p style="background-color:red; color:white; text-align: center; "><?php echo $t_data['tripStatus']; ?></p>
+                                        <?php } else { ?>
+                                        <p style="background-color:green; color:white; text-align: center;"><?php echo $t_data['tripStatus']; ?></p>
+                                        
+                                        <?php } ?>
+                                        
                                     </td>
+                                    
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -205,4 +222,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
 
- 
+</section>

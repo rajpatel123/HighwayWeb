@@ -66,7 +66,7 @@ class Driver_model extends CI_Model {
     public function getDriverViewData($driver_id) { 
         $this->db->select('*') 
                 ->from('users')
-                ->join('tbl_drive_license','tbl_drive_license.d_l_user_id=users.Id','left')
+                ->join('drive_license','drive_license.User_Id=users.Id','left')
                 ->where(array('users.Id' => $driver_id , 'users.deletion_status' => 0,'users.Role_Id' => 3))
                 ;
         $query_result = $this->db->get(); 

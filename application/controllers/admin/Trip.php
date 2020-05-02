@@ -18,7 +18,7 @@ class Trip extends CI_Controller {
         $data['active_menu'] = 'trip';
         $data['active_sub_menu'] = 'trip';
         $data['active_sub_sub_menu'] = ''; 
-        $data['trip_info'] = $this->trip_mdl->get_trip_info();
+        $data['trip_info'] = $this->trip_mdl->getAllTripData();
        // echo '<pre>' ;        print_r($data['trip_info']);die;
         $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('admin_views/trips/manage_trip_v', $data, TRUE);
@@ -183,7 +183,7 @@ class Trip extends CI_Controller {
     
     public function view_trip($trip_id) { 
         $data = array(); 
-        $data['user_data'] = $this->trip_mdl->get_trip_view_data($trip_id);  
+        $data['user_data'] = $this->trip_mdl->get_trip_data_by_id($trip_id);  
         if (!empty($data['user_data'])) { 
             $data['title'] = 'View Trip'; 
             $data['active_menu'] = 'trip'; 
