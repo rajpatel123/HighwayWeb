@@ -176,9 +176,11 @@ class Vehicle extends CI_Controller {
     }
  
     public function published_vehicle($vehicle_id) { 
-        $vehicle_info = $this->vehicle_mdl->get_vehicle_by_vehicle_id($vehicle_id); 
+        $vehicle_info = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id); 
+        // echo '<pre>' ;print_r($vehicle_id);die;
         if (!empty($vehicle_info)) { 
             $result = $this->vehicle_mdl->published_vehicle_by_id($vehicle_id); 
+           // echo '<pre>' ;print_r($result);die;
             if (!empty($result)) { 
                 $sdata['success'] = 'Active successfully .'; 
                 $this->session->set_userdata($sdata); 
@@ -196,7 +198,7 @@ class Vehicle extends CI_Controller {
     }
  
     public function unpublished_vehicle($vehicle_id) { 
-        $vehicle_info = $this->vehicle_mdl->get_vehicle_by_vehicle_id($vehicle_id);
+        $vehicle_info = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id);
         if (!empty($vehicle_info)) {
             $result = $this->vehicle_mdl->unpublished_vehicle_by_id($vehicle_id);
             if (!empty($result)) {
@@ -217,7 +219,7 @@ class Vehicle extends CI_Controller {
 
     public function edit_vehicle($vehicle_id) { 
         $data = array(); 
-        $data['user_data'] = $this->vehicle_mdl->get_vehicle_by_vehicle_id($vehicle_id);  
+        $data['user_data'] = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id);  
         //echo '<pre>' ;print_r($data['user_data']);die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Vehicle'; 
@@ -237,7 +239,7 @@ class Vehicle extends CI_Controller {
     } 
 
     public function update_vehicle($vehicle_id) { 
-        $vehicle_info = $this->vehicle_mdl->get_vehicle_by_vehicle_id($vehicle_id); 
+        $vehicle_info = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id); 
         if (!empty($vehicle_info)) { 
             $config = array( 
               array(
@@ -353,7 +355,7 @@ class Vehicle extends CI_Controller {
     } 
 
     public function remove_vehicle($vehicle_id) { 
-        $vehicle_info = $this->vehicle_mdl->get_Vehicle_by_vehicle_id($vehicle_id); 
+        $vehicle_info = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id); 
         if (!empty($vehicle_info)) { 
             $result = $this->vehicle_mdl->remove_vehicle_by_id($vehicle_id); 
             if (!empty($result)) { 
@@ -375,7 +377,7 @@ class Vehicle extends CI_Controller {
     public function view_vehicle($vehicle_id) { 
         $data = array(); 
         
-        $data['vehicle_data'] = $this->vehicle_mdl->get_vehicle_by_vehicle_id($vehicle_id);
+        $data['vehicle_data'] = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id);
 //        echo '<pre>' ;print_r($data['vehicle_data']) ;die;
         if (!empty($data['vehicle_data'])) { 
             $data['title'] = 'View Vehicle'; 

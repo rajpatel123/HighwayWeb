@@ -32,9 +32,18 @@ class Vehicle_type_model extends CI_Model {
     public function get_vehicle_type_info() { 
         $this->db->select('*') 
                 ->from('tbl_vehicle_type')
+               ->where(array("tbl_vehicle_type.v_t_delete" => 0));
+        $query_result = $this->db->get(); 
+        $result = $query_result->result_array(); 
+        return $result; 
+    } 
+    public function get_vehicle_type_info_with_size($vehicle_type_id) { 
+        $this->db->select('*') 
+                ->from('tbl_vehicle_type')
                 ->join('tbl_vehicle_load_capacity', 'tbl_vehicle_load_capacity.v_l_c_id=tbl_vehicle_type.v_t_vehicle_size_id')
                 ->join('tbl_vehicle_dimension_size', 'tbl_vehicle_dimension_size.v_d_s_id=tbl_vehicle_type.v_t_vehicle_load_capacity_id')
-                ->where(array("tbl_vehicle_type.v_t_delete" => 0));
+                ->where(array("tbl_vehicle_type.v_t_delete" => 0))
+                ->where(array('tbl_vehicle_type.v_t_id' => $vehicle_type_id ,'v_t_delete'=>0));
         $query_result = $this->db->get(); 
         $result = $query_result->result_array(); 
         return $result; 

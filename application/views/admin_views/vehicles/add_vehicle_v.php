@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php
                                 foreach ($vehicleData as $vdata) {
                                   
-                                 echo '<option value ="'.$vdata['v_t_id'].'">'.$vdata['v_t_vehicle_name'].'</option>';
+                                 echo '<option value ="'.$vdata['v_t_id'].'">'.$vdata['v_t_type'].'</option>';
                                     
                                  
                                 }

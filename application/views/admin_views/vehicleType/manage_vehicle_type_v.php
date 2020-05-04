@@ -35,13 +35,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>SL#</th>
                                 <th>Vehicle Type</th>
                                 <th>Name</th>
-                                <th>Vehicle Size</th>
-                                <th>Vehicle Load Capacity</th>
+<!--                               <th>Vehicle Size</th>
+                                <th>Vehicle Load Capacity</th>-->
                                 <th>Per Km Charge</th>
-                                <th>Vehicle Night Charge Per KM</th>
+<!--                                <th>Vehicle Night Charge Per KM</th>-->
                                 <th>GST</th>
-                                <th>MIN KM</th>
-                                <th>Added By</th> 
+                                <th>MIN KM</th> 
                                 <th>Status</th> 
                                 <th>Action</th>
                             </tr>
@@ -54,13 +53,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $sl++; ?></td>
                                     <td><?php echo $user_data['v_t_type']; ?></td>
                                     <td><?php echo $user_data['v_t_vehicle_name']; ?></td>
-                                    <td><?php echo $user_data['v_d_s_dimension_size']; ?></td>
-                                    <td><?php echo $user_data['v_l_c_load_capacity']; ?></td>
+<!--                                   <td><?php echo $user_data['v_d_s_dimension_size']; ?></td>
+                                    <td><?php echo $user_data['v_l_c_load_capacity']; ?></td>-->
+                                 
                                     <td><?php echo $user_data['v_t_per_km_charge']; ?></td>
-                                    <td><?php echo $user_data['v_t_nigh_charge_per_km']; ?></td>
+                                    <td><?php // echo $user_data['v_t_nigh_charge_per_km']; ?></td>
                                     <td><?php echo $user_data['v_t_gst']; ?></td>
                                     <td><?php echo $user_data['v_t_min_km']; ?></td>
-                                    <td><?php echo $memberObj['admin_name']; ?></td>
+                                 
                                     <td>
                                         <?php
                                         $status = $user_data['v_t_status'];
@@ -73,6 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </td>
                                         <td>
                                         <a href="<?php echo base_url('admin/vehicleType/edit_vehicle_type/' . $user_data['v_t_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+                                        <a href="<?php echo base_url('admin/vehicleType/view_vehicle_type/' . $user_data['v_t_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>
                                         <a href="<?php echo base_url('admin/vehicleType/remove_vehicle_type/' . $user_data['v_t_id'] . '') ?>" class="btn btn-danger btn-xs check_delete" data-toggle="tooltip" title="Delete"><i class="fa fa-remove"></i></a>
                                     </td>
                                 </tr>

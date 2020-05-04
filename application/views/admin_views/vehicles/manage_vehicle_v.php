@@ -37,9 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Vehicle Type</th>
                                 <th>Vehicle Name</th>
                                 <th>Model Number</th>
-                                <th>Driver</th> 
-                                <th>Added By</th> 
-                                <th>Status</th>
+                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -53,9 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $user_data['v_t_vehicle_name']; ?></td>
                                     <td><?php echo $user_data['v_vehicle_name'].' '.$user_data['v_vehicle_number']; ?></td>
                                     <td><?php echo $user_data['v_vehicle_model_no']; ?></td>
-                                    <td><?php echo $user_data['Name']; ?></td>
-                                    <td><?php echo $memberObj['admin_name']; ?></td>
-                                    <td>
+                                   <td>
                                         <?php
                                         $status = $user_data['v_status'];
                                         if ($status == 1) {

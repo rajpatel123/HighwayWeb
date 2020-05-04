@@ -31,19 +31,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <img src="<?php echo base_url() ?>/assets/backend/img/driver/profile/<?php echo $user_data['Image'] ?>" class="img-responsive img-thumbnail">
                     </div>
                     <div class="col-lg-2 col-md-3">
-                        <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['Image'] ?>" class="img-responsive img-thumbnail">
+                        <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['dl_image'] ?>" class="img-responsive img-thumbnail">
                     </div>
+                </div>
+            <div class="col-md-6">
                     <div class="table-responsive panel">
                         <table class="table">
                             <tbody>
                                 <tr>
-
                                     <td class="text-success"><i class="fa fa-user"></i> Name :</td>
-
                                     <td class="text-left"><?php echo $user_data['Name']; ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-success"><i class="fa fa-mobile"></i> Mobile :</td>
+                                    <td class="text-success"><i class="fa fa-user"></i> Mobile :</td>
                                     <td><?php echo $user_data['Mobile']; ?></td>
                                 </tr>
 
@@ -56,6 +56,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td class="text-success"><i class="fa fa-home"></i> Address :</td>
                                     <td><?php echo $user_data['Address']; ?></td>
                                 </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> Owner Name :</td>
+                                    <td><?php echo $user_data['OwnerName']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> Vehicle Type :</td>
+                                    <td><?php echo $user_data['v_type']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> Vehicle Number :</td>
+                                    <td><?php echo $user_data['v_vehicle_number']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> Vehicle Model No :</td>
+                                    <td><?php echo $user_data['v_vehicle_model_no']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> License Number :</td>
+                                    <td><?php echo $user_data['License_Number']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> Vehicle Detail :</td>
+                                    <td><?php echo $user_data['v_vehicle_detail']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> Vehicle Load Capacity :</td>
+                                    <td><?php echo $user_data['v_l_c_load_capacity']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-success"><i class="fa fa-home"></i> Vehicle Dimension Size :</td>
+                                    <td><?php echo $user_data['v_d_s_dimension_size']; ?></td>
+                                </tr>
+                               
 
                             </tbody>
                         </table>

@@ -40,7 +40,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!--                                <th>Address</th> -->
 <!--                                <th>Dob</th> -->
                                 <th>Gender</th> 
-                                <th>Added<br>By</th> 
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -68,7 +67,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         }
                                         ?>
                                     </td>
-                                    <td><?php echo $memberObj['admin_name']; ?></td>
                                     
                                     <td>
                                         <?php

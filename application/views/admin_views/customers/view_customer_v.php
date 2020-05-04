@@ -49,12 +49,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $user_data['Email']; ?></td>
         </tr>
         <tr>
-            <td class="text-success"><i class="fa fa-calendar"></i> Birthday :</td>
-            <td><?php echo $user_data['Dob']; ?></td>
-        </tr>
-        <tr>
             <td class="text-success"><i class="fa fa-home"></i> Address :</td>
             <td><?php echo $user_data['Address']; ?></td>
+        </tr>
+        <tr>
+            <td class="text-success"><i class="fa fa-calendar"></i> Emergency contact1 :</td>
+            <td><?php echo $user_data['emergency_contact1']; ?></td>
+        </tr>
+        <tr>
+            <td class="text-success"><i class="fa fa-calendar"></i> Emergency contact2 :</td>
+            <td><?php echo $user_data['emergency_contact2']; ?></td>
         </tr>
 
         </tbody>

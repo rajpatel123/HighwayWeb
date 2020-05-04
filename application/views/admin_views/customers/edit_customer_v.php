@@ -55,8 +55,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
                         </div>
                     </div>
-                    
-                    
+                     </div>
+                    <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Gender">Gender Type</label>
@@ -81,7 +81,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Mobile'); ?></span>
                         </div>
                     </div>
-
+                    </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Address">Address</label>
@@ -95,16 +96,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     <div class="col-md-6">
                         <div class="form-group">
-                        <label for="Dob">Dob</label>
-                        <div class="input-group date" data-provide="datepicker">
-                            <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-th"></span>
+                            <label for="emergency_contact1">Emergency Contact1</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" name="emergency_contact1" value="<?php echo $user_data['emergency_contact1']; ?>" class="form-control" id="emergency_contact1" placeholder="Enter Emergency Contact1">
+                            </div>
+                            <span class="help-block error-message"><?php echo form_error('emergency_contact1'); ?></span>
                         </div>
-                        <input class="form-control" type="text" id="Dob" name="Dob"  value="<?php echo $user_data['Dob']; ?>" >
-                        
+                    </div>
+                    </div>
+                    <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="emergency_contact_two">Emergency Contact2</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" name="emergency_contact_two" value="<?php echo $user_data['emergency_contact2']; ?>" class="form-control" id="emergency_contact_two" placeholder="Enter Emergency Contact2">
+                            </div>
+                            <span class="help-block error-message"><?php echo form_error('emergency_contact_two'); ?></span>
                         </div>
-                        <span class="help-block error-message"><?php echo form_error('Dob'); ?></span>
-                      </div>   
                     </div>
                     
                     <div class="col-md-6">
@@ -117,8 +127,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
                         </div>
                     </div>
+                    </div>
                   
-                </div>
+               
                 <!-- /.row -->
             </div>
                 

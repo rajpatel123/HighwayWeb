@@ -71,9 +71,14 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|required'
             ),
             array(
-                'field' => 'Dob',
-                'label' => 'Dob',
-                'rules' => 'trim|required|max_length[250]'
+                'field' => 'emergency_contact1',
+                'label' => 'emergency_contact1',
+                'rules' => 'trim|max_length[250]'
+            ),
+            array(
+                'field' => 'emergency_contact2',
+                'label' => 'emergency_contact2',
+                'rules' => 'trim|max_length[250]'
             )
 //            array(
 //                'upload_path' => $imgPath,
@@ -98,7 +103,8 @@ class Customer extends CI_Controller {
             $data['Email'] = $this->input->post('Email', TRUE); 
             $data['Status'] = $this->input->post('Status', TRUE); 
             $data['Gender'] = $this->input->post('Gender', TRUE); 
-            $data['Dob'] = $this->input->post('Dob', TRUE); 
+            $data['emergency_contact1'] = $this->input->post('emergency_contact1', TRUE); 
+            $data['emergency_contact2'] = $this->input->post('emergency_contact2', TRUE); 
            // $data['Image'] = $this->input->post('Image', TRUE); 
             $data['Role_Id'] = 4; 
             $data['add_by'] = $this->session->userdata('admin_id'); 
@@ -211,9 +217,14 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|required'
             ),
             array(
-                'field' => 'Dob',
-                'label' => 'Dob',
-                'rules' => 'trim|required|max_length[250]'
+                'field' => 'emergency_contact1',
+                'label' => 'emergency_contact1',
+                'rules' => 'trim|max_length[250]'
+            ),
+            array(
+                'field' => 'emergency_contact_two',
+                'label' => 'emergency_contact_two',
+                'rules' => 'trim|max_length[250]'
             )
             );
             $this->form_validation->set_rules($config); 
@@ -227,10 +238,13 @@ class Customer extends CI_Controller {
                 $data['Status'] = $this->input->post('Status', TRUE); 
                 $data['Role_Id'] = 4; 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
-                $data['Dob'] = $this->input->post('Dob', TRUE); 
+                $data['emergency_contact1'] = $this->input->post('emergency_contact1', TRUE); 
+                $data['emergency_contact2'] = $this->input->post('emergency_contact_two', TRUE); 
                 $data['add_by'] = $this->session->userdata('admin_id');
-                $data['created_on'] = date('Y-m-d H:i:s');  
+                $data['created_on'] = date('Y-m-d H:i:s'); 
+               
                 $result = $this->customer_mdl->update_customer($customer_id, $data); 
+                // echo '<pre>' ;print_r($result);die;
                 if (!empty($result)) { 
                     $sdata['success'] = 'Update successfully .'; 
                     $this->session->set_userdata($sdata); 

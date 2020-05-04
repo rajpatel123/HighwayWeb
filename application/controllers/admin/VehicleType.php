@@ -264,6 +264,26 @@ class VehicleType extends CI_Controller {
         } 
     }  
     
+    public function view_vehicle_type($vehicle_type_id) { 
+        $data = array(); 
+        
+        $data['vehicle_data'] = $this->vehicle_type_mdl->get_vehicle_type_info_with_size($vehicle_type_id);
+       // echo '<pre>' ;print_r($data['vehicle_data']) ;die;
+        if (!empty($data['vehicle_data'])) { 
+            $data['title'] = 'Edit Vehicle Type'; 
+            $data['active_menu'] = 'vehicle type'; 
+            $data['active_sub_menu'] = 'vehicle type'; 
+            $data['active_sub_sub_menu'] = ''; 
+            $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
+            $data['main_content'] = $this->load->view('admin_views/vehicleType/view_vehicle_type_v', $data, TRUE);
+            $this->load->view('admin_views/admin_master_v', $data); 
+        } else { 
+            $sdata['exception'] = 'Content not found !'; 
+            $this->session->set_userdata($sdata); 
+            redirect('admin/vehicleType', 'refresh'); 
+        } 
+    } 
+    
     
 }
 ?>

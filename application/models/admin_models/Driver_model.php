@@ -5,7 +5,7 @@ class Driver_model extends CI_Model {
         parent::__construct(); 
     }
     private $_users = 'users'; 
-    private $_tbl_drive_license = 'tbl_drive_license'; 
+    private $_drive_license = 'drive_license'; 
     
     public function check_login_info() {
         $username_or_email_address = $this->input->post('username_or_email_address', true);
@@ -34,7 +34,7 @@ class Driver_model extends CI_Model {
     
     public function add_driver_licence_data($dataDriver) { 
         //echo '<pre>' ;print_r($data);die;
-        $this->db->insert($this->_tbl_drive_license, $dataDriver); 
+        $this->db->insert($this->_drive_license, $dataDriver); 
         
         return $this->db->insert_id(); 
     } 
@@ -64,12 +64,19 @@ class Driver_model extends CI_Model {
         return $result; 
     } 
     public function getDriverViewData($driver_id) { 
-        $this->db->select('*') 
-                ->from('users')
-                ->join('drive_license','drive_license.User_Id=users.Id','left')
-                ->where(array('users.Id' => $driver_id , 'users.deletion_status' => 0,'users.Role_Id' => 3))
-                ;
+        $this->db->select('u.*,o.Name as OwnerName,d.License_Number,d.Image as dl_image,d.Status as dl_status,vt.*,v.*,vs.v_d_s_dimension_size,vc.v_l_c_load_capacity') 
+                ->from('users u')
+                ->join('drive_license d','d.User_Id=u.Id','left')
+                ->join('tbl_assign_vehicle_to_driver a', 'a.a_v_t_d_driver_id=u.Id','left')
+                ->join('vehicle v', 'v.v_Id=a.a_v_t_d_vehicle_id','left')
+                ->join('users o', 'v.v_owner_id=o.Id','left')
+                ->join('tbl_vehicle_type vt','vt.v_t_id=v.v_type_id','left')
+                ->join('tbl_vehicle_load_capacity vc', 'vt.v_t_vehicle_load_capacity_id =vc.v_l_c_id ','left')
+                ->join('tbl_vehicle_dimension_size vs', 'vt.v_t_vehicle_size_id=vs.v_d_s_id','left')
+                ->where(array('u.Id' => $driver_id , 'u.deletion_status' => 0,'u.Role_Id' => 3));
+        $this->db->limit(1);
         $query_result = $this->db->get(); 
+        //echo  $this->db->last_query();die;
         $result = $query_result->row_array(); 
         return $result; 
     } 
@@ -94,7 +101,7 @@ class Driver_model extends CI_Model {
         return $this->db->affected_rows(); 
     } 
     public function update_driver_dl($driver_id, $data) { 
-        $this->db->update($this->_tbl_drive_license, $data, array('d_l_user_id' => $driver_id)); 
+        $this->db->update($this->_drive_license, $data, array('User_Id' => $driver_id)); 
         return $this->db->affected_rows(); 
     } 
 	

@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="License_Number">License Number</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="License_Number" value="<?php echo set_value('License_Number'); ?>" class="form-control required" id="License_Number" placeholder="Enter license number">
+                                <input type="text" name="License_Number" value="<?php echo $user_data['License_Number']; ?>" class="form-control required" id="License_Number" placeholder="Enter license number">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('License_Number'); ?></span>
                         </div>
@@ -147,7 +147,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php echo form_upload(['name'=>'dlfile','class'=>'form-control'])?>
                             </div>
                             <div class="input-group">
-                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['d_l_image'] ?>" style="width: 100px;height: 100px;">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['dl_image'] ?>" style="width: 100px;height: 100px;">
                             </div>
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
@@ -172,5 +172,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
     document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
-    document.forms['edit_form'].elements['License_Number'].value = '<?php echo $user_data['d_l_license_number']; ?>';
 </script>

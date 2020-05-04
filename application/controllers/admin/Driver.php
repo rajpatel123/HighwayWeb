@@ -124,13 +124,11 @@ class Driver extends CI_Controller {
                 }
                 
             //=============profile upload end===============//
-            $dataDriver['d_l_license_number'] = $this->input->post('License_Number', TRUE); 
+            $dataDriver['License_Number'] = $this->input->post('License_Number', TRUE); 
          //   $dataDriver['vehicle_id'] = $this->input->post('vehicle_id', TRUE); 
-            $dataDriver['d_l_user_id'] = $insert_id; 
-            $dataDriver['d_l_status'] = 1; 
-            $dataDriver['d_l_image'] ='';
-            $dataDriver['d_l_add_by'] =$this->session->userdata('admin_id'); 
-            $dataDriver['d_l_date'] =date('Y-m-d');
+            $dataDriver['User_Id'] = $insert_id; 
+            $dataDriver['Status'] = 1; 
+            $dataDriver['Image'] ='';
             $insert_driverid = $this->driver_mdl->add_driver_licence_data($dataDriver);  // Insert in drive_license table
             
             //==========================DL Upload=========
@@ -157,7 +155,7 @@ class Driver extends CI_Controller {
                         
                     }
                     if (file_exists($pathDl)) {
-                        $dlUpdate['d_l_image']=$dlPic;
+                        $dlUpdate['Image']=$dlPic;
                         $this->driver_mdl->update_driver_dl($insert_id, $dlUpdate); 
                     } 
                 }
@@ -315,10 +313,9 @@ class Driver extends CI_Controller {
                 }
                 
                 
-                $dataDriver['d_l_license_number'] = $this->input->post('License_Number', TRUE);
-                $dataDriver['d_l_user_id'] = $driver_id; 
-                $dataDriver['d_l_status'] = 1; 
-                $dataDriver['d_l_edit_by'] =$this->session->userdata('admin_id');
+                $dataDriver['License_Number'] = $this->input->post('License_Number', TRUE);
+                $dataDriver['User_Id'] = $driver_id; 
+                $dataDriver['Status'] = 1; 
                 $driverData = $this->driver_mdl->update_driver_dl($driver_id,$dataDriver);
                // echo '<pre>' ;print_r($dataDriver); die;
                 
@@ -345,7 +342,7 @@ class Driver extends CI_Controller {
                         
                     }
                     if (file_exists($pathDl)) {
-                        $dlUpdate['d_l_image']=$dlPic;
+                        $dlUpdate['Image']=$dlPic;
                         $this->driver_mdl->update_driver_dl($driver_id, $dlUpdate); 
                     } 
                 }

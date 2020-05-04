@@ -37,12 +37,11 @@ class Vehicle_model extends CI_Model {
         $this->db->select('*') 
                 ->from('vehicle v')
                 ->join('tbl_vehicle_type vt', 'vt.v_t_id=v.v_type_id','left')
-               ->join('tbl_assign_vehicle_to_driver a', 'a.a_v_t_d_vehicle_id=v.v_Id','left')  
-                ->join('users d', 'd.Id=a.a_v_t_d_driver_id','left')
-                ->where('v.v_status', 1)
+                ->where('v.v_delete', 0)
                 ;
+        
         $query_result = $this->db->get(); 
-       // echo  $this->db->last_query();die;
+        //echo  $this->db->last_query();die;
         $result = $query_result->result_array(); 
         return $result; 
     } 
@@ -61,7 +60,7 @@ class Vehicle_model extends CI_Model {
     } 
     
     public function get_vehicle_dropdown() { 
-        $this->db->select(array('v_t_id','v_t_vehicle_name')) 
+        $this->db->select(array('v_t_id','v_t_type')) 
                 ->from('tbl_vehicle_type')
                 ->where('v_t_status', 1)
                 ;
@@ -75,6 +74,17 @@ class Vehicle_model extends CI_Model {
                 ->from('vehicle')
                 ->join('tbl_vehicle_type', 'tbl_vehicle_type.v_t_id=vehicle.v_type_id','left')
                 ->where(array('v_Id' => $vehicle_id , 'v_status' => 1,'v_t_status' => 1,'v_delete'=>0,'v_t_delete'=>0))
+                ;
+        $query_result = $this->db->get(); 
+        $result = $query_result->row_array(); 
+        return $result ;
+        } 
+        
+        public function get_active_inactive_by_vehicle_id($vehicle_id) {
+        $this->db->select(array("*")) 
+                ->from('vehicle')
+                ->join('tbl_vehicle_type', 'tbl_vehicle_type.v_t_id=vehicle.v_type_id','left')
+                ->where(array('v_Id' => $vehicle_id ,'v_delete'=>0,'v_t_delete'=>0))
                 ;
         $query_result = $this->db->get(); 
         $result = $query_result->row_array(); 
