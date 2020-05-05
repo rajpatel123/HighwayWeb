@@ -70,6 +70,22 @@ if ($active_menu == 'content') {
 }
 ?>"><a href="<?php echo base_url('admin/content'); ?>"><i class="fa fa-file-text-o "></i> <span> Content</span></a></li>
 
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="new">
+                  <li>New New 1</li>
+                  <li>New New 2</li>
+                  <li>New New 3</li>
+                </ul>
+                
+<li class="<?php
+if ($active_menu == 'coupan') {
+    echo 'active';
+}
+?>"><a href="<?php echo base_url('admin/coupan'); ?>"><i class="fa fa-file-text-o "></i> <span>coupan</span></a>
+
+</li>
 
 <li class="<?php
 if ($active_menu == 'coupan') {
@@ -78,6 +94,8 @@ if ($active_menu == 'coupan') {
 ?>"><a href="<?php echo base_url('admin/coupan'); ?>"><i class="fa fa-file-text-o "></i> <span>coupan</span></a>
 
 </li>
+
+                
 
 <!--<li class="treeview <?php if ($active_menu == 'jobtype') {  echo 'active'; } ?>">
 <a href="#"><i class="fa fa-file-text-o"></i> <span> Job Type</span>

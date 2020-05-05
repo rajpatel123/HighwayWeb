@@ -23,6 +23,11 @@ class Push_notification_model extends CI_Model {
         return $result;
 
     }
+    
+    public function add_notification_data($data) { 
+        $this->db->insert($this->_push_notification, $data); 
+        return $this->db->insert_id(); 
+    }  
  
     public function get_notificationSingleUser() { 
         $this->db->select('p.*,s.Name as senderName,r.Name as reciverName,ro.Title ') 
@@ -41,8 +46,9 @@ class Push_notification_model extends CI_Model {
                 foreach($data as $row){
                     $cat[$counter]['notificationID']=$row->p_n_id ;
                     $cat[$counter]['notificationMessage']=$row->p_n_message ;
-                    $cat[$counter]['sendBy']=$row->senderName ;
-                    $cat[$counter]['reciverBY']=$row->reciverName ;
+                    $cat[$counter]['notificationImage']=$row->p_n_image ;
+                    $cat[$counter]['senderName']=$row->senderName ;
+                    $cat[$counter]['reciverName']=$row->reciverName ;
                     $cat[$counter]['role']=$row->Title ;
                     $cat[$counter]['messageStatus']=$row->p_n_one_or_all ;
                     $counter++;
@@ -55,13 +61,13 @@ class Push_notification_model extends CI_Model {
     
     } 
     
-    public function get_notificationAllUser() { 
+    public function get_notificationAllUser($roleId) { 
         $this->db->select('*') 
                 ->from('tbl_push_notification p')
                 ->join('roles ro', 'p.p_n_one_or_all=ro.Id','left')
-                ->where('p.p_n_one_or_all != ', 'ONE_USER');
+                ->where('p.p_n_one_or_all =', $roleId);
         $query = $this->db->get();
-        // echo  $this->db->last_query();die;
+         //echo  $this->db->last_query();die;
         if($query->num_rows() > 0){
                 $data= $query->result();
                 $cat = array();
@@ -70,7 +76,9 @@ class Push_notification_model extends CI_Model {
                 foreach($data as $row){
                     $cat[$counter]['notificationID']=$row->p_n_id ;
                     $cat[$counter]['notificationMessage']=$row->p_n_message ;
-                    $cat[$counter]['role']=$row->p_n_one_or_all ;
+                    $cat[$counter]['notificationImage']=$row->p_n_image ;
+                    $cat[$counter]['role']=$row->Title ;
+                    $cat[$counter]['messageStatus']=$row->p_n_one_or_all ;
                     $counter++;
                     }
                 return $cat;
@@ -80,5 +88,10 @@ class Push_notification_model extends CI_Model {
         }
     
     } 
+    
+     public function update_notification_data($notificationId, $data) { 
+        $this->db->update($this->_push_notification, $data, array('p_n_id' => $notificationId)); 
+        return $this->db->affected_rows(); 
+    }
     
 }

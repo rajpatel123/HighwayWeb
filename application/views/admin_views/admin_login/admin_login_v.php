@@ -25,6 +25,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
     </head>
      <style type="text/css">
+     
+    .bg-img{background-image: url("<?php echo base_url(); ?>assets/backend/img/admin/highway_login.jpg");background-repeat: no-repeat;}
+
      #userform .nav-tabs.nav-justified>.active>a, #userform .nav-tabs.nav-justified>.active>a:hover, #userform .nav-tabs.nav-justified>.active>a:focus {
     border: 0;
     background: #F7CA18;
@@ -33,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 }
 #userform {
     background: rgba(0, 0, 0, 0.8);
-    margin: 20px 0 20px 0;
+    margin: 20px 0 95px 0;
     color: white;
 }
 #userform .tab-pane h2 {
@@ -68,6 +71,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     background-color: rgba(237, 235, 250, 0.1);
     /* color: #FFF; */
 }
+.logo-section img {
+    height: 55px;
+    margin-top: 55px;
+}
+#userform .form-group input, #userform .form-group textarea {
+    padding: 10px;
+}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 20px 15px;
+}
      </style>
     <body class="hold-transition login-page">
         
@@ -81,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="logo-section text-center">
                         
 <!--    ye change kar lena url dika diay or super admin se login hoga abhi <img width="50px" src="img/logo.png" alt="">-->
-                            <img width="200px" src="<?php echo base_url() ?>/assets/backend/img/admin/highway_login.jpg" alt="">
+                            <img width="50px" src="<?php echo base_url() ?>/assets/backend/img/admin/logo.png" alt="">
                         </div>
                     </div>
                 </div>

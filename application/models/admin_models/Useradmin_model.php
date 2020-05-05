@@ -66,6 +66,36 @@ class Useradmin_model extends CI_Model {
         $this->db->update($this->_users, array('deletion_status' => 1), array('Id' => $owner_id)); 
         return $this->db->affected_rows(); 
     } 
+    public function get_userList($roleId) { 
+        $this->db->select('u.Id,u.Name,u.Status,r.Title') 
+                ->from('users u')
+                 ->join('roles r', 'r.Id=u.Role_Id','left')
+                ->where('u.Role_Id =', $roleId);
+        $query = $this->db->get();
+        // echo  $this->db->last_query();die;
+        if($query->num_rows() > 0){
+                $data= $query->result();
+                $cat = array();
+                $counter =0;
+               // echo '<pre>' ;print_r($data);die;
+                foreach($data as $row){
+                    $cat[$counter]['Id']=$row->Id;
+                    $cat[$counter]['Title']=$row->Title ;
+                    $cat[$counter]['Name']=$row->Name ;
+                    if(($row->Status)==1){
+                       $status = 'Active' ;
+                    }else {
+                         $status = 'Inactive' ;
+                    }
+                    $cat[$counter]['status']=$status ;
+                    $counter++;
+                    }
+                return $cat;
+                
+            } else {
+            return array();
+        }
     
+    } 
 }
 

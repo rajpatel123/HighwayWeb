@@ -97,7 +97,7 @@ h2, .h2 {
     color:white;
 }
 
-.sidebar{ background-color:white;    position: fixed;}
+.sidebar{ background-color:white; position: fixed;overflow-x: auto; width: 230px;     height: 600px;}
 .skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a {
     color: #000;
     background: #ebeff5;
