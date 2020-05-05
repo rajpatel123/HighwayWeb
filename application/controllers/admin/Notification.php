@@ -60,6 +60,7 @@ class Notification extends CI_Controller {
             $this->index();
             } else {
             $data['p_n_message'] = $this->input->post('p_n_message', TRUE); 
+            $data['p_n_sender_id'] = $this->session->userdata['admin_id'];
             if(($roleId>1) && ($roleId<6)){
                 $role = $roleId;
             } else {
@@ -93,6 +94,43 @@ class Notification extends CI_Controller {
                     $this->push_notification_mdl->update_notification_data($insert_id, $dataUpdate); 
                     }
                 }
+                
+                
+                
+                
+                  //==================push notification acording to role====================// 
+                
+    if($roleId){        
+        $this->load->model("mobile_token_model");
+        $mobileTokenData = $this->mobile_token_model->getAllUserTokenByRoleId($roleId); 
+    define( 'API_ACCESS_KEY', 'AAAAC-LH2JY:APA91bHF18YDdTSldhyjKAQO368TLVhHi2Re4kR6tVLWye5_lQirRCxghOMs99qhtZ19NqLIeunrUSrC5SIGDsp1h3W4NIlt6JFWXnwX80LjI13wdz8XM1ZMD-3DbQfg4NSA143KJT9q' );
+$fields = array
+(
+    'registration_ids' => $mobileTokenData,
+    'priority' => 'high',
+    'notification' => array(
+        'title' => 'Notification',
+        'body' => $this->input->post('p_n_message', TRUE)
+    )
+);
+$headers = array
+(
+	'Authorization: key=' . API_ACCESS_KEY,
+	'Content-Type: application/json'
+);
+ 
+$ch = curl_init();
+curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+curl_setopt( $ch,CURLOPT_POST, true );
+curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+curl_exec($ch );
+curl_close( $ch );
+}
+                
+                
             
             if (!empty($insert_id)) { 
                 $sdata['success'] = 'Add successfully . '; 
@@ -166,6 +204,40 @@ class Notification extends CI_Controller {
                     $this->push_notification_mdl->update_notification_data($insert_id, $dataUpdate); 
                     }
                 }
+                
+                
+                
+                //==================push notification Single User====================// 
+                
+    if($userId){        
+        $this->load->model("mobile_token_model");
+        $mobileTokenData = $this->mobile_token_model->getUserTokenById($userId); 
+    define( 'API_ACCESS_KEY', 'AAAAC-LH2JY:APA91bHF18YDdTSldhyjKAQO368TLVhHi2Re4kR6tVLWye5_lQirRCxghOMs99qhtZ19NqLIeunrUSrC5SIGDsp1h3W4NIlt6JFWXnwX80LjI13wdz8XM1ZMD-3DbQfg4NSA143KJT9q' );
+$fields = array
+(
+    'registration_ids' => $mobileTokenData,
+    'priority' => 'high',
+    'notification' => array(
+        'title' => 'Notification',
+        'body' => $this->input->post('p_n_message', TRUE)
+    )
+);
+$headers = array
+(
+	'Authorization: key=' . API_ACCESS_KEY,
+	'Content-Type: application/json'
+);
+ 
+$ch = curl_init();
+curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+curl_setopt( $ch,CURLOPT_POST, true );
+curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+curl_exec($ch );
+curl_close( $ch );
+}
             
             if (!empty($insert_id)) { 
                 $sdata['success'] = 'Add successfully . '; 

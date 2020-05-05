@@ -159,4 +159,61 @@ class Mobile_token_model extends CI_Model {
         }
     }
     
+     public function getUserTokenById($userId) {
+        $this->db->select(array("fb_token_id"))
+                ->from('tbl_fb_token f')
+                ->join('users u', 'u.Id=f.fb_u_id','left');
+        if(isset($userId)){
+                $this->db->where(array(
+                    "u.Id" => $userId,
+                    "u.Status" => 1,
+                    "u.deletion_status" => 0,
+                    "f.fb_status" => 1
+                    )
+                        );
+        }
+        $query = $this->db->get();
+         if($query->num_rows() > 0){
+                $data= $query->result();
+                $counter=0;
+                $cat= array();
+                foreach($data as $row){
+                    $cat[$counter]=$row->fb_token_id ;
+                    $counter++;
+                }
+                return $cat;
+                
+            } else {
+            return array();
+        }
+    }
+    public function getAllUserTokenByRoleId($roleId) {
+        if(isset($roleId)){
+        $this->db->select(array("fb_token_id"))
+                ->from('tbl_fb_token f')
+                ->join('users u', 'u.Id=f.fb_u_id','left');
+        
+                $this->db->where(array(
+                    "u.Status" => 1,
+                     "u.Role_Id"=>$roleId,
+                    "u.deletion_status" => 0,
+                    "f.fb_status" => 1
+                    )
+                        );
+        }
+        $query = $this->db->get();
+         if($query->num_rows() > 0){
+                $data= $query->result();
+                $counter=0;
+                $cat= array();
+                foreach($data as $row){
+                    $cat[$counter]=$row->fb_token_id ;
+                    $counter++;
+                }
+                return $cat;
+                
+            } else {
+            return array();
+        }
+    }
 }
