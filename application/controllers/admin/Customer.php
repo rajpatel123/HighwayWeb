@@ -13,6 +13,9 @@ class Customer extends CI_Controller {
         // $memberObj = $this->session->userdata;
        // echo '<pre>' ; print_r($memberObj);die;
     } 
+    
+    
+    
 
     public function index() {
         $data = array();
@@ -26,6 +29,10 @@ class Customer extends CI_Controller {
         $data['main_content'] = $this->load->view('admin_views/customers/manage_customer_v', $data, TRUE);
         $this->load->view('admin_views/admin_master_v', $data);
     } 
+    
+    
+    
+    
 
     public function add_customer() { 
         $data = array(); 
@@ -43,22 +50,22 @@ class Customer extends CI_Controller {
             array(
                 'field' => 'Name',
                 'label' => 'Name',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[2]'
             ),
             array(
                 'field' => 'Mobile',
                 'label' => 'Mobile',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[15]|min_length[10]'
             ),
             array(
                 'field' => 'Email',
                 'label' => 'Email',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[10]'
             ),
             array(
                 'field' => 'Address',
                 'label' => 'Address',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
             array(
                 'field' => 'Status',
@@ -73,23 +80,14 @@ class Customer extends CI_Controller {
             array(
                 'field' => 'emergency_contact1',
                 'label' => 'emergency_contact1',
-                'rules' => 'trim|max_length[250]'
+                'rules' => 'trim|max_length[15]|min_length[10]'
             ),
             array(
                 'field' => 'emergency_contact2',
                 'label' => 'emergency_contact2',
-                'rules' => 'trim|max_length[250]'
+                'rules' => 'trim|max_length[15]|min_length[10]'
             )
-//            array(
-//                'upload_path' => $imgPath,
-//                'allowed_types' => 'gif|jpg|png',
-//                'max_size' => 100,
-//                'max_width' => 1024,
-//                'max_height' => 768,
-//            )
-        );
-       
-        //echo '<pre>' ;print_r($config) ;die;
+            );
         $this->form_validation->set_rules($config);
        // $this->load->library('upload', $config);
         if ($this->form_validation->run() == FALSE) {
@@ -99,6 +97,9 @@ class Customer extends CI_Controller {
             
             $data['Name'] = $this->input->post('Name', TRUE); 
             $data['Mobile'] = $this->input->post('Mobile', TRUE); 
+            
+            
+            
             $data['Address'] = $this->input->post('Address', TRUE); 
             $data['Email'] = $this->input->post('Email', TRUE); 
             $data['Status'] = $this->input->post('Status', TRUE); 
@@ -111,7 +112,9 @@ class Customer extends CI_Controller {
             $data['u_date'] = date('Y-m-d');  
             
             //echo '<pre>' ;print_r($data) ;die;
-            $insert_id = $this->customer_mdl->add_customer_data($data); 
+            $mobileCheckData = $this->customer_mdl->checkMobileData($data['Mobile']); 
+            if(empty($mobileCheckData)){
+                $insert_id = $this->customer_mdl->add_customer_data($data); 
             if (!empty($insert_id)) { 
                 $sdata['success'] = 'Add successfully . '; 
                 $this->session->set_userdata($sdata); 
@@ -120,6 +123,11 @@ class Customer extends CI_Controller {
                 $sdata['exception'] = 'Operation failed !'; 
                 $this->session->set_userdata($sdata); 
                 redirect('admin/customer', 'refresh'); 
+            } 
+            } else { 
+                $sdata['exception'] = 'user Alerady register !'; 
+                $this->session->set_userdata($sdata); 
+                redirect('admin/customer/add_customer', 'refresh'); 
             } 
         } 
     }

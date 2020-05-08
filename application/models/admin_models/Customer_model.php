@@ -46,6 +46,11 @@ class Customer_model extends CI_Model {
         $result = $this->db->get_where($this->_users, array('Id' => $customer_id , 'deletion_status' => 0)); 
         return $result->row_array(); 
     } 
+    
+    public function checkMobileData($mobile) { 
+        $result = $this->db->get_where($this->_users, array('Mobile' => $mobile , 'deletion_status' => 0)); 
+        return $result->row_array(); 
+    } 
 
     public function published_customer_by_id($customer_id) { 
         $this->db->update($this->_users, array('Status' => 1), array('Id' => $customer_id));  

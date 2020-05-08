@@ -9,6 +9,7 @@ class Driver extends CI_Controller {
             redirect('admin', 'refresh');
         }
         $this->load->model('admin_models/driver_model', 'driver_mdl'); 
+        $this->load->model('admin_models/customer_model', 'customer_mdl'); 
         
 //         $memberObj = $this->session->userdata;
        // echo '<pre>' ; print_r($memberObj);die;
@@ -40,25 +41,25 @@ class Driver extends CI_Controller {
     }
     public function create_driver() {
         $config = array(
-            array(
+           array(
                 'field' => 'Name',
                 'label' => 'Name',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[2]'
             ),
             array(
                 'field' => 'Mobile',
                 'label' => 'Mobile',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[15]|min_length[10]'
             ),
             array(
                 'field' => 'Email',
                 'label' => 'Email',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[10]'
             ),
             array(
                 'field' => 'Address',
                 'label' => 'Address',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
             array(
                 'field' => 'Status',
@@ -97,6 +98,8 @@ class Driver extends CI_Controller {
             $data['Role_Id'] = 3; 
             $data['add_by'] = $this->session->userdata('admin_id'); 
             $data['u_date'] = date('Y-m-d'); 
+            $mobileCheckData = $this->customer_mdl->checkMobileData($data['Mobile']); 
+            if(empty($mobileCheckData)){
             $insert_id = $this->driver_mdl->add_driver_data($data);  // Insert in user table
             //=============profile upload===============//
             $valid_extensions = array('jpeg','jpg','png','gif');
@@ -169,6 +172,11 @@ class Driver extends CI_Controller {
                 $sdata['exception'] = 'Operation failed !'; 
                 $this->session->set_userdata($sdata); 
                 redirect('admin/driver', 'refresh'); 
+            } 
+             } else { 
+                $sdata['exception'] = 'user Alerady register !'; 
+                $this->session->set_userdata($sdata); 
+                redirect('admin/driver/add_driver', 'refresh'); 
             } 
         } 
     }

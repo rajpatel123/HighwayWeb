@@ -62,8 +62,14 @@ if ($active_menu == 'milluser') {
 if ($active_menu == 'trip') {
     echo 'active';
 }
-?>"><a href="<?php echo base_url('admin/trip'); ?>"><i class="fa fa-asterisk"></i> <span>Trip</span></a>
+?>"><a href="<?php echo base_url('admin/trip'); ?>"><i class="fa fa-road"></i> <span>Trip</span></a>
 
+</li>
+<li class="<?php
+if ($active_menu == 'requestHistory') {
+    echo 'active';
+}
+?>"><a href="<?php echo base_url('admin/trip/requestHistory'); ?>"><i class="fa fa-road"></i> <span> Request History</span></a>
 </li>
 
 <li class="<?php

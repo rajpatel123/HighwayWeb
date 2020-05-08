@@ -9,6 +9,7 @@ class Milluser extends CI_Controller {
             redirect('admin', 'refresh');
         }
         $this->load->model('admin_models/milluser_model', 'milluser_mdl'); 
+        $this->load->model('admin_models/customer_model', 'customer_mdl'); 
         
         // $memberObj = $this->session->userdata;
        // echo '<pre>' ; print_r($memberObj);die;
@@ -40,25 +41,25 @@ class Milluser extends CI_Controller {
     public function create_milluser() {
         // $imgPath = base_url(). '/assets/backend/img/milluser/';
         $config = array(
-            array(
+           array(
                 'field' => 'Name',
                 'label' => 'Name',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[2]'
             ),
             array(
                 'field' => 'Mobile',
                 'label' => 'Mobile',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[15]|min_length[10]'
             ),
             array(
                 'field' => 'Email',
                 'label' => 'Email',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[10]'
             ),
             array(
                 'field' => 'Address',
                 'label' => 'Address',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
             array(
                 'field' => 'Status',
@@ -105,6 +106,8 @@ class Milluser extends CI_Controller {
             //$data['date_added'] = date('Y-m-d H:i:s');  
             
             //echo '<pre>' ;print_r($data) ;die;
+             $mobileCheckData = $this->customer_mdl->checkMobileData($data['Mobile']); 
+            if(empty($mobileCheckData)){
             $insert_id = $this->milluser_mdl->add_milluser_data($data); 
             if (!empty($insert_id)) { 
                 $sdata['success'] = 'Add successfully . '; 
@@ -114,6 +117,11 @@ class Milluser extends CI_Controller {
                 $sdata['exception'] = 'Operation failed !'; 
                 $this->session->set_userdata($sdata); 
                 redirect('admin/milluser', 'refresh'); 
+            } 
+            } else { 
+                $sdata['exception'] = 'user Alerady register !'; 
+                $this->session->set_userdata($sdata); 
+                redirect('admin/owner/add_owner', 'refresh'); 
             } 
         } 
     }

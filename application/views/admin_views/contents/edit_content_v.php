@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         CKEDITOR.replace( 'ckeditor-textarea' ); 
 		
                 			</script>
-                             <span class="help-block error-message"><?php// echo form_error('c_content'); ?></span>
+                             <span class="help-block error-message"></span>
                         </div>
                     </div>
                     

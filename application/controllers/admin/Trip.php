@@ -183,7 +183,7 @@ class Trip extends CI_Controller {
     
     public function view_trip($trip_id) { 
         $data = array(); 
-        $data['user_data'] = $this->trip_mdl->get_trip_data_by_id($trip_id);  
+        $data['user_data'] = $this->trip_mdl->get_trip_data_by_id($trip_id);
         if (!empty($data['user_data'])) { 
             $data['title'] = 'View Trip'; 
             $data['active_menu'] = 'trip'; 
@@ -209,6 +209,27 @@ class Trip extends CI_Controller {
         $this->load->view('admin_views/admin_master_v', $data);
     }
     
+     public function requestHistory() {
+       
+        $data = array();
+        $data['title'] = 'Manage Trip';
+        $data['active_menu'] = 'trip';
+        $data['active_sub_menu'] = 'trip';
+        $data['active_sub_sub_menu'] = ''; 
+//        $data['accept_trip_data'] = $this->trip_mdl->getAllTripDataAcceptOrRejectByDriver();
+//        //echo '<pre>' ;print_r($data['accept_trip_driver_data']);
+//        foreach ($data['accept_trip_data'] as $value) {
+//            $aDriverId[] = $value['acceptTripDriverId'];
+//            $acceptTripId[] = $value['acceptTripId'];
+//        }
+       
+        //$acceptTripDriverId =array_unique($aDriverId);
+        $data['trip_info'] = $this->trip_mdl->getAllTripRequestHistory();
+       // echo '<pre>' ;        print_r($data['trip_info']);die;
+        $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
+        $data['main_content'] = $this->load->view('admin_views/trips/request_history', $data, TRUE);
+        $this->load->view('admin_views/admin_master_v', $data);
+    } 
     
     
 }

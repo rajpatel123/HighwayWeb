@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="emergency_contact1">Emergency Contact1</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="emergency_contact1" value="<?php echo set_value('emergency_contact1'); ?>" class="form-control required" id="emergency_contact1" placeholder="Enter Emergency Contact1">
+                                <input type="text" name="emergency_contact1" value="<?php echo set_value('emergency_contact1'); ?>" class="form-control " id="emergency_contact1" placeholder="Enter Emergency Contact1">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('emergency_contact1'); ?></span>
                         </div>
@@ -112,7 +112,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="emergency_contact2">Emergency Contact2</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="emergency_contact2" value="<?php echo set_value('emergency_contact2'); ?>" class="form-control required" id="emergency_contact1" placeholder="Enter Emergency Contact2">
+                                <input type="text" name="emergency_contact2" value="<?php echo set_value('emergency_contact2'); ?>" class="form-control" id="emergency_contact1" placeholder="Enter Emergency Contact2">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('emergency_contact2'); ?></span>
                         </div>
