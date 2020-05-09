@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Vehicle
+        Assign Vehicle
         <small>Assign Vehicle</small>
     </h1>
     <ol class="breadcrumb">
@@ -31,25 +31,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
         <!-- form start -->
-        <form role="form" name="add_form" action="<?php echo base_url('admin/assignVehicle/create_assign_vehicle'); ?>" method="post"  class="form-validation" >
+        <form role="form" name="add_form" action="<?php echo base_url("admin/assignVehicle/create_assign_vehicle/$driverId"); ?>" method="post"  class="form-validation" >
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
-                   <div class="col-md-6">
+                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Driver">Driver</label>
-                            <select name="driver" class="form-control required" id="driver">
-                                <option value="" selected="" disabled="">select</option>
-                                <?php
-                                foreach ($driverData as $row) {
-                                 echo '<option value ="'.$row['Id'].'">'.$row['Name'].'</option>';
-                                    
-                                }
-                                ?>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('driver'); ?></span>
+                            <label for="driver">Driver Name  : </label>
+                                 <?php echo $driverName['Name'] ?>
+                           
+                            <span class="help-block error-message"><?php echo form_error('vehicle'); ?></span>
                         </div>
                     </div>
+                   
                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="Vehicle">Vehicle</label>
@@ -57,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <option value="" selected="" disabled="">select</option>
                                 <?php
                                 foreach ($vehicleData as $row) {
-                                 echo '<option value ="'.$row['v_Id'].'">'.ucwords($row['v_vehicle_name']).' '.$row['v_vehicle_number'].'</option>';
+                                 echo '<option value ="'.$row['v_Id'].'">'.ucwords($row['v_type']).' '.$row['v_vehicle_number'].'</option>';
                                     
                                 }
                                 ?>
@@ -70,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <a href="<?php echo base_url('admin/vehicle/vehicle-type'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
+                <a href="<?php echo base_url("admin/assignVehicle/add_assign_vehicle/$driverId"); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Add Info</button>
             </div>
         </form>

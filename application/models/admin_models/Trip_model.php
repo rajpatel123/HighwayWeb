@@ -32,7 +32,7 @@ class Trip_model extends CI_Model {
                 ->join('users d', 'd.Id=b.b_l_t_driver_id','left')
                 ->join('users o', 'o.Id=v.v_owner_id','left')
                 ->join('users c', 'c.Id=t.t_user_Id','left')
-                ->where(array('t.t_delete'=>0));
+                ->where(array('t.t_delete'=>0,'b.b_l_t_delete'=>0));
                 $this->db->order_by("t.t_id", "DESC");
                 $this->db->limit(20);
         $query = $this->db->get(); 
@@ -262,9 +262,9 @@ class Trip_model extends CI_Model {
                 ->join('users d', 'd.Id=b.b_l_t_driver_id','left')
                 ->join('users o', 'o.Id=v.v_owner_id','left')
                 ->join('users c', 'c.Id=t.t_user_Id','left')
-                ->where(array('t.t_delete'=>0,'t.t_delete'=>0));
-                if (isset($tstatus) && !empty($tstatus)) {
-                    $this->db->where("t.t_status", $tstatus);
+                ->where(array('b.b_l_t_delete'=>0));
+            if (isset($tstatus) && !empty($tstatus)) {
+                    $this->db->where("b.b_l_t_status", $tstatus);
                 }
         $query = $this->db->get(); 
         //echo $this->db->last_query();die;

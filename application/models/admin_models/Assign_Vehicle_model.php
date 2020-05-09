@@ -26,7 +26,7 @@ class Assign_vehicle_model extends CI_Model {
     
     public function get_vehicle_dropdown() { 
         $this->db->order_by('v_vehicle_name','ASC');
-        $this->db->select(array('v_Id','v_vehicle_name','v_vehicle_number')) 
+        $this->db->select(array('v_Id','v_vehicle_name','v_type','v_vehicle_number')) 
                 ->from('vehicle')
                 ->where(array('v_status' => 1,'v_delete'=>0));
         $query_result = $this->db->get(); 
@@ -63,6 +63,20 @@ class Assign_vehicle_model extends CI_Model {
         $this->db->select('*') 
                 ->from('tbl_assign_vehicle_to_driver')
                 ->where(array("tbl_assign_vehicle_to_driver.a_v_t_d_delete" => 0));
+        $query_result = $this->db->get(); 
+        $result = $query_result->result_array(); 
+        return $result; 
+    } 
+     public function get_assign_vehicle_by_driver_id($driver_id) { 
+        $result = $this->db->get_where($this->_assign_vehicle, array('a_v_t_d_driver_id' => $driver_id , ' a_v_t_d_status' => 1)); 
+        return $result->row_array(); 
+    } 
+    
+    public function get_assign_vehicle_edit($assign_vehicle_id) { 
+        $this->db->select('*') 
+                ->from('tbl_assign_vehicle_to_driver a')
+                ->join('users u', 'a.a_v_t_d_driver_id=u.Id','left')
+                ->where(array("a.a_v_t_d_delete" => 0,'a.a_v_t_d_id' => $assign_vehicle_id ));
         $query_result = $this->db->get(); 
         $result = $query_result->result_array(); 
         return $result; 

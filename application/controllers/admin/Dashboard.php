@@ -24,6 +24,7 @@ class Dashboard extends CI_Controller {
             redirect('admin', 'refresh');
         }
       $this->load->model('admin_models/dashboard_model', 'dash_mdl');	
+      $this->load->model('admin_models/booktrip_model', 'booktrip_mdl');	
       $this->load->model('admin_models/customer_model', 'customer_mdl'); 
       $this->load->model('admin_models/trip_model', 'trip_mdl'); 
          
@@ -48,10 +49,10 @@ class Dashboard extends CI_Controller {
       $data['customer'] = $this->customer_mdl->newCustomerList(); 
       //echo '<pre>' ;print_r($data['customer']);die;
       
-      $data['upcoming'] = $this->dash_mdl->count_total_upcoming_trip(); 
-      $data['ongoing'] = $this->dash_mdl->count_total_ongoing_trip(); 
-      $data['completed'] = $this->dash_mdl->count_total_completed_trip(); 
-      $data['cancel'] = $this->dash_mdl->count_total_cancel_trip();
+      $data['upcoming'] = $this->booktrip_mdl->count_total_upcoming_trip(); 
+      $data['ongoing'] = $this->booktrip_mdl->count_total_ongoing_trip(); 
+      $data['completed'] = $this->booktrip_mdl->count_total_completed_trip(); 
+      $data['cancel'] = $this->booktrip_mdl->count_total_cancel_trip();
       $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
       $data['main_content'] = $this->load->view('admin_views/dashboard/dashboard_v', '', TRUE);
       $this->load->view('admin_views/admin_master_v', $data);

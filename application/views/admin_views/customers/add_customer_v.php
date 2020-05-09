@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
         <!-- form start -->
-        <form role="form" name="add_form" action="<?php echo base_url('admin/customer/create_customer'); ?>" method="post"  class="form-validation" >
+        <form role="form" name="add_form" action="<?php echo base_url('admin/customer/create_customer'); ?>" method="post"  class="form-validation" enctype="multipart/form-data" >
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
@@ -59,8 +59,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
                         </div>
                     </div>
-                     </div>
-                    <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Gender">Gender Type</label>
@@ -129,6 +129,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Role">Role</label>
+                            <select name="userType" class="form-control required" id="userType">
+                                <option value="" selected="" disabled="">Select user role</option>
+                                <option value="4">Customer</option>
+                                <option value="2">Mil User</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('userType'); ?></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="userImage">Profile Picture<span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'userfile','class'=>'form-control'])?>
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                </div>
                     
                     
 

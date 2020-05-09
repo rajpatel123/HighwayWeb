@@ -93,7 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row">
                    
                     
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="Details">Vehicle Detail</label>
                             <div class="input-group">
@@ -103,16 +103,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('vehicle_detail'); ?></span>
                         </div>
                     </div>
-<!--                    <div class="col-md-6">
+                    
+                 
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Color">Vehicle Color </label>
+                            <label for="Chechis Number">Chechis Number </label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="v_vehicle_Color"  class="form-control required" id="v_vehicle_Color" placeholder="Enter vehicle color">
+                                <input type="text" name="chechis_number" value=" " class="form-control required" id="chechis_number" placeholder="Enter Chechis Number">
                             </div>
-                            <span class="help-block error-message"><?php// echo form_error('v_vehicle_Color'); ?></span>
+                            <span class="help-block error-message"><?php echo form_error('chechis_number'); ?></span>
                         </div>
-                    </div>-->
+                    </div>
+               
                     
                     </div>
                 <div class="row">
@@ -135,8 +138,69 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                 </div>
+                
+                 <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleFront">Vehicle Front Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'vfimagefile','class'=>'form-control'])?>
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleImage">Vehicle Back Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'vbimagefile','class'=>'form-control'])?>
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                     
+                     
+                    
                 </div>
                 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleImage">Vehicle Left Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'vlimagefile','class'=>'form-control'])?>
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleImage">Vehicle Right Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'vrimagefile','class'=>'form-control'])?>
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleImage">Vehicle Engine Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'veimagefile','class'=>'form-control'])?>
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                </div>
                 
                 <!-- /.row -->
            

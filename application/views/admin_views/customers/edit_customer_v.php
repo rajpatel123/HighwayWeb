@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <!-- form start -->
-        <form role="form" name="edit_form" action="<?php echo base_url('admin/customer/update_customer/' . $user_data['Id'] . ''); ?>" method="post" class="form-validation" >
+        <form role="form" name="edit_form" action="<?php echo base_url('admin/customer/update_customer/' . $user_data['Id'] . ''); ?>" method="post" class="form-validation" enctype="multipart/form-data" >
            
             <div class="box-body">
                 <div class="row">
@@ -52,10 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
                             </select>
-                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
+                            <span class="help-block error-message"><?php echo form_error('Role_Id'); ?></span>
                         </div>
                     </div>
                      </div>
+                
+                
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -128,6 +130,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Role">Role</label>
+                            <select name="userType" class="form-control required" id="userType">
+                                <option value="" selected="" disabled="">Select user role</option>
+                                <option value="4">Customer</option>
+                                <option value="2">Mil User</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('userType'); ?></span>
+                        </div>
+                    </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="userImage">Profile Picture<span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'userfile','class'=>'form-control'])?>
+                            </div>
+                             <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/customer/profile/<?php echo $user_data['Image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                    
+                </div>
+                
                   
                
                 <!-- /.row -->
@@ -146,4 +176,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
     document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
+    document.forms['edit_form'].elements['userType'].value = '<?php echo $user_data['Role_Id']; ?>';
 </script>

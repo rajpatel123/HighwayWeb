@@ -66,11 +66,11 @@ class Vehicle extends CI_Controller {
                 'label' => 'vehicle_name',
                 'rules' => 'trim|required|max_length[30]|min_length[3]'
             ),
-//            array(
-//                'field' => 'v_vehicle_Color',
-//                'label' => 'v_vehicle_Color',
-//                'rules' => 'trim|max_length[250]'
-//            )
+            array(
+                'field' => 'chechis_number',
+                'label' => 'chechis_number',
+                'rules' => 'trim|max_length[250]|min_length[3]'
+            )
 
         );
        
@@ -87,7 +87,7 @@ class Vehicle extends CI_Controller {
             $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
             $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
             $data['v_vehicle_model_no'] = $this->input->post('vehicle_model_no', TRUE); 
-//            $data['v_vehicle_Color'] = $this->input->post('v_vehicle_Color', TRUE); 
+            $data['v_chechis_number'] = $this->input->post('chechis_number', TRUE); 
             $data['v_status'] = 1; 
            // $data['Image'] = $this->input->post('Image', TRUE); 
            
@@ -156,6 +156,125 @@ class Vehicle extends CI_Controller {
                 }
                 }
                 
+                if ($_FILES['vfimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vfimagefile']['name'];
+                    $tmpv = $_FILES['vfimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehicleFImage=$insert_id.'_vfimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleFront/" .$vehicleFImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vfimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_front_image']=$vehicleFImage;
+                    $this->vehicle_mdl->update_vehicle($insert_id, $dataUpdate); 
+                }
+                }
+                
+                
+                 if ($_FILES['vlimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vlimagefile']['name'];
+                    $tmpv = $_FILES['vlimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehiclelImage=$insert_id.'_vlimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleLeft/" .$vehiclelImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vlimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_left_image']=$vehiclelImage;
+                    $this->vehicle_mdl->update_vehicle($insert_id, $dataUpdate); 
+                }
+                }
+                
+                
+                if ($_FILES['vrimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vrimagefile']['name'];
+                    $tmpv = $_FILES['vrimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehiclerImage=$insert_id.'_vrimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleRight/" .$vehiclerImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vrimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_right_image']=$vehiclerImage;
+                    $this->vehicle_mdl->update_vehicle($insert_id, $dataUpdate); 
+                }
+                }
+                
+                
+                
+                if ($_FILES['vbimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vbimagefile']['name'];
+                    $tmpv = $_FILES['vbimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehicleBImage=$insert_id.'_vbimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleBack/" .$vehicleBImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vbimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_back_image']=$vehicleBImage;
+                    $this->vehicle_mdl->update_vehicle($insert_id, $dataUpdate); 
+                }
+                }
+                
+                
+                if ($_FILES['veimagefile']['error'] == 0) {
+                    $imgv = $_FILES['veimagefile']['name'];
+                    $tmpv = $_FILES['veimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehicleEImage=$insert_id.'_vbimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleEngine/" .$vehicleEImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['veimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_engine_image']=$vehicleEImage;
+                    $this->vehicle_mdl->update_vehicle($insert_id, $dataUpdate); 
+                }
+                }
                
                 
                
@@ -266,6 +385,11 @@ class Vehicle extends CI_Controller {
                 'field' => 'vehicle_name',
                 'label' => 'vehicle_name',
                 'rules' => 'trim|required|max_length[30]|min_length[3]'
+            ),
+                array(
+                'field' => 'chechis_number',
+                'label' => 'chechis_number',
+                'rules' => 'trim|max_length[250]|min_length[3]'
             )
 
         );
@@ -278,7 +402,7 @@ class Vehicle extends CI_Controller {
                 $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
                 $data['v_vehicle_model_no'] = $this->input->post('vehicle_model_no', TRUE); 
                 $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
-//                $data['v_vehicle_Color'] = $this->input->post('v_vehicle_Color', TRUE); 
+                $data['v_chechis_number'] = $this->input->post('chechis_number', TRUE); 
                 $data['v_status'] = 1; 
                 $data['v_add_by'] = $this->session->userdata('admin_id');
                 $data['v_date'] = date('Y-m-d H:i:s');  
@@ -337,6 +461,127 @@ class Vehicle extends CI_Controller {
                 }
                 
                 
+                
+                if ($_FILES['vfimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vfimagefile']['name'];
+                    $tmpv = $_FILES['vfimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehicleFImage=$vehicle_id.'_vfimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleFront/" .$vehicleFImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vfimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_front_image']=$vehicleFImage;
+                    $this->vehicle_mdl->update_vehicle($vehicle_id, $dataUpdate); 
+                }
+                }
+                
+                 if ($_FILES['vlimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vlimagefile']['name'];
+                    $tmpv = $_FILES['vlimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehiclelImage=$vehicle_id.'_vlimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleLeft/" .$vehiclelImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vlimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_left_image']=$vehiclelImage;
+                    $this->vehicle_mdl->update_vehicle($vehicle_id, $dataUpdate); 
+                }
+                }
+                
+                
+                if ($_FILES['vrimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vrimagefile']['name'];
+                    $tmpv = $_FILES['vrimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehiclerImage=$vehicle_id.'_vrimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleRight/" .$vehiclerImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vrimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_right_image']=$vehiclerImage;
+                    $this->vehicle_mdl->update_vehicle($vehicle_id, $dataUpdate); 
+                }
+                }
+                
+                
+                
+                if ($_FILES['vbimagefile']['error'] == 0) {
+                    $imgv = $_FILES['vbimagefile']['name'];
+                    $tmpv = $_FILES['vbimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehicleBImage=$vehicle_id.'_vbimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleBack/" .$vehicleBImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['vbimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_back_image']=$vehicleBImage;
+                    $this->vehicle_mdl->update_vehicle($vehicle_id, $dataUpdate); 
+                }
+                }
+                
+                
+                if ($_FILES['veimagefile']['error'] == 0) {
+                    $imgv = $_FILES['veimagefile']['name'];
+                    $tmpv = $_FILES['veimagefile']['tmp_name'];
+                    $extv = strtolower(pathinfo($imgv, PATHINFO_EXTENSION));
+                     if (in_array($extv, $valid_extensions)) {
+                        $Name=$vehicleTypeData['v_t_vehicle_name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $vehicleEImage=$vehicle_id.'_veimage_'.$name_replace_with_underscore.'.'.$extv;
+                        if($imgv){
+                            $pathv = "./assets/backend/img/vehicle/vehicleEngine/" .$vehicleEImage;
+                        } else {
+                            $pathv ='';
+                        }
+                        if (move_uploaded_file($tmpv, $pathv)){
+                            $_POST['veimagefile'] = $pathv;
+                        }
+                    }
+                     if (file_exists($pathv)){
+                    $dataUpdate['v_engine_image']=$vehicleEImage;
+                    $this->vehicle_mdl->update_vehicle($vehicle_id, $dataUpdate); 
+                }
+                }
+                
+                
                 if (!empty($result)) { 
                     $sdata['success'] = 'Update successfully .'; 
                     $this->session->set_userdata($sdata); 
@@ -350,7 +595,7 @@ class Vehicle extends CI_Controller {
         } else { 
             $sdata['exception'] = 'Content not found !'; 
             $this->session->set_userdata($sdata); 
-            redirect('admin/vehicle', 'refresh'); 
+            redirect('admin/vehicle', 'refresh');
         } 
     } 
 

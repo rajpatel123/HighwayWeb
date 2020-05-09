@@ -34,12 +34,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                             <tr>
                                 <th>SL#</th>
-                                <th>Picture</th>
+<!--                                <th>Picture</th>-->
+                                <th>UserType</th>
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Email</th> 
-<!--                                <th>Address</th> -->
-<!--                                <th>Dob</th> -->
                                 <th>Gender</th> 
                                 <th>Added<br>By</th> 
                                 <th>Status</th>
@@ -52,12 +51,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php $memberObj = $this->session->userdata; ?>
                             <tr>
                                     <td><?php echo $sl++; ?></td>
-                                    <td><img src="<?php echo base_url() ?>/assets/backend/img/customer/profile/<?php echo $user_data['Image'] ?>" style="width: 20px;height: 20px;"></td>
+<!--                                    <td><img src="<?php echo base_url() ?>/assets/backend/img/customer/profile/<?php echo $user_data['Image'] ?>" style="width: 20px;height: 20px;"></td>-->
+                                    <td><?php echo $user_data['userType']; ?></td>
                                     <td><?php echo $user_data['Name']; ?></td>
                                     <td><?php echo $user_data['Mobile']; ?></td>
                                     <td><?php echo $user_data['Email']; ?></td>
-<!--                                    <td><?php // echo $user_data['Address']; ?></td>-->
-<!--                                    <td><?php // echo $user_data['Dob']; ?></td>-->
                                     <td>
                                         <?php 
                                         $gender=$user_data['Gender'];

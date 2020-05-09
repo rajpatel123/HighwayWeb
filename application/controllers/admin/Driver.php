@@ -22,6 +22,7 @@ class Driver extends CI_Controller {
         $data['active_sub_menu'] = 'driver';
         $data['active_sub_sub_menu'] = ''; 
         $data['driver_info'] = $this->driver_mdl->get_driver_info();
+       // echo '<pre>' ;print_r($data['driver_info']);die;
       
         $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('admin_views/drivers/manage_driver_v', $data, TRUE);
@@ -140,8 +141,7 @@ class Driver extends CI_Controller {
                     $imgdl = $_FILES['dlfile']['name'];
                     $tmpdl = $_FILES['dlfile']['tmp_name'];
                     $extdl = strtolower(pathinfo($imgdl, PATHINFO_EXTENSION));
-                  
-                     if (in_array($extdl, $valid_extensions_dl)) {
+                    if(in_array($extdl, $valid_extensions_dl)) {
                           
                         $driverName=$data['Name'];
                         $dl_driver_with_underscore = str_replace(' ', '_', $driverName);
@@ -164,6 +164,63 @@ class Driver extends CI_Controller {
                 }
             
             //  ========================Dl upload= End===========//
+            
+               //=============aadhaar front===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharfrontfile']['error'] == 0) {
+                    $img = $_FILES['aadharfrontfile']['name'];
+                    $tmp = $_FILES['aadharfrontfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $driverName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $addharFPic=$insert_id.'_aadharFront_'.$name_replace_with_underscore.'.'.$ext;
+                        if($img){
+                            $path = "./assets/backend/img/driver/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharfrontfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_front_image']=$addharFPic;
+                    $this->driver_mdl->update_driver_dl($insert_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============aadhaar front end===============//  
+                
+                
+                 //=============aadhaar back===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharbackfile']['error'] == 0) {
+                    $img = $_FILES['aadharbackfile']['name'];
+                    $tmp = $_FILES['aadharbackfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $driverName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $addharFPic=$insert_id.'_aadharBack_'.$name_replace_with_underscore.'.'.$ext;
+                        if($img){
+                            $path = "./assets/backend/img/driver/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharbackfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_back_image']=$addharFPic;
+                    $this->driver_mdl->update_driver_dl($insert_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============aadhaar back end===============// 
+                
+                
           if (!empty($insert_id) && (!empty($insert_driverid))) { 
                 $sdata['success'] = 'Add successfully . '; 
                 $this->session->set_userdata($sdata); 
@@ -356,6 +413,68 @@ class Driver extends CI_Controller {
                 }
             
             //  ========================Dl upload= End===========//
+                
+                
+                
+                 //=============aadhaar front===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharfrontfile']['error'] == 0) {
+                    $img = $_FILES['aadharfrontfile']['name'];
+                    $tmp = $_FILES['aadharfrontfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $driverName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $addharFPic=$driver_id.'_aadharFront_'.$name_replace_with_underscore.'.'.$ext;
+                        if($img){
+                            $path = "./assets/backend/img/driver/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharfrontfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_front_image']=$addharFPic;
+                    $this->driver_mdl->update_driver_dl($driver_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============aadhaar front end===============//  
+                
+                
+                 //=============aadhaar back===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharbackfile']['error'] == 0) {
+                    $img = $_FILES['aadharbackfile']['name'];
+                    $tmp = $_FILES['aadharbackfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $driverName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $addharFPic=$driver_id.'_aadharBack_'.$name_replace_with_underscore.'.'.$ext;
+                        if($img){
+                            $path = "./assets/backend/img/driver/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharbackfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_back_image']=$addharFPic;
+                    $this->driver_mdl->update_driver_dl($driver_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============aadhaar back end===============// 
+                
+                
+                
+                
+                
                  
                 if (!empty($result)) { 
                     $sdata['success'] = 'Update successfully .'; 

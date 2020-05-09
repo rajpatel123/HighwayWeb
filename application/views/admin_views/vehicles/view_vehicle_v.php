@@ -52,6 +52,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $vehicle_data['v_vehicle_number']; ?></td>
         </tr>
         <tr>
+            <td class="text-success"><i class="fa fa-envelope-o"></i>Chechis Number:</td>
+            <td><?php echo $vehicle_data['v_chechis_number']; ?></td>
+        </tr>
+        <tr>
             <td class="text-success"><i class="fa fa-calendar"></i> Vehicle Model :</td>
             <td><?php echo $vehicle_data['v_vehicle_model_no']; ?></td>
         </tr>

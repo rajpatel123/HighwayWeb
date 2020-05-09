@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Vehicle Type</th>
                                 <th>Vehicle Name</th>
                                 <th>Model Number</th>
-                                 <th>Status</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

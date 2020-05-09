@@ -151,6 +151,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     
                   </div>  
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Aadhar_front">Aadhar Front Picture <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'aadharfrontfile','class'=>'form-control'])?>
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Aadhar_back">Aadhar Back Picture<span class="required">*</span></label>
+                        <div class="input-group">
+                            <?php echo form_upload(['name'=>'aadharbackfile','class'=>'form-control'])?>
+                        </div>
+                        <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                    </div>
+                </div>
+                </div>
                     <div class="row">
                      
                     
@@ -167,7 +188,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                    
                 </div>
-            </div>
             <div class="box-footer">
                 <a href="<?php echo base_url('admin/driver'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
                 <button type="submit" value="upload" class="btn btn-success"><i class="fa fa-plus"></i> Add Info</button>

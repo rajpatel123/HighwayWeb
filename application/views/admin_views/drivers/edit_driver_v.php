@@ -154,6 +154,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     
                 </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Aadhar_front">Aadhar Front Picture <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'aadharfrontfile','class'=>'form-control'])?>
+                            </div>
+                            <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/aadhar/<?php echo $user_data['aadhar_front_image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                 <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Aadhar_back">Aadhar Back Picture<span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'aadharbackfile','class'=>'form-control'])?>
+                            </div>
+                            <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/aadhar/<?php echo $user_data['aadhar_back_image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                    
+                </div>
                 <!-- /.row -->
             </div>
                 

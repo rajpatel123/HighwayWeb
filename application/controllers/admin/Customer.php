@@ -73,6 +73,11 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|required'
             ),
             array(
+                'field' => 'userType',
+                'label' => 'userType',
+                'rules' => 'trim|required'
+            ),
+            array(
                 'field' => 'Gender',
                 'label' => 'Gender',
                 'rules' => 'trim|required'
@@ -88,6 +93,7 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|max_length[15]|min_length[10]'
             )
             );
+        $this->load->library('upload', $config);
         $this->form_validation->set_rules($config);
        // $this->load->library('upload', $config);
         if ($this->form_validation->run() == FALSE) {
@@ -97,17 +103,14 @@ class Customer extends CI_Controller {
             
             $data['Name'] = $this->input->post('Name', TRUE); 
             $data['Mobile'] = $this->input->post('Mobile', TRUE); 
-            
-            
-            
             $data['Address'] = $this->input->post('Address', TRUE); 
+            $data['Role_Id'] = $this->input->post('userType', TRUE); 
             $data['Email'] = $this->input->post('Email', TRUE); 
             $data['Status'] = $this->input->post('Status', TRUE); 
             $data['Gender'] = $this->input->post('Gender', TRUE); 
             $data['emergency_contact1'] = $this->input->post('emergency_contact1', TRUE); 
             $data['emergency_contact2'] = $this->input->post('emergency_contact2', TRUE); 
-           // $data['Image'] = $this->input->post('Image', TRUE); 
-            $data['Role_Id'] = 4; 
+            $data['Image'] = ''; 
             $data['add_by'] = $this->session->userdata('admin_id'); 
             $data['u_date'] = date('Y-m-d');  
             
@@ -115,6 +118,36 @@ class Customer extends CI_Controller {
             $mobileCheckData = $this->customer_mdl->checkMobileData($data['Mobile']); 
             if(empty($mobileCheckData)){
                 $insert_id = $this->customer_mdl->add_customer_data($data); 
+                
+                
+                //=============profile upload===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['userfile']['error'] == 0) {
+                    $img = $_FILES['userfile']['name'];
+                    $tmp = $_FILES['userfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $userName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $userName);
+                        $profilePic=$insert_id.'_'.$name_replace_with_underscore.'.'.$ext;
+                        if($img){
+                            $path = "./assets/backend/img/customer/profile/" .$profilePic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['userfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['Image']=$profilePic;
+                    $this->customer_mdl->update_customer($insert_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============profile upload end===============//
+                
+                
             if (!empty($insert_id)) { 
                 $sdata['success'] = 'Add successfully . '; 
                 $this->session->set_userdata($sdata); 
@@ -210,6 +243,11 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|required|max_length[250]'
             ),
             array(
+                'field' => 'userType',
+                'label' => 'userType',
+                'rules' => 'trim|required'
+            ),
+            array(
                 'field' => 'Address',
                 'label' => 'Address',
                 'rules' => 'trim|required|max_length[250]'
@@ -235,16 +273,17 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|max_length[250]'
             )
             );
+            $this->load->library('upload', $config);
             $this->form_validation->set_rules($config); 
             if ($this->form_validation->run() == FALSE) { 
                 $this->edit_customer($customer_id); 
             } else { 
                 $data['Name'] = $this->input->post('Name', TRUE); 
+                $data['Role_Id'] = $this->input->post('userType', TRUE); 
                 $data['Mobile'] = $this->input->post('Mobile', TRUE); 
                 $data['Address'] = $this->input->post('Address', TRUE); 
                 $data['Email'] = $this->input->post('Email', TRUE); 
                 $data['Status'] = $this->input->post('Status', TRUE); 
-                $data['Role_Id'] = 4; 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
                 $data['emergency_contact1'] = $this->input->post('emergency_contact1', TRUE); 
                 $data['emergency_contact2'] = $this->input->post('emergency_contact_two', TRUE); 
@@ -253,6 +292,35 @@ class Customer extends CI_Controller {
                
                 $result = $this->customer_mdl->update_customer($customer_id, $data); 
                 // echo '<pre>' ;print_r($result);die;
+                
+                 //=============profile upload===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['userfile']['error'] == 0) {
+                    $img = $_FILES['userfile']['name'];
+                    $tmp = $_FILES['userfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $userName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $userName);
+                        $profilePic=$customer_id.'_'.$name_replace_with_underscore.'.'.$ext;
+                        if($img){
+                            $path = "./assets/backend/img/customer/profile/" .$profilePic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['userfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['Image']=$profilePic;
+                    $this->customer_mdl->update_customer($customer_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============profile upload end===============//
+                
+                
                 if (!empty($result)) { 
                     $sdata['success'] = 'Update successfully .'; 
                     $this->session->set_userdata($sdata); 

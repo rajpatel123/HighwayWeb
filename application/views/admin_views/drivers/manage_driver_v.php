@@ -39,7 +39,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Email</th> 
 <!--                                <th>Address</th> -->
 <!--                                <th>Dob</th> -->
-                                <th>Gender</th> 
+                                <th>Vehicle</th> 
+                                <th>Assign Vehicle</th> 
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -56,16 +57,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $user_data['Email']; ?></td>
 <!--                                    <td><?php // echo $user_data['Address']; ?></td>-->
 <!--                                    <td><?php // echo $user_data['Dob']; ?></td>-->
+                                    
+                                    <?php if($user_data['v_type']){ ?>
+                                        <td><?php echo $user_data['v_type'].' '.$user_data['v_vehicle_number']; ?></td>
+                                   <?php } else { ?>
+                                       <td><?php echo 'N/A'; ?></td>
+                                   <?php } ?>
+                                     
                                     <td>
-                                        <?php 
-                                        $gender=$user_data['Gender'];
-                                        if($gender==1){
-                                            echo 'Male';
-                                            }
-                                        if($gender==2){
-                                            echo 'Female';
-                                        }
-                                        ?>
+                                        <?php if($user_data['a_v_t_d_id']) {?>
+                                        <a href="<?php echo base_url('admin/assignVehicle/edit_assign_vehicle/' . $user_data['a_v_t_d_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Assign Vehicle for <?php echo ucwords($user_data['Name']);?> ">Edit Assign Vehicle</a>
+                                      
+                                       <?php } else { ?>
+                                          <a href="<?php echo base_url('admin/assignVehicle/add_assign_vehicle/' . $user_data['Id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Assign Vehicle for <?php echo ucwords($user_data['Name']);?> ">Assign Vehicle</a>
+                                      
+                                        <?php } ?>
+                                        
                                     </td>
                                     
                                     <td>

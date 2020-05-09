@@ -32,14 +32,34 @@ class Customer_model extends CI_Model {
     }  
 	
     public function get_customer_info() { 
-        $this->db->select('*') 
-                ->from('users')
-                ->where('Role_Id', 4)
-                ->where('deletion_status', 0)
-                ;
-        $query_result = $this->db->get(); 
-        $result = $query_result->result_array(); 
-        return $result; 
+        $userRole=array(2,4);
+        $this->db->select('u.*,r.Title') 
+                ->from('users u')
+                ->join('roles r', 'r.Id=u.Role_Id','left')
+                ->where('u.deletion_status', 0);
+        $this->db->where_in('u.Role_Id',$userRole);
+        $query=$this->db->get();
+         if($query->num_rows() > 0){
+                $data= $query->result();
+                $counter=0;
+                $cat=array();
+                foreach($data as $row){
+                    $cat[$counter]['Id']=$row->Id;
+                    $cat[$counter]['Name']= ucwords($row->Name);
+                    $cat[$counter]['Mobile']= $row->Mobile;
+                    $cat[$counter]['Email']= $row->Email;
+                    $cat[$counter]['Gender']= $row->Gender;
+                    $cat[$counter]['Status']= $row->Status;
+                    $cat[$counter]['userType']= $row->Title;
+                    $cat[$counter]['Image']= $row->Image;
+                    $cat[$counter]['created_on']= $row->created_on;
+                   
+                    $counter++;
+                }
+                return $cat;
+            } else {
+            return array();
+        } 
     } 
 
     public function get_Customer_by_customer_id($customer_id) { 
