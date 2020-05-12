@@ -30,123 +30,133 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6">
                     <dl class="row">
                         <?php  if($user_data['t_trip_id']) { ?>
-                        <dt class="col-sm-4">Trip ID :</dt>
-                        <dd class="col-sm-6"><?php echo $user_data['t_trip_id']; ?></dd>
+                        <dt class="col-sm-5">Trip ID :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['t_trip_id']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['tripType']) { ?>
-                        <dt class="col-sm-4">Trip Type :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['tripType']; ?></dd>
+                        <dt class="col-sm-5">Trip Type :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['tripType']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['pickupAddress']) { ?>
-                        <dt class="col-sm-4">Pickup Address :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['pickupAddress']; ?></dd>
+                        <dt class="col-sm-5">Pickup Address :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['pickupAddress']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['dropAddress']) { ?>
-                        <dt class="col-sm-4">Drop Address :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['dropAddress']; ?></dd>
+                        <dt class="col-sm-5">Drop Address :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['dropAddress']; ?></dd>
                         <?php } ?>
                             
                         <?php  if($user_data['distance']) { ?>
-                        <dt class="col-sm-4">Distance :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['distance'].' KM' ?></dd>
+                        <dt class="col-sm-5">Distance :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['distance'].' KM' ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['basePrice']) { ?>
-                        <dt class="col-sm-4">Base Price :</dt>
-                        <dd class="col-sm-8"><?php echo '₹ '.$user_data['basePrice'] ?></dd>
+                        <dt class="col-sm-5">Base Price :</dt>
+                        <dd class="col-sm-7"><?php echo '₹ '.$user_data['basePrice'] ?></dd>
                         <?php } ?>
                         
+                        <?php  if($user_data['v_t_gst']) { ?>
+                        <dt class="col-sm-5">GST:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['v_t_gst']; ?></dd>
+                        <?php } ?>
+                        
+                         <?php  if($user_data['totalAmount']) { ?>
+                        <dt class="col-sm-5">Total Amount:</dt>
+                        <dd class="col-sm-7"><?php echo '₹ '.$user_data['totalAmount']; ?></dd>
+                        <?php } ?>
+                            
                         <?php  if($user_data['tripType']) { ?>
-                        <dt class="col-sm-4">TRIP Type :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['tripType']; ?></dd>
+                        <dt class="col-sm-5">TRIP Type :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['tripType']; ?></dd>
                         <?php } ?>
                                                     
                         <?php  if($user_data['t_start_date']) { ?>
-                        <dt class="col-sm-4">Trip Start Time :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['t_start_date']; ?></dd>
+                        <dt class="col-sm-5">Trip Start Time :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['t_start_date']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['t_end_date']) { ?>
-                        <dt class="col-sm-4">Trip End Date :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['t_end_date']; ?></dd>
+                        <dt class="col-sm-5">Trip End Date :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['t_end_date']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['t_start_date']) { ?>
-                        <dt class="col-sm-4">Trip Start time :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['t_start_time']; ?></dd>
+                        <dt class="col-sm-5">Trip Start time :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['t_start_time']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['t_end_time']) { ?>
-                        <dt class="col-sm-4">Trip End Time :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['t_end_time']; ?></dd>
+                        <dt class="col-sm-5">Trip End Time :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['t_end_time']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['t_add_date']) { ?>
-                        <dt class="col-sm-4">Trip Add Date :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['t_add_date']; ?></dd>
+                        <dt class="col-sm-5">Trip Add Date :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['t_add_date']; ?></dd>
                         <?php } ?>
                             
                         <?php  if($user_data['vehicleType']) { ?>
-                        <dt class="col-sm-4">Vehicle Type :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['vehicleType']; ?></dd>
+                        <dt class="col-sm-5">Vehicle Type :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['vehicleType']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['vehicleName']) { ?>
-                        <dt class="col-sm-4">Vehicle :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['vehicleName']; ?></dd>
+                        <dt class="col-sm-5">Vehicle :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['vehicleName']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['vehicle_dimension_size']) { ?>
-                        <dt class="col-sm-4">Dimension Size :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['vehicle_dimension_size']; ?></dd>
+                        <dt class="col-sm-5">Dimension Size:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['vehicle_dimension_size']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['vehicle_load_capacity']) { ?>
-                        <dt class="col-sm-4">Load Capacity :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['vehicle_load_capacity']; ?></dd>
+                        <dt class="col-sm-5">Load Capacity:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['vehicle_load_capacity']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['userName']) { ?>
-                        <dt class="col-sm-4">Customer:</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['userName']; ?></dd>
+                        <dt class="col-sm-5">Customer:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['userName']; ?></dd>
                         <?php } ?>
                         
                          <?php  if($user_data['customerMobile']) { ?>
-                        <dt class="col-sm-4">Mobile:</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['customerMobile']; ?></dd>
+                        <dt class="col-sm-5">Mobile:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['customerMobile']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['driverName']) { ?>
-                        <dt class="col-sm-4">Driver :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['driverName']; ?></dd>
+                        <dt class="col-sm-5">Driver:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['driverName']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['driverMobile']) { ?>
-                        <dt class="col-sm-4">Mobile:</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['driverMobile']; ?></dd>
+                        <dt class="col-sm-5">Mobile:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['driverMobile']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['ownerName']) { ?>
-                        <dt class="col-sm-4">Owner :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['ownerName']; ?></dd>
+                        <dt class="col-sm-5">Owner:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['ownerName']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['ownerMobile']) { ?>
-                        <dt class="col-sm-4">Mobile:</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['ownerMobile']; ?></dd>
+                        <dt class="col-sm-5">Mobile:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['ownerMobile']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['tripStatus']) { ?>
-                        <dt class="col-sm-4">Status :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['tripStatus']; ?></dd>
+                        <dt class="col-sm-5">Status :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['tripStatus']; ?></dd>
                         <?php } ?>
                         
                          <?php  if($user_data['a_b_t_accept_status']) { ?>
-                        <dt class="col-sm-4">Trip Status :</dt>
-                        <dd class="col-sm-8"><?php echo $user_data['a_b_t_accept_status']; ?></dd>
+                        <dt class="col-sm-5">Trip Status :</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['a_b_t_accept_status']; ?></dd>
                         <?php } ?>
                         
                        

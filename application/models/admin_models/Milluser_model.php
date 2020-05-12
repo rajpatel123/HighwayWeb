@@ -5,6 +5,7 @@ class Milluser_model extends CI_Model {
         parent::__construct(); 
     }
     private $_users = 'users';  
+    private $_goods_provider = 'tbl_goods_provider';  
     
     public function check_login_info() {
         $username_or_email_address = $this->input->post('username_or_email_address', true);
@@ -30,6 +31,18 @@ class Milluser_model extends CI_Model {
         
         return $this->db->insert_id(); 
     }  
+    
+    public function add_goodprovider_mil_images_data($data) { 
+        //echo '<pre>' ;print_r($data);die;
+        $this->db->insert($this->_goods_provider, $data); 
+        
+        return $this->db->insert_id(); 
+    }  
+    
+     public function update_goodprovider_mil_images_data($milluser_id, $data) { 
+        $this->db->update($this->_goods_provider, $data, array('g_p_i_id' => $milluser_id)); 
+        return $this->db->affected_rows(); 
+    } 
 	
     public function get_milluser_info() { 
         $this->db->select('*') 
@@ -46,6 +59,13 @@ class Milluser_model extends CI_Model {
         $result = $this->db->get_where($this->_users, array('Id' => $milluser_id , 'deletion_status' => 0)); 
         return $result->row_array(); 
     } 
+    
+    public function get_millimageData($milluser_id) { 
+        $result = $this->db->get_where($this->_goods_provider, array('g_p_goods_provider_id' => $milluser_id , 'g_p_delete' => 0)); 
+        return $result->row_array(); 
+    } 
+
+    
 
     public function published_milluser_by_id($milluser_id) { 
         $this->db->update($this->_users, array('Status' => 1), array('Id' => $milluser_id));  

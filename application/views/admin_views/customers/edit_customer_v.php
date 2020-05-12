@@ -133,17 +133,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Role">Role</label>
-                            <select name="userType" class="form-control required" id="userType">
-                                <option value="" selected="" disabled="">Select user role</option>
-                                <option value="4">Customer</option>
-                                <option value="2">Mil User</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('userType'); ?></span>
-                        </div>
-                    </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
                             <label for="userImage">Profile Picture<span class="required">*</span></label>
                             <div class="input-group">
                                 <?php echo form_upload(['name'=>'userfile','class'=>'form-control'])?>

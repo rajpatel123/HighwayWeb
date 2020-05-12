@@ -124,18 +124,22 @@ class Trip_model extends CI_Model {
                     $tripData['t_end_latitude']=$row->t_end_latitude;
                     $tripData['t_end_longitude']=$row->t_end_longitude;
                     $tripData['t_start_latitude']=$row->t_start_latitude;
+                    $tripData['vehicleType']=$row->v_t_type;
                     
+                    $vehicleTypeId=$row->v_t_id;
                     $startlat=$row->t_start_latitude;
                     $startLong=$row->t_start_longitude;
                     $endlat=$row->t_end_latitude;
                     $endLong=$row->t_end_longitude;
                     $unit = "K";  // K = kilometer
-                    $distanceData=$this->distance($startlat,$startLong,$endlat,$endLong,$unit);
+                    $distance_all_Data=$this->getPriceDetailByDistance($startlat,$startLong,$endlat,$endLong,$unit,$vehicleTypeId);
+                    
+                    $tripData['distance']=$distance_all_Data['totDistance'];
+                    $tripData['basePrice']=$distance_all_Data['totDistance']*$row->v_t_per_km_charge;
+                    $tripData['v_t_gst']=$row->v_t_gst;
+                    $tripData['totalAmount']=$distance_all_Data['totalAmount'];
                     
                     
-                    $tripData['distance']=$distanceData;
-                    $tripData['basePrice']=$distanceData*$row->v_t_per_km_charge;
-                    $tripData['vehicleType']=$row->v_t_type;
                     $tripData['a_b_t_accept_status']=$row->a_b_t_accept_status;
                     $tripData['vehicle_dimension_size']=$row->v_d_s_dimension_size;
                     $tripData['vehicle_load_capacity']=$row->v_l_c_load_capacity;
@@ -411,7 +415,7 @@ class Trip_model extends CI_Model {
         return $this->db->affected_rows(); 
     } 
     public function getAllTripRequestHistory() {  //======All Requests from all customers with paginatin which not accepted or cancelled by driver==========//
-            $this->db->select('t.*,b.*,a.*,c.Name as customerName,c.Role_Id as customer_role_id,vt.v_t_vehicle_name,o.Name as ownerName, d.Name as driverName,') 
+            $this->db->select('t.*,b.*,a.*,c.Name as customerName,c.Role_Id as customer_role_id,vt.*,v.*,o.Name as ownerName, d.Name as driverName,') 
                 ->from('tbl_book_trip_link b ')
                 ->join('tbl_trip t', 't.t_id=b.b_l_t_trip_id','left')
                 ->join('tbl_accept_booking_trip a', 'a.a_b_t_booking_trip_id=b.b_l_t_trip_id','left')    
@@ -437,6 +441,22 @@ class Trip_model extends CI_Model {
                     $tripData[$counter]['t_start_date']=$row->t_start_date;
                     $tripData[$counter]['t_end_date']=$row->t_end_date;
                     $tripData[$counter]['vehicleName']=$row->v_t_vehicle_name;
+                    
+                    
+                    $vehicleTypeId=$row->v_t_id;
+                    $startlat=$row->t_start_latitude;
+                    $startLong=$row->t_start_longitude;
+                    $endlat=$row->t_end_latitude;
+                    $endLong=$row->t_end_longitude;
+                    $unit = "K";  // K = kilometer
+                    $distance_all_Data=$this->getPriceDetailByDistance($startlat,$startLong,$endlat,$endLong,$unit,$vehicleTypeId);
+                    
+                    $tripData[$counter]['distance']=$distance_all_Data['totDistance'];
+                    $tripData[$counter]['basePrice']=$distance_all_Data['totDistance']*$row->v_t_per_km_charge;
+                    $tripData[$counter]['v_t_gst']=$row->v_t_gst;
+                    $tripData[$counter]['totalAmount']=$distance_all_Data['totalAmount'];
+                    
+                    
                     $tripData[$counter]['ownerName']=$row->ownerName;
                     if($row->driverName){
                     $tripData[$counter]['driverName']=$row->driverName;
@@ -535,31 +555,44 @@ class Trip_model extends CI_Model {
             
             
             
-    public  function getPriceDetailByDistance($tripId,$driverId,$distanceData,$totalTime) {
-       // print_r($tripId);die;
-        if(isset($tripId)>0){
+    public  function getPriceDetailByDistance($lat1, $lon1, $lat2, $lon2, $unit,$vehicleTypeId) {
+        if(isset($vehicleTypeId)>0){
         $this->db->select(array("*"))
                 ->from("tbl_vehicle_type vt");
          $this->db->where(array(
-                    "vt.v_t_delete" => 0,
+                    //"vt.v_t_delete" => 0,
+                    "vt.v_t_id" => $vehicleTypeId,
                     ));
         }
-              
-         $query = $this->db->get();
+        $query = $this->db->get();
         // echo  $this->db->last_query();die;
-          
-        
          if($query->num_rows() > 0){
                 $data= $query->result();
-                
                 $cat = array();
-               // echo '<pre>' ;print_r($data);die;
-                foreach($data as $row){
-                     $distancePrice = $row->v_t_per_km_charge*$distanceData;
+                
+                if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+                return 0;
+              }
+              else {
+                $theta = $lon1 - $lon2;
+                $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+                $dist = acos($dist);
+                $dist = rad2deg($dist);
+                $miles = $dist * 60 * 1.1515;
+                $unit = strtoupper($unit);
+                $miles_in_k = round($miles * 1.609344);
+                $miles_in_N = round($miles * 0.8684);
+                
+
+                if ($unit == "K") {
+                  $distanceData = $miles_in_k;
+                } 
+              }
+              foreach($data as $row){
+                    $distancePrice = $row->v_t_per_km_charge*$distanceData;
                     $gstPrise = $row->v_t_gst*$distancePrice/100;
                     $totalAmount=$distancePrice+$gstPrise;
                     $cat['totDistance']=$distanceData;
-                    $cat['travelTime']=$totalTime;
                     $cat['basedFarefixed']=$distancePrice;
                     $cat['distancePrice']=$distancePrice ;
                     $cat['peekHourCharges']=$row->v_t_per_km_charge;
@@ -577,5 +610,8 @@ class Trip_model extends CI_Model {
         }
     }
 }
+
+
+
 
 

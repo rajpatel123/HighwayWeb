@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <!-- form start -->
-        <form role="form" name="edit_form" action="<?php echo base_url('admin/vehicleType/update_vehicle_type/' . $user_data['v_t_id'] . ''); ?>" method="post" class="form-validation" >
+        <form role="form" name="edit_form" action="<?php echo base_url('admin/vehicleType/update_vehicle_type/' . $user_data[0]['v_t_id'] . ''); ?>" method="post" class="form-validation" >
            
             <div class="box-body">
                 <div class="row">
@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Name">Vehicle Name</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="v_vehicle_name" value="<?php echo $user_data['v_t_vehicle_name'];  ?>" class="form-control required" id="v_vehicle_name" placeholder="Enter vehicle name">
+                                <input type="text" name="v_vehicle_name" value="<?php echo $user_data[0]['v_t_vehicle_name'];  ?>" class="form-control required" id="v_vehicle_name" placeholder="Enter vehicle name">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('v_vehicle_name'); ?></span>
                         </div>
@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Name">Vehicle Based Fare</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="v_t_fare" value="<?php echo $user_data['v_t_fare'];  ?>" class="form-control required" id="v_t_fare" placeholder="Enter vehicle based fare">
+                                <input type="text" name="v_t_fare" value="<?php echo $user_data[0]['v_t_fare'];  ?>" class="form-control required" id="v_t_fare" placeholder="Enter vehicle based fare">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('v_t_fare'); ?></span>
                         </div>
@@ -90,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Name">Vehicle per km charge</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="v_t_per_km_charge" value="<?php echo $user_data['v_t_per_km_charge'];  ?>" class="form-control required" id="v_t_per_km_charge" placeholder="Enter vehicle per km charge">
+                                <input type="text" name="v_t_per_km_charge" value="<?php echo $user_data[0]['v_t_per_km_charge'];  ?>" class="form-control required" id="v_t_per_km_charge" placeholder="Enter vehicle per km charge">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('v_t_per_km_charge'); ?></span>
                         </div>
@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Name">Vehicle night charge per km</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="v_t_nigh_charge_per_km" value="<?php echo $user_data['v_t_nigh_charge_per_km'];  ?>" class="form-control required" id="v_t_nigh_charge_per_km" placeholder="Enter vehicle night charge per km">
+                                <input type="text" name="v_t_nigh_charge_per_km" value="<?php echo $user_data[0]['v_t_nigh_charge_per_km'];  ?>" class="form-control required" id="v_t_nigh_charge_per_km" placeholder="Enter vehicle night charge per km">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('v_t_nigh_charge_per_km'); ?></span>
                         </div>
@@ -112,7 +112,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Name">Vehicle GST</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="v_t_gst" value="<?php echo $user_data['v_t_gst'];  ?>" class="form-control required" id="v_t_gst" placeholder="Enter vehicle gst">
+                                <input type="text" name="v_t_gst" value="<?php echo $user_data[0]['v_t_gst'];  ?>" class="form-control required" id="v_t_gst" placeholder="Enter vehicle gst">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('v_t_gst'); ?></span>
                         </div>
@@ -122,7 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Name">Vehicle Min KM</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="v_t_min_km" value="<?php echo $user_data['v_t_min_km'];  ?>" class="form-control required" id="v_t_min_km" placeholder="Enter vehicle min km">
+                                <input type="text" name="v_t_min_km" value="<?php echo $user_data[0]['v_t_min_km'];  ?>" class="form-control required" id="v_t_min_km" placeholder="Enter vehicle min km">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('v_t_min_km'); ?></span>
                         </div>
@@ -145,6 +145,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
 </section>
 <script type="text/javascript">
-    document.forms['edit_form'].elements['v_t_vehicle_size_id'].value = '<?php echo $user_data['v_t_vehicle_size_id']; ?>';
-   document.forms['edit_form'].elements['v_t_vehicle_load_capacity_id'].value = '<?php echo $user_data['v_t_vehicle_load_capacity_id']; ?>';
+    document.forms['edit_form'].elements['v_t_vehicle_size_id'].value = '<?php echo $user_data[0]['v_t_vehicle_size_id']; ?>';
+   document.forms['edit_form'].elements['v_t_vehicle_load_capacity_id'].value = '<?php echo $user_data[0]['v_t_vehicle_load_capacity_id']; ?>';
 </script>

@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <!-- form start -->
-        <form role="form" name="edit_form" action="<?php echo base_url('admin/customer/update_customer/' . $user_data['Id'] . ''); ?>" method="post" class="form-validation" >
+        <form role="form" name="edit_form" action="<?php echo base_url('admin/milluser/update_milluser/' . $user_data['Id'] . ''); ?>" method="post"  enctype="multipart/form-data" class="form-validation" >
            
             <div class="box-body">
                 <div class="row">
@@ -41,9 +41,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Name'); ?></span>
                         </div>
                     </div>
-                   
-                    
-                    
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Status">Active Status</label>
@@ -55,7 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
                         </div>
                     </div>
-                    
+                    </div>
+                   <div class="row"> 
                     
                     <div class="col-md-6">
                         <div class="form-group">
@@ -68,10 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
                         </div>
                     </div>
-                    
-
-                    
-                    <div class="col-md-6">
+                       <div class="col-md-6">
                         <div class="form-group">
                             <label for="Mobile">Mobile</label>
                             <div class="input-group">
@@ -81,7 +76,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Mobile'); ?></span>
                         </div>
                     </div>
-
+                    </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Address">Address</label>
@@ -92,8 +88,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Address'); ?></span>
                         </div>
                     </div>
-                    
                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control required" id="Email" placeholder="Enter email">
+                            </div>
+                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
+                        </div>
+                    </div>
+                    
+<!--                    <div class="col-md-6">
                         <div class="form-group">
                         <label for="Dob">Dob</label>
                         <div class="input-group date" data-provide="datepicker">
@@ -105,23 +111,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <span class="help-block error-message"><?php echo form_error('Dob'); ?></span>
                       </div>   
+                    </div>-->
                     </div>
-                    
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Email">Email</label>
+                            <label for="mil first">Mil Image First <span class="required">*</span></label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control required" id="Email" placeholder="Enter email">
+                                <?php echo form_upload(['name'=>'milFirstfile','class'=>'form-control'])?>
                             </div>
-                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
+                            <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/milluser/<?php echo $millImageData['g_p_mil_image_first'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
                     </div>
-                  
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="mil second">Mil Image Second<span class="required">*</span></label>
+                        <div class="input-group">
+                            <?php echo form_upload(['name'=>'milSecondfile','class'=>'form-control'])?>
+                        </div>
+                         <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/milluser/<?php echo $millImageData['g_p_mil_image_second'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                        <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="profile">Profile Picture <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'milprofilefile','class'=>'form-control'])?>
+                            </div>
+                             <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/milluser/<?php echo $user_data['Image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+               
                 </div>
                 <!-- /.row -->
             </div>
-                </div>
+                
             <!-- /.box-body -->
             <div class="box-footer">
                 <a href="<?php echo base_url('admin/customer'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>

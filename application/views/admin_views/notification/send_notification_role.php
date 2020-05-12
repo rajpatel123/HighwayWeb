@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!-- Content Header (Page header) -->
-<section class="content">
+<section style="    margin-top: 74px;" class="content">
     <div class="box box-success">
         <div class="box-header with-border">
             <h3 class="box-title">Send Notification</h3>

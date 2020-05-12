@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Millusers
-        <small>Manage Millusers</small>
+        <?php echo $title; ?>
+        <small><?php echo $title; ?></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <section class="content">
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">Millusers</h3>
+            <h3 class="box-title"><?php echo $title; ?></h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -25,9 +25,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="box-body">
             <div class="row">
-<!--                <div class="col-md-12" >
-                    <a href="<?php // echo base_url('admin/milluser/add_milluser'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Add Millusers </a>
-                </div>-->
+                <div class="col-md-12" >
+                    <a href="<?php  echo base_url('admin/milluser/add_milluser'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Add Goods Provider </a>
+                </div>
                 <div class="col-md-12" style="margin-top: 25px;">
                     <table id="example2" class="table table-bordered table-striped">
                         <thead>
@@ -37,10 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Email</th> 
-<!--                                <th>Address</th> 
-                                <th>Dob</th> -->
                                 <th>Gender</th> 
-                                <th>Added<br>By</th> 
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -55,8 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $user_data['Name']; ?></td>
                                     <td><?php echo $user_data['Mobile']; ?></td>
                                     <td><?php echo $user_data['Email']; ?></td>
-<!--                                    <td><?php // echo $user_data['Address']; ?></td>
-                                    <td><?php // echo $user_data['Dob']; ?></td>-->
                                     <td>
                                         <?php 
                                         $gender=$user_data['Gender'];
@@ -68,7 +63,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         }
                                         ?>
                                     </td>
-                                    <td><?php echo $memberObj['admin_name']; ?></td>
                                     
                                     <td>
                                         <?php
@@ -81,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         ?>
                                         </td>
                                         <td>
-<!--                                        <a href="<?php // echo base_url('admin/milluser/edit_milluser/' . $user_data['Id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>-->
+                                        <a href="<?php  echo base_url('admin/milluser/edit_milluser/' . $user_data['Id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
                                         <a href="<?php echo base_url('admin/milluser/view_milluser/' . $user_data['Id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>
                                         <a href="<?php echo base_url('admin/milluser/remove_milluser/' . $user_data['Id'] . '') ?>" class="btn btn-danger btn-xs check_delete" data-toggle="tooltip" title="Delete"><i class="fa fa-remove"></i></a>
                                     </td>

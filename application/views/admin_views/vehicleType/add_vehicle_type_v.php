@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li> 
-        <li><a href="<?php echo base_url('admin/vahicle_type/vahicle_type'); ?>"><i class="fa fa-cogs"></i> Manage Vehicles Type</a></li>
+        <li><a href="<?php echo base_url('admin/vehicleType'); ?>"><i class="fa fa-cogs"></i> Manage Vehicles Type</a></li>
         <li><a class="active"><i class="fa fa-cogs"></i> Add Vehicle Type</a></li>
     </ol>
 </section>
@@ -136,7 +136,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <a href="<?php echo base_url('admin/vehicle/vehicle-type'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
+                <a href="<?php echo base_url('admin/vehicleType'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Add Info</button>
             </div>
         </form>

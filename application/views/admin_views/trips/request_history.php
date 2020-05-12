@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Trip Status</th> 
                                 <th>Trip Accept Reject Status</th>
                                 <th>Added Date</th> 
-                                <th>Status</th>
+<!--                                <th>Status</th>-->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $t_data['tripStatus']; ?></td>
                                     <td><?php echo $t_data['trip_accept_status']; ?></td>
                                     <td><?php echo $t_data['t_add_date']; ?></td>
-                                    <td>
+<!--                                    <td>
                                          <?php
                                         $status = $t_data['t_active_status'];
                                         if ($status == 1) {
@@ -64,10 +64,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             echo "<a href='" . base_url('admin/trip/active_trip/' . $t_data['t_id'] . '') . "' class='btn btn-block btn-warning btn-xs' data-toggle='tooltip' title='Click to active'><i class='fa fa-arrow-up'></i>Inactive</a>";
                                         }
                                         ?>
-                                    </td>
+                                    </td>-->
                                    
                                         <td>
-                                        <a href="<?php echo base_url('admin/trip/edit_trip/' . $t_data['t_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+<!--                                        <a href="<?php echo base_url('admin/trip/edit_trip/' . $t_data['t_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>-->
                                         <a href="<?php echo base_url('admin/trip/view_trip/' . $t_data['t_id'] . ''); ?>" class="btn btn-info btn-xs" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>
                                         <a href="<?php echo base_url('admin/trip/remove_trip/' . $t_data['t_id'] . '') ?>" class="btn btn-danger btn-xs check_delete" data-toggle="tooltip" title="Delete"><i class="fa fa-remove"></i></a>
                                     </td>

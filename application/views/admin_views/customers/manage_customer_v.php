@@ -35,7 +35,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                 <th>SL#</th>
 <!--                                <th>Picture</th>-->
-                                <th>UserType</th>
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Email</th> 
@@ -52,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                     <td><?php echo $sl++; ?></td>
 <!--                                    <td><img src="<?php echo base_url() ?>/assets/backend/img/customer/profile/<?php echo $user_data['Image'] ?>" style="width: 20px;height: 20px;"></td>-->
-                                    <td><?php echo $user_data['userType']; ?></td>
+
                                     <td><?php echo $user_data['Name']; ?></td>
                                     <td><?php echo $user_data['Mobile']; ?></td>
                                     <td><?php echo $user_data['Email']; ?></td>

@@ -103,8 +103,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div id="userform">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                         <li class="active"><a href="#superadmin" role="tab" data-toggle="tab">Super Admin</a></li>
-                        <li><a href="#admin" role="tab" data-toggle="tab">Admin</a></li>
-                        <li><a href="#driver" role="tab" data-toggle="tab">Driver</a></li>
+<!--                        <li><a href="#admin" role="tab" data-toggle="tab">Admin</a></li>
+                        <li><a href="#driver" role="tab" data-toggle="tab">Driver</a></li>-->
                         <li><a href="#owner" role="tab" data-toggle="tab">Owner</a></li>
                     </ul>
                     
@@ -163,9 +163,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     
                      <!-- admin -->
-                        <div class="tab-pane fade  in" id="admin">
+<!--                        <div class="tab-pane fade  in" id="admin">
                             <h2 class="text-uppercase text-center">Sign In</h2>
-                            <form id="login" role="form" method="POST" action="">
+                            <form id="login" role="form" method="POST" action="<?php echo base_url('index.php/admin/admin_login/check_login_admin'); ?>">
                              <input type="hidden" name="_token" value="TZFHnsbmi5uRinuPUFwnvbvmNfuXxgElQSyG5CrS">
                                 <div class="form-group">
                                     <label>Admin E-mail<span class="req">*</span> </label>
@@ -186,12 +186,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                            </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                      
                      <!-- Driver -->
-                        <div class="tab-pane fade  in" id="driver">
+<!--                        <div class="tab-pane fade  in" id="driver">
                             <h2 class="text-uppercase text-center">Sign in</h2>
-                            <form id="login" role="form" method="POST" action="">
+                            <form id="login" role="form" method="POST" action="<?php echo base_url('index.php/admin/admin_login/check_driver_login'); ?>">
                              <input type="hidden" name="_token" value="TZFHnsbmi5uRinuPUFwnvbvmNfuXxgElQSyG5CrS">
                                 <div class="form-group">
                                     <label>Driver Administrator E-mail<span class="req">*</span> </label>
@@ -212,11 +212,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                             </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <!-- Owner -->
                         <div class="tab-pane fade  in" id="owner">
                             <h2 class="text-uppercase text-center">Sign In</h2>
-                            <form id="login" role="form" method="POST" action="">
+                            <form id="login" role="form" method="POST" action="<?php echo base_url('index.php/admin/admin_login/check_owner_login'); ?>">
                              <input type="hidden" name="_token" value="TZFHnsbmi5uRinuPUFwnvbvmNfuXxgElQSyG5CrS">
                                 <div class="form-group">
                                     <label>Owner Administrator E-mail<span class="req">*</span> </label>

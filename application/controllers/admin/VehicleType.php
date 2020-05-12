@@ -106,7 +106,7 @@ class VehicleType extends CI_Controller {
    
     public function edit_vehicle_type($vehicle_id) { 
         $data = array(); 
-        $data['user_data'] = $this->vehicle_type_mdl->get_vehicle_type_by_id($vehicle_id);  
+        $data['user_data'] = $this->vehicle_type_mdl->get_vehicle_type_info_with_size($vehicle_id);  
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Vehicle Type'; 
             $data['active_menu'] = 'vehicle type'; 
@@ -125,7 +125,7 @@ class VehicleType extends CI_Controller {
     } 
 
     public function update_vehicle_type($vehicle_id) { 
-        $vehicle_info = $this->vehicle_type_mdl->get_vehicle_type_by_id($vehicle_id); 
+        $vehicle_info = $this->vehicle_type_mdl->get_vehicle_type_info_with_size($vehicle_id); 
         if (!empty($vehicle_info)) { 
             $config = array( 
                array(
@@ -181,7 +181,6 @@ class VehicleType extends CI_Controller {
                 $data['v_t_min_km'] = $this->input->post('v_t_min_km', TRUE); 
                 $data['v_t_vehicle_size_id'] = $this->input->post('v_t_vehicle_size_id', TRUE); 
                 $data['v_t_vehicle_load_capacity_id'] = $this->input->post('v_t_vehicle_load_capacity_id', TRUE); 
-                $data['v_t_status'] = 1;
                 $result = $this->vehicle_type_mdl->update_vehicle_type($vehicle_id, $data); 
                 if (!empty($result)) { 
                     $sdata['success'] = 'Update successfully .'; 
@@ -202,7 +201,7 @@ class VehicleType extends CI_Controller {
     
     public function remove_vehicle_type($vehicle_type_id) { 
        
-        $vehicle_info = $this->vehicle_type_mdl->get_vehicle_type_by_id($vehicle_type_id); 
+        $vehicle_info = $this->vehicle_type_mdl->get_vehicle_type_info_with_size($vehicle_type_id); 
          
         if (!empty($vehicle_info)) { 
             $result = $this->vehicle_type_mdl->remove_vehicle_by_id($vehicle_type_id); 

@@ -84,7 +84,7 @@ class Vehicle_model extends CI_Model {
         $this->db->select(array("*")) 
                 ->from('vehicle')
                 ->join('tbl_vehicle_type', 'tbl_vehicle_type.v_t_id=vehicle.v_type_id','left')
-                ->where(array('v_Id' => $vehicle_id ,'v_delete'=>0,'v_t_delete'=>0))
+                ->where(array('v_Id' => $vehicle_id ,'v_delete'=>0))
                 ;
         $query_result = $this->db->get(); 
         $result = $query_result->row_array(); 

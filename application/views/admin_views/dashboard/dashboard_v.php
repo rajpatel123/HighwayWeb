@@ -158,7 +158,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo ucfirst($t_data['userName']); ?></td>
                                     <td><?php 
                                         if($t_data['b_l_t_status']!=4){
-                                             echo "<a href='" . base_url('admin/dashboard/view_trip/' . $t_data['t_id'] . '') . "'>View Booking Details</a>";;
+                                             echo "<a href='" . base_url('admin/trip/view_trip/' . $t_data['t_id'] . '') . "'>View Booking Details</a>";;
                                         } else {
                                             echo 'No Details Found';
                                         }
@@ -205,9 +205,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $t_data['t_add_date']; ?></td>
                                     <td>
                                         <?php if($t_data['b_l_t_status']==4){?>
-                                        <p style="background-color:red; color:white; text-align: center; "><?php echo $t_data['tripStatus']; ?></p>
+                                        <p style="background-color:red; color: white;text-align: center;padding: 4px 0 5px;border-radius: 5px; "><?php echo $t_data['tripStatus']; ?></p>
                                         <?php } else { ?>
-                                        <p style="background-color:green; color:white; text-align: center;"><?php echo $t_data['tripStatus']; ?></p>
+                                        <p style="background-color: green;color: white;text-align: center;padding: 4px 0 5px;border-radius: 5px;"><?php echo $t_data['tripStatus']; ?></p>
                                         
                                         <?php } ?>
                                         
