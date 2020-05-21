@@ -34,9 +34,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Transation Id</th>
                                 <th>Customer</th>
                                 <th>Driver</th>
-                                <th>Total Amount</th>
-                                <th>Pay By Customer</th>
-                                <th>Payment Mode</th>
+                                <th>Distance</th>
+                                <th>GST</th>
+                                <th>GST Amount</th>
+                                <th>Without GST Amount</th>
+                                <th>Total GST Amount</th>
                                 
                             </tr>
                         </thead>
@@ -46,14 +48,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php $memberObj = $this->session->userdata; ?>
                             <tr>
                                     <td><?php echo $sl++; ?></td>
-<!--                                    <td><?php echo $user_data['bookingId']; ?></td>-->
                                     <td><?php echo $user_data['bookingTripCode']; ?></td>
-                                    <td><?php echo '#012334343423'; ?></td>
-                                   <td><?php echo $user_data['customerName']; ?></td>
-                                    <td><?php echo $user_data['driverName']; ?></td>
+                                    <td><?php echo 'N/A'; ?></td>
+                                    <td><?php echo ucwords($user_data['customerName']); ?></td>
+                                    <td><?php echo ucwords($user_data['driverName']); ?></td>
+                                    <td><?php echo ucwords($user_data['distance'].' KM'); ?></td>
+                                    <td><?php echo $user_data['v_t_gst'].'%'; ?></td>
+                                    <td><?php echo '₹'.$user_data['gstAmount']; ?></td>
+                                    <td><?php echo '₹'.$user_data['basedPrice']; ?></td>
                                     <td><?php echo '₹'.$user_data['totalFare']; ?></td>
-                                    <td><?php echo '₹'.$user_data['totalFare']; ?></td>
-                                    <td><?php echo 'PAYTM' ?></td>
                                    
                                 </tr>
                             <?php } ?>

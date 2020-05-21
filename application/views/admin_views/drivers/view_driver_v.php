@@ -27,13 +27,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-lg-2 col-md-3">
-                        <img src="<?php echo base_url() ?>/assets/backend/img/driver/profile/<?php echo $user_data['Image'] ?>" class="img-responsive img-thumbnail">
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">Profile </h3>
+                        <!--<img src="<?php echo base_url() ?>/assets/backend/img/driver/profile/<?php echo $user_data['Image'] ?>" class="img-responsive img-thumbnail">-->
+                        <img src="http://dev.thehighways.in//assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                     </div>
-                    <div class="col-lg-2 col-md-3">
-                        <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['dl_image'] ?>" class="img-responsive img-thumbnail">
+                    <div class="col-md-3">
+                         <h3 style="text-align: center;">Driving Licence </h3>
+                        <!--<img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['dl_image'] ?>" class="img-responsive img-thumbnail">-->
+                        <img src="http://dev.thehighways.in//assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">Aadhar Card Front </h3>
+                        <img src="http://dev.thehighways.in//assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">Aadhar Card Back </h3>
+                        <img src="http://dev.thehighways.in//assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                     </div>
                 </div>
+                <br>
             <div class="col-md-6">
                     <div class="table-responsive panel">
                         <table class="table">

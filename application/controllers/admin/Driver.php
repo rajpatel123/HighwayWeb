@@ -35,7 +35,6 @@ class Driver extends CI_Controller {
         $data['active_menu'] = 'driver';
         $data['active_sub_menu'] = 'driver';
         $data['active_sub_sub_menu'] = '';
-      //  $data['DropdownData'] = $this->driver_mdl->get_dropdownData();
         $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('admin_views/drivers/add_driver_v', $data, TRUE);
         $this->load->view('admin_views/admin_master_v', $data);

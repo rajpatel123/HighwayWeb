@@ -35,6 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>SL#</th>
                                 <th>Vehicle Type</th>
                                 <th>Name</th>
+                                <th>Min Fare</th>
                                 <th>Per Km Charge</th>
                                 <th>GST</th>
                                 <th>MIN KM</th> 
@@ -50,8 +51,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $sl++; ?></td>
                                     <td><?php echo $user_data['v_t_type']; ?></td>
                                     <td><?php echo $user_data['v_t_vehicle_name']; ?></td>
-                                    <td><?php echo $user_data['v_t_per_km_charge']; ?></td>
-                                    <td><?php echo $user_data['v_t_gst']; ?></td>
+                                    <td><?php echo '₹ '.$user_data['v_t_fare']; ?></td>
+                                    <td><?php echo '₹ '.$user_data['v_t_per_km_charge']; ?></td>
+                                    <td><?php echo $user_data['v_t_gst'].' %'; ?></td>
                                     <td><?php echo $user_data['v_t_min_km']; ?></td>
                                     <td>
                                         <?php

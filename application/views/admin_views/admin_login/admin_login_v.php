@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 }
 #userform {
     background: rgba(0, 0, 0, 0.8);
-    margin: 20px 0 95px 0;
+    margin: 20px 0 120px 0;
     color: white;
 }
 #userform .tab-pane h2 {
@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 #userform .form-group input.form-control {
     height: auto;
     background-color: rgba(237, 235, 250, 0.1);
-    /* color: #FFF; */
+    color: #FFF;
 }
 .logo-section img {
     height: 55px;

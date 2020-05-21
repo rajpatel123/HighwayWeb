@@ -600,6 +600,7 @@ class Trip_model extends CI_Model {
                     $cat['tax']=$row->v_t_gst;
                     $cat['totalAmount']=$totalAmount;
                     $cat['walletDetection']=$totalAmount;
+                    $cat['gstAmount']=$gstPrise;
                     $cat['discount']='';
                     $cat['paymentMode']='paytm';
                     }

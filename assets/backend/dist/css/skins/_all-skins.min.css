@@ -97,7 +97,11 @@ h2, .h2 {
     color:white;
 }
 
-.sidebar{ background-color:#212330; position: fixed;overflow-x: auto; width: 230px;     height: 600px;}
+.sidebar{ 
+    background-color:#212330; 
+    /*position: fixed;*/
+    overflow-x: auto; 
+    height: 600px;}
 .sidebar-menu li a{ color:white;}
 .skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a {
     color: #000;
@@ -113,7 +117,7 @@ h2, .h2 {
     /*background: #ffffff;*/
 }
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-    background-color: #ffffff;
+    background-color: #212330;
 }
 .sidebar-menu>li>a>.fa, .sidebar-menu>li>a>.glyphicon, .sidebar-menu>li>a>.ion {
     width: 20px;
