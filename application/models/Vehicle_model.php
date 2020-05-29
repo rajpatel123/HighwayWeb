@@ -59,11 +59,15 @@ class Vehicle_model extends CI_Model {
                 ->join('tbl_vehicle_dimension_size', 'tbl_vehicle_type.v_t_vehicle_size_id=tbl_vehicle_dimension_size.v_d_s_id','left')
                 ->join('tbl_assign_vehicle_to_driver', 'vehicle.v_Id=tbl_assign_vehicle_to_driver.a_v_t_d_vehicle_id','left')
                 ->join('users', 'users.Id=tbl_assign_vehicle_to_driver.a_v_t_d_driver_id','left')
+                ->join('tbl_driver_location', 'tbl_assign_vehicle_to_driver.a_v_t_d_driver_id=tbl_driver_location.d_l_driver_id','left')
                 ->join('drive_license', 'drive_license.User_Id=tbl_assign_vehicle_to_driver.a_v_t_d_driver_id','left')
                 ->where(array("vehicle.v_status" => 1,"vehicle.v_delete" => 0))
                 ;
+        $this->db->order_by("d_l_id", "DESC");            
+        $this->db->GROUP_BY('d_l_driver_id');
+       
         $query = $this->db->get();
-        //echo  $this->db->last_query();die;
+        //  echo  $this->db->last_query();die;
          if($query->num_rows() > 0){
                 $data= $query->result();
                 $counter=0;
@@ -75,6 +79,42 @@ class Vehicle_model extends CI_Model {
                     $cat[$counter]['VehicleDescription']=$row->v_vehicle_detail;
                     $cat[$counter]['VehicleCapacity']=$row->v_l_c_load_capacity;
                     $cat[$counter]['VehicleSize']=$row->v_d_s_dimension_size;
+                    $VehicleImage = "./assets/backend/img/vehicle/vehicleImage/" . $row->v_vehicle_Image;
+//                    $vehicleBack = "./assets/backend/img/vehicle/vehicleBack/" . $row->v_back_image;
+//                    $vehicleEngine = "./assets/backend/img/vehicle/vehicleEngine/" . $row->v_engine_image;
+//                    $vehicleFront = "./assets/backend/img/vehicle/vehicleFront/" . $row->v_front_image;
+//                    $vehicleLeft = "./assets/backend/img/vehicle/vehicleLeft/" . $row->v_left_image;
+//                    $vehicleRight = "./assets/backend/img/vehicle/vehicleRight/" . $row->v_right_image;
+                    if((file_exists($VehicleImage)) && $row->v_vehicle_Image!=''){                        
+                        $cat[$counter]['VehicleImage']=$VehicleImage; 
+                    } else {
+                        $cat[$counter]['VehicleImage']=''; 
+                    } 
+//                    if((file_exists($vehicleBack)) && $row->v_back_image!=''){                        
+//                        $cat[$counter]['vehicleBack']=$vehicleBack; 
+//                    } else {
+//                        $cat[$counter]['vehicleBack']=''; 
+//                    } 
+//                    if((file_exists($vehicleEngine)) && $row->v_engine_image!=''){                        
+//                        $cat[$counter]['vehicleEngine']=$vehicleEngine; 
+//                    } else {
+//                        $cat[$counter]['vehicleEngine']=''; 
+//                    } 
+//                    if((file_exists($vehicleFront)) && $row->v_front_image!=''){                        
+//                        $cat[$counter]['vehicleFront']=$vehicleFront; 
+//                    } else {
+//                        $cat[$counter]['vehicleFront']=''; 
+//                    } 
+//                    if((file_exists($vehicleLeft)) && $row->v_left_image!=''){                        
+//                        $cat[$counter]['vehicleLeft']=$vehicleLeft; 
+//                    } else {
+//                        $cat[$counter]['vehicleLeft']=''; 
+//                    } 
+//                    if((file_exists($vehicleRight)) && $row->v_right_image!=''){                        
+//                        $cat[$counter]['vehicleRight']=$vehicleRight; 
+//                    } else {
+//                        $cat[$counter]['vehicleRight']=''; 
+//                    } 
                     $cat[$counter]['DriverId']=$row->a_v_t_d_driver_id;
                     if($row->a_v_t_d_driver_id>0){
                     $cat[$counter]['DriverName']=$row->Name;   
@@ -86,8 +126,8 @@ class Vehicle_model extends CI_Model {
                     $cat[$counter]['DLNumber']=$row->License_Number;
                     $cat[$counter]['ExpiryDate']=$row->Expiry_Date;
                     $cat[$counter]['Address']=$row->Address;
-                    $cat[$counter]['Latitude']=$row->Latitude;
-                    $cat[$counter]['Longitude']=$row->Longitude;
+                    $cat[$counter]['Latitude']=$row->d_l_latitude;
+                    $cat[$counter]['Longitude']=$row->d_l_longitude;
                     $counter++;
                 }
                 return $cat;
@@ -135,7 +175,7 @@ class Vehicle_model extends CI_Model {
                         $cat[$counter]['vehicleNumber']=''; 
                     }
                     
-                    $cat[$counter]['fare']=$row->b_t_f_fare;
+                    $cat[$counter]['fare']='₹ '.$row->b_t_f_fare;
                     if($status==1){
                     $cat[$counter]['status']='Upcoming';
                     } 
@@ -221,7 +261,7 @@ class Vehicle_model extends CI_Model {
                     } else {
                         $cat[$counter]['vehicleNumber']=''; 
                     }
-                    $cat[$counter]['fare']=$row->b_t_f_fare;
+                    $cat[$counter]['fare']='₹ '.$row->b_t_f_fare;
                     if($status==1){
                     $cat[$counter]['status']='Upcoming';
                     } 
@@ -308,7 +348,7 @@ class Vehicle_model extends CI_Model {
                     } else {
                         $cat[$counter]['vehicleNumber']=''; 
                     }
-                    $cat[$counter]['fare']=$row->t_fare;
+                    $cat[$counter]['fare']='₹ '.$row->b_t_f_fare;
                     if($status==1){
                     $cat[$counter]['status']='Upcoming';
                     } 
@@ -399,7 +439,7 @@ class Vehicle_model extends CI_Model {
                     } else {
                         $cat[$counter]['vehicleNumber']=''; 
                     }
-                    $cat[$counter]['fare']=$row->t_fare;
+                    $cat[$counter]['fare']='₹ '.$row->b_t_f_fare;
                     if($status==1){
                     $cat[$counter]['status']='Upcoming';
                     } 

@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <a href="<?php echo base_url('owner/vehicleType'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
+                <a href="<?php echo base_url('owner/driver'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Update Info</button>
             </div>
             

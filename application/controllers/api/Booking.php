@@ -189,7 +189,6 @@ class Booking extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
-    
     function confirmBookingApi_post() {
         $error = "";
         $customer_id = $this->post('User_id');
@@ -405,53 +404,7 @@ curl_close( $ch );
             }
         }
     }
-    
-    
-    
-    
-    
-    //  function sendNotification()
-    // {
-    //     $token = 'cE2ay0bokdA:APA91bHA1Z-aJHVrFS9ILNQQIw25h3bLXbJWv80Ze9NztSeXXcUp5wJBL2G79kByKm0yNyS8325h7v1aI146NtumXHwElWCdRKup6A7TROQc7d86vBM22BJXiNshrMQE7YqcvNmas8c0'; // push token
-    //     $message = "Test notification message";
-
-    //     $this->load->library('fcm');
-    //     $this->fcm->setTitle('Test FCM Notification');
-    //     $this->fcm->setMessage($message);
-
-    //     /**
-    //      * set to true if the notificaton is used to invoke a function
-    //      * in the background
-    //      */
-    //     $this->fcm->setIsBackground(true);
-
-    //     /**
-    //      * payload is userd to send additional data in the notification
-    //      * This is purticularly useful for invoking functions in background
-    //      * -----------------------------------------------------------------
-    //      * set payload as null if no custom data is passing in the notification
-    //      */
-    //     $payload = array('notification' => '');
-    //     $this->fcm->setPayload($payload);
-
-    //     /**
-    //      * Send images in the notification
-    //      */
-    //     $this->fcm->setImage('https://firebase.google.com/_static/9f55fd91be/images/firebase/lockup.png');
-
-    //     /**
-    //      * Get the compiled notification data as an array
-    //      */
-    //     $json = $this->fcm->getPush();
-
-    //     $p = $this->fcm->send($token, $json);
-
-    //     print_r($p);
-        
-    //     echo '<pre>' ;print_r($p) ;die;
-    // }
-    
-   function acceptBookTrip_post() {
+    function acceptBookTrip_post() {
         $error = "";
         $bookTripId = $this->post('tripId');
         $userId = $this->post('driverId');
@@ -996,7 +949,6 @@ curl_close( $ch );
             }
         }
     }
-    
     function cancelTripReason_post(){
         $error = "";
         $customer_id = $this->post('userId');
@@ -1499,9 +1451,6 @@ curl_close( $ch );
 //            }
         }
     }
-    
-    
-    
     function updateDriverLocation_post(){
         $error = "";
         $latitude = $this->post('lat');
@@ -1619,8 +1568,6 @@ curl_close( $ch );
             }
         
     }
-    
-     
     function getNearByDriverLocation_get(){
         $this->load->model("assign_vehicle_to_driver_model");
         $this->load->model("driver_location_model");
@@ -1646,8 +1593,6 @@ curl_close( $ch );
                 ], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-    
-    
     function addCurrentLocationOfVehicle_post(){
         $error = "";
         $tripId = $this->post('tripId');
@@ -1758,7 +1703,6 @@ curl_close( $ch );
             }
         
     }
-    
     function getCurentLocationOfVehicle_get(){
         $error = "";
         $tripId = $this->post('tripId');
@@ -1801,10 +1745,7 @@ curl_close( $ch );
     
     
     }
-    
-    
-  
-       function getCustomerCurrentTripStatus_post(){
+    function getCustomerCurrentTripStatus_post(){
         $error = "";
         $userId = $this->post('customerId');
         $this->load->model("book_trip_link_model");
@@ -1847,7 +1788,6 @@ curl_close( $ch );
             }
     
        }
-       
     function getDriverCurrentTripStatus_post(){
         $error = "";
         $userId = $this->post('driverId');
@@ -1891,8 +1831,7 @@ curl_close( $ch );
             }
     
        }
-    
-     function updateTripStatusByDriver_post() {
+    function updateTripStatusByDriver_post() {
         $error = "";
         $bookTripId = $this->post('trip_id');
         $userId = $this->post('driver_id');

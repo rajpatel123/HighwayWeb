@@ -60,7 +60,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                 </div>
-                    
+                
+<!--                 <div class="row">
+                <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="State">State</label>
+                            <select name="state_id" class="form-control required" id="state_id">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($DropdownData as $row) {
+                                 echo '<option value ="'.$row->state_id.'">'.$row->state_name.'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('vehicle_id'); ?></span>
+                        </div>
+                </div>
+                
+                
+                 <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Vehicle">Vehicle</label>
+                            <select name="vehicle_id" class="form-control required" id="vehicle_id">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($DropdownData as $row) {
+                                 echo '<option value ="'.$row->v_t_id.'">'.$row->v_t_vehicle_name.'-'.$row->v_vehicle_number.'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('vehicle_id'); ?></span>
+                        </div>
+                    </div>
+                </div>  -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

@@ -225,7 +225,7 @@ class Trip extends CI_Controller {
        
         //$acceptTripDriverId =array_unique($aDriverId);
         $data['trip_info'] = $this->trip_mdl->getAllTripRequestHistory();
-       // echo '<pre>' ;        print_r($data['trip_info']);die;
+        //echo '<pre>' ;        print_r($data['trip_info']);die;
         $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('admin_views/trips/request_history', $data, TRUE);
         $this->load->view('admin_views/admin_master_v', $data);

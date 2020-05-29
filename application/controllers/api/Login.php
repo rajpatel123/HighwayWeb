@@ -43,11 +43,7 @@ class Login extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
-    
-
-   
-    
-   function addDriver_post() {
+    function addDriver_post() {
         $error = "";
         $owner_id = $this->post('owner_id');
         $driverName = $this->post('driverName');
@@ -56,6 +52,8 @@ class Login extends REST_Controller {
         $driverDLNo = $this->post('driverDLNo');
         $driverAddress = $this->post('driverAddress');
         $ExpiryDate = $this->post('dlexpiryDate');
+        $stateId = $this->post('stateId');
+        $cityId = $this->post('cityId');
        // $VehicleId = $this->post('vehicleId');
         if (empty($owner_id)) {
             $error = "please provide owner id";
@@ -73,6 +71,13 @@ class Login extends REST_Controller {
         } else if (empty($ExpiryDate)) {
             $error = "please provide driver license expiry date";
         
+        
+        } else if (empty($cityId)) {
+            $error = "please provide city id";
+        
+        } else if (empty($stateId)) {
+            $error = "please provide state id";
+        
         } 
         // else if (empty($VehicleId)) {
         //     $error = "please provide vehicle id";
@@ -80,8 +85,8 @@ class Login extends REST_Controller {
         // }
         $roleId = 5;
         $this->load->model("user_model");
-        $data = $this->user_model->getUserData($owner_id,$roleId);
-       // echo '<pre>' ;print_r($data);die;
+        $data = $this->user_model->getActiveUserData($owner_id,$roleId);
+        //echo '<pre>' ;print_r($owner_id);die;
         
         if($data){
             if (isset($error) && !empty($error)) {
@@ -92,14 +97,17 @@ class Login extends REST_Controller {
             return;
         } else {
             
-            
-               
+            $mobileCheckData = $this->user_model->getDataByMobile($driverMobile); 
+            //echo '<pre>' ;print_r($mobileCheckData);die;
+                if(empty($mobileCheckData)){
             $saveUser = $this->user_model->insertUserApi(array(
                 "Role_id" => 3,
                 "Name" => $driverName,
                 "Email" => $driverEmail,
                 "Mobile" => $driverMobile,
                 "Address" => $driverAddress,
+                "u_city_id" => $cityId,
+                "u_state_id" => $stateId,
                 "add_by" => $owner_id,
 
             ));
@@ -115,7 +123,7 @@ class Login extends REST_Controller {
                 $this->set_response([
                     'status' => true,
                     'message' => 'success',
-                    'id'=>$saveDriver
+                    'id'=>$saveUser
                         ], REST_Controller::HTTP_OK);
             } else {
                 $this->set_response([
@@ -123,6 +131,13 @@ class Login extends REST_Controller {
                     'message' => "unable to save the reply. please try again",
                         ], REST_Controller::HTTP_BAD_REQUEST);
             }
+            } else {
+                $this->set_response([
+                    'status' => false,
+                    'message' => "user Alerady register",
+                        ], REST_Controller::HTTP_BAD_REQUEST);
+        }
+            
              }
         } else {
                 $this->set_response([
@@ -131,8 +146,7 @@ class Login extends REST_Controller {
                         ], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-    
-     function getAlldriverDetails_post() {
+    function getAlldriverDetails_post() {
         $error = "";
         $ownerId = $this->post('ownerId');
         if (empty($ownerId)) {
@@ -157,7 +171,6 @@ class Login extends REST_Controller {
            
         }
     }
-    
     function updateReceiver_post() { //when user add book trip after user add receiver details
         $error = "";
         $user_id = $this->post('user_id');
@@ -235,7 +248,6 @@ class Login extends REST_Controller {
                         ], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-    
     function confirmReceiver_post() { //when user add book trip after user add receiver details
         $error = "";
         $user_id = $this->post('user_id');
@@ -309,8 +321,7 @@ class Login extends REST_Controller {
                         ], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-    
-     function login_register_post() {
+    function login_register_post() {
         $error = "";
             $Mobile = $this->post('Mobile');
             $RoleId = $this->post('RoleId');
@@ -401,8 +412,6 @@ class Login extends REST_Controller {
         
         }
     }
-    
-    
     function otp_verify_post() {
         $error = "";
             $Mobile = $this->post('Mobile');
@@ -470,7 +479,6 @@ class Login extends REST_Controller {
            
         }
     }
-    
     function signup_post() {
         $error = "";
         $user_id = $this->post('User_Id');
@@ -530,6 +538,42 @@ class Login extends REST_Controller {
             
           
             
+        }
+    }
+    function stateDropdown_post() {
+        $error = "";
+        $this->load->model("user_model");
+        if (isset($error) && !empty($error)) {
+            $this->set_response([
+                'status' => false,
+                'message' => $error,
+                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+            return;
+        } else {
+            $this->set_response([
+                'status' => true,
+                "stateDropdown" => $this->user_model->getStateDropdownApi(),
+                    ], REST_Controller::HTTP_OK);
+        }
+    }
+    function cityDropdown_post() {
+        $error = "";
+        $state_id = $this->post('stateId'); 
+        if (empty($state_id)) {
+            $error = "please provide state id";
+        }
+        $this->load->model("user_model");
+        if (isset($error) && !empty($error)) {
+            $this->set_response([
+                'status' => false,
+                'message' => $error,
+                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+            return;
+        } else {
+            $this->set_response([
+                'status' => true,
+                "cityDropdown" => $this->user_model->getCityDropdownApi($state_id),
+                    ], REST_Controller::HTTP_OK);
         }
     }
   

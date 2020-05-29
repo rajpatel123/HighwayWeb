@@ -121,7 +121,6 @@ class Vehicle extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
-    
     function vehicleAssignDropdown_post() {
         $error = "";
         $user_id = $this->post('user_id'); //add by owner
@@ -142,7 +141,6 @@ class Vehicle extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
-    
     function vehicleTypeDropdown_post() {
         $error = "";
         $user_id = $this->post('user_id'); //add by owner
@@ -163,7 +161,6 @@ class Vehicle extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
-    
     function assignDriverToVehicle_post() {
         $error = "";
         $owner_id = $this->post('owner_id');
@@ -206,7 +203,6 @@ class Vehicle extends REST_Controller {
             }
         }
     }
-    
     function bookingVehicleList_post() {
         $error = "";
         $user_id = $this->post('user_id');
@@ -260,7 +256,6 @@ class Vehicle extends REST_Controller {
                 ], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-    
     function getVehicleinfo_post() {
         $error = "";
         $user_id = $this->post('user_id');
@@ -308,8 +303,6 @@ class Vehicle extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
-    
-    
     function vehicleDimensionSize_post() {
         $error = "";
         $user_id = $this->post('user_id'); //add by owner

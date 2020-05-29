@@ -13,10 +13,9 @@ class Useradmin_model extends CI_Model {
                 ->from('users')
                 ->where("(Name = '$username_or_email_address' OR Email = '$username_or_email_address')")
                 ->where('password', md5($password))
-                ->where("(Role_Id = '1' OR Role_Id = '2')")
+                 ->where('Role_Id = ', 1)
                 ->where('Status', 1)
-                ->where('deletion_status', 0)
-                ->where('Role_Id <= ', 5);
+                ->where('deletion_status', 0);
         $query_result = $this->db->get();
 //         echo  $this->db->last_query();die;
         $result = $query_result->row();

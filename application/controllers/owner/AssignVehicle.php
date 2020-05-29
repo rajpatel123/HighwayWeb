@@ -85,7 +85,7 @@ class AssignVehicle extends CI_Controller {
         } else { 
             $sdata['exception'] = 'Content not found !'; 
             $this->session->set_userdata($sdata); 
-            redirect('owner/assignVehicle', 'refresh'); 
+            redirect('owner/driver', 'refresh'); 
         } 
     } 
 

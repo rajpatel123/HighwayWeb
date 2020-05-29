@@ -25,9 +25,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="box-body">
             <div class="row">
-               <div class="col-md-12" >
-                    <a href="<?php echo base_url('admin/customer/add_customer'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Add Customer </a>
-                </div>
+<!--               <div class="col-md-12" >
+                    <a href="<?php // echo base_url('admin/customer/add_customer'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Add Customer </a>
+                </div>-->
                 <div class="col-md-12" style="margin-top: 25px;">
                     <div class="widget-content nopadding">
                     <table id="example2" class="table table-bordered data-table">

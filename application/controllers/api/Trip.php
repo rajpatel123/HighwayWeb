@@ -50,7 +50,6 @@ class Trip extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
-    
     function approxLoad_post() {
         $error = "";
        // $Data = json_decode(file_get_contents('php://input'),true);
@@ -74,113 +73,112 @@ class Trip extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
+    function getAllTripByUserId_post() {
+            $error = "";
+            $user_id = $this->post('User_Id');
+            if($user_id>0){
+                $userData=$this->User_model->getCheckUserRoleByUserId($user_id);
 
-function getAllTripByUserId_post() {
-        $error = "";
-        $user_id = $this->post('User_Id');
-        if($user_id>0){
-            $userData=$this->User_model->getCheckUserRoleByUserId($user_id);
-            
-            if (empty($userData)) {
-                $error = "your role not active";
+                if (empty($userData)) {
+                    $error = "your role not active";
+                }
             }
-        }
-        if (empty($user_id)) {
-            $error = "please provide user id";
-        }
-        if (isset($error) && !empty($error)) {
-            $this->set_response([
-                'status' => false,
-                'message' => $error,
-                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
-            return;
-        } else {
-            $roleId=$userData[0]->Role_Id;
-            switch ($roleId) {
-            case "1":
-                $roleName = 'Admin';
-                
-                break;
-            case "2":
-                $roleName = 'MillUser';
-               
-                break;
-            case "3":
-                $roleName = 'Driver';
-              
-                break;
-            case "4":
-                $roleName = 'Customer';
-                
-                break;
-            case "5":
-                $roleName = 'Owner';
-                break;
+            if (empty($user_id)) {
+                $error = "please provide user id";
             }
-            if($roleId==2){
-                
-            $this->set_response([
-                'status' => true,
-                "upcomingTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,1,$roleId),
-                "ongoingTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,2,$roleId),
-                "completedTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,3,$roleId),
-                "cancelTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,4,$roleId),
-                    
-                    ], REST_Controller::HTTP_OK);
-            }
-            if($roleId==3){
-            $this->set_response([
-                'status' => true,
-                "upcomingTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,1),
-                "ongoingTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,2),
-                "completedTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,3),
-                "cancelTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,4),
+            if (isset($error) && !empty($error)) {
+                $this->set_response([
+                    'status' => false,
+                    'message' => $error,
+                        ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+                return;
+            } else {
+                $roleId=$userData[0]->Role_Id;
+                switch ($roleId) {
+                case "1":
+                    $roleName = 'Admin';
 
-                    ], REST_Controller::HTTP_OK);
-            }
-            if($roleId==4){
-            $this->set_response([
-                    'status' => true,
-                    "upcomingTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,1,$roleId),
-                    "ongoingTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,2,$roleId),
-                    "completedTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,3,$roleId),
-                    "cancelTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,4,$roleId),
-                    
-                    ], REST_Controller::HTTP_OK);
-            }
-            if($roleId==5){
+                    break;
+                case "2":
+                    $roleName = 'Goods Provider';
+
+                    break;
+                case "3":
+                    $roleName = 'Driver';
+
+                    break;
+                case "4":
+                    $roleName = 'Customer';
+
+                    break;
+                case "5":
+                    $roleName = 'Owner';
+                    break;
+                }
+                if($roleId==2){
+
                 $this->set_response([
                     'status' => true,
-                    "upcomingTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,1),
-                    "ongoingTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,2),
-                    "completedTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,3),
-                    "cancelTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,4),
-                    
-                    ], REST_Controller::HTTP_OK);
+                    "upcomingTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,1,$roleId),
+                    "ongoingTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,2,$roleId),
+                    "completedTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,3,$roleId),
+                    "cancelTrips" => $this->Vehicle_model->getAllTripByMillUserApi($user_id,4,$roleId),
+
+                        ], REST_Controller::HTTP_OK);
+                }
+                if($roleId==3){
+                $this->set_response([
+                    'status' => true,
+                    "upcomingTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,1),
+                    "ongoingTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,2),
+                    "completedTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,3),
+                    "cancelTrips" => $this->Vehicle_model->getAllTripByDriverApi($user_id,4),
+
+                        ], REST_Controller::HTTP_OK);
+                }
+                if($roleId==4){
+                $this->set_response([
+                        'status' => true,
+                        "upcomingTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,1,$roleId),
+                        "ongoingTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,2,$roleId),
+                        "completedTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,3,$roleId),
+                        "cancelTrips" => $this->Vehicle_model->getAllTripByCustomerApi($user_id,4,$roleId),
+
+                        ], REST_Controller::HTTP_OK);
+                }
+                if($roleId==5){
+                    $this->set_response([
+                        'status' => true,
+                        "upcomingTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,1),
+                        "ongoingTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,2),
+                        "completedTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,3),
+                        "cancelTrips" => $this->Vehicle_model->getAllTripByOwnerApi($user_id,4),
+
+                        ], REST_Controller::HTTP_OK);
+                }
             }
         }
-    }
-function selectYourGoodType_post() {
-        $error = "";
-        $user_id = $this->post('user_id');
-        if (empty($user_id)) {
-            $error = "please provide user id";
+    function selectYourGoodType_post() {
+            $error = "";
+            $user_id = $this->post('user_id');
+            if (empty($user_id)) {
+                $error = "please provide user id";
+            }
+            $this->load->model("Goodtype_model");
+            if (isset($error) && !empty($error)) {
+                $this->set_response([
+                    'status' => false,
+                    'message' => $error,
+                        ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+                return;
+            } else {
+                $this->set_response([
+                    'status' => true,
+                    "typeData" => array("good_type_data" => $this->Goodtype_model->getGoodTypeListApi()),
+                        ], REST_Controller::HTTP_OK);
+            }
         }
-        $this->load->model("Goodtype_model");
-        if (isset($error) && !empty($error)) {
-            $this->set_response([
-                'status' => false,
-                'message' => $error,
-                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
-            return;
-        } else {
-            $this->set_response([
-                'status' => true,
-                "typeData" => array("good_type_data" => $this->Goodtype_model->getGoodTypeListApi()),
-                    ], REST_Controller::HTTP_OK);
-        }
-    }
-function shareTrip_post() {
+    function shareTrip_post() {
         $error = "";
         $user_id = $this->post('User_Id');
         $mobileNo = $this->post('MobileNo');
@@ -272,7 +270,6 @@ function shareTrip_post() {
             
         }
     }
-    
     function updateTripRatingByUser_post() {
         $error = "";
         $userId = $this->post('userId');
@@ -360,8 +357,6 @@ function shareTrip_post() {
         
         
     }
-    
-    
     function getAllLocationByTrip_post() {
         $error = "";
         $tripId = $this->post('tripId');

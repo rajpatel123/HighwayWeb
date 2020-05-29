@@ -34,7 +34,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                 <th>SL#</th>
                                 <th>Trip Id</th>
-                                <th>Customer</th>
+                                <th>Role</th>
+                                <th>User Name</th>
                                 <th>Driver</th>
                                 <th>Trip Status</th> 
                                 <th>Trip Accept Reject Status</th>
@@ -50,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                     <td><?php echo $sl++; ?></td>
                                     <td><?php echo $t_data['t_trip_id']; ?></td>
+                                    <td><?php echo $t_data['userRole']; ?></td>
                                     <td><?php echo $t_data['userName']; ?></td>
                                     <td><?php echo $t_data['driverName']; ?></td>
                                     <td><?php echo $t_data['tripStatus']; ?></td>

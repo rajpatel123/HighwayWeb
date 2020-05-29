@@ -79,7 +79,7 @@ class Trip_model extends CI_Model {
                     }
                     if($row->customer_role_id==2){
                        $tripData[$counter]['userName']=$row->customerName; 
-                       $tripData[$counter]['userRole']='Milluser';
+                       $tripData[$counter]['userRole']='Goods Provider';
                     }
                     $counter++;
                 }
@@ -178,7 +178,7 @@ class Trip_model extends CI_Model {
                     if($row->customer_role_id==2){
                        $tripData['userName']=$row->customerName;
                        $tripData['customerMobile']=$row->customerMobile; 
-                       $tripData['userRole']='Milluser';
+                       $tripData['userRole']='Goods Provider';
                     }
                     
                     $tripData['driverName']=$row->driverName;
@@ -247,7 +247,7 @@ class Trip_model extends CI_Model {
                     }
                     if($row->customer_role_id==2){
                        $tripData[$counter]['userName']=$row->customerName; 
-                       $tripData[$counter]['userRole']='Milluser';
+                       $tripData[$counter]['userRole']='Goods Provider';
                     }
                     $counter++;
                 }
@@ -315,7 +315,7 @@ class Trip_model extends CI_Model {
                     }
                     if($row->customer_role_id==2){
                        $tripData[$counter]['userName']=$row->customerName; 
-                       $tripData[$counter]['userRole']='Milluser';
+                       $tripData[$counter]['userRole']='Goods Provider';
                     }
                     $counter++;
                 }
@@ -380,7 +380,7 @@ class Trip_model extends CI_Model {
                     }
                     if($row->customer_role_id==2){
                        $tripData[$counter]['userName']=$row->customerName; 
-                       $tripData[$counter]['userRole']='Milluser';
+                       $tripData[$counter]['userRole']='Goods Provider';
                     }
                     $counter++;
                 }
@@ -434,6 +434,7 @@ class Trip_model extends CI_Model {
                 $tripData=array();
                 foreach($data as $row){
                     $tripData[$counter]['t_id']=$row->t_id;
+                    $tripData[$counter]['t_type']=$row->t_type;
                     $tripData[$counter]['t_trip_id']=$row->t_trip_id;
                     $tripData[$counter]['t_user_Id']=$row->t_user_Id;
                     $tripData[$counter]['t_active_status']=$row->b_l_t_active_status;
@@ -494,7 +495,7 @@ class Trip_model extends CI_Model {
                     }
                     if($row->customer_role_id==2){
                        $tripData[$counter]['userName']=$row->customerName; 
-                       $tripData[$counter]['userRole']='Milluser';
+                       $tripData[$counter]['userRole']='Goods Provider';
                     }
                     
                     $counter++;

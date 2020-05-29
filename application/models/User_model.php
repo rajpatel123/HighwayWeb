@@ -17,7 +17,23 @@ class User_model extends CI_Model {
                 'Status'=>1,
                 ]);
         $query =$this->db->get('users');
-       
+       //echo  $this->db->last_query();die;
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+        
+    }
+    
+    public  function getActiveUserData($user_id,$roleId) {
+        $this->db->where([
+                'Id'=>$user_id,
+                'Role_id'=>$roleId,
+                'Status'=>1,
+                ]);
+        $query =$this->db->get('users');
+       //echo  $this->db->last_query();die;
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
@@ -321,10 +337,8 @@ class User_model extends CI_Model {
         $this->db->where([
                 'Mobile'=>$mobile,
                 'deletion_status'=>0,
-                'Status'=>1,
                 ]);
         $query =$this->db->get('users');
-       //echo  $this->db->last_query();die;
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
@@ -332,4 +346,59 @@ class User_model extends CI_Model {
         }
         
     }
+    public function getStateDropdownApi() {
+         $this->db->select(array("*"))
+                ->from("state");
+        $queryData = $this->db->get();
+        if($queryData->num_rows() > 0){
+            $query =$this->db->get('state');
+            if($query->num_rows() > 0){
+                $data= $query->result();
+                $counter=0;
+                $cat=array();
+                foreach($data as $row){
+                    $cat[$counter]['StateId']=$row->s_id;
+                    $cat[$counter]['StateName']=$row->state_name;
+                    $counter++;
+                }
+                return $cat;
+            }
+        
+        } else {
+            return array();
+        }
+         
+        
+    }
+    
+     public function getCityDropdownApi($state_id) {
+         $this->db->select(array("*"))
+                ->from("city")
+               ->where(array("city.state_id" => $state_id));
+        $queryData = $this->db->get();
+        if($queryData->num_rows() > 0){
+            $this->db->where([
+                'state_id'=>$state_id,
+                ]);
+            $query =$this->db->get('city');
+            if($query->num_rows() > 0){
+                $data= $query->result();
+                $counter=0;
+                $cat=array();
+                foreach($data as $row){
+                    $cat[$counter]['CityId']=$row->c_id;
+                    $cat[$counter]['CityName']=$row->city_name;
+                    $counter++;
+                }
+                return $cat;
+            }
+        
+        } else {
+            return array();
+        }
+         
+        
+    }
+    
+   
 }

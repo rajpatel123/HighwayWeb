@@ -22,11 +22,6 @@ class Email extends REST_Controller {
         
         
     }
-    
-    
-    
-    
-    
     function driverInvoice_post() {
         $error = "";
         $driverId= $this->post('driverId');
@@ -93,7 +88,6 @@ class Email extends REST_Controller {
     
     
     }
-    
     function customerInvoice_post() {
         $error = "";
         $customerId= $this->post('customerId');
@@ -158,41 +152,9 @@ class Email extends REST_Controller {
 
     
     }
-   
-    
-    
-    
     function distanceTrip_post() {
         $error = "";
-       // $tripId= $this->post('bookingId');
-//        $startLatitude= $this->post('startLatitude');
-//        $startlongitude= $this->post('startlongitude');
-//        $endLatitude= $this->post('endLatitude');
-//        $endlongitude= $this->post('endlongitude');
-        
-//        if (empty($tripId)) {
-//            $error = "please provide booking id";
-//        } 
-//        if (empty($startLatitude)) {
-//            $error = "please provide start Latitude";
-//        } 
-//        if (empty($startlongitude)) {
-//            $error = "please provide start longitude";
-//        } 
-//        if (empty($endLatitude)) {
-//            $error = "please provide start latitude";
-//        } 
-//        if (empty($endlongitude)) {
-//            $error = "please provide end longitude";
-//        } 
-//        $this->load->model("trip_model");
-//        $this->load->model("role_model");
-//        $roleData = $this->role_model->getroleByUserid($customerId);
-//        $roleId = $roleData->Role_Id;
-        
-        
-        
-            $origin =$this->post('o'); 
+        $origin =$this->post('o'); 
             $destination = $this->post('d');
             $api = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=".$origin."&destinations=".$destination."&key=AIzaSyDRMI4wJHUfwtsX3zoNqVaTReXyHtIAT6U");
             

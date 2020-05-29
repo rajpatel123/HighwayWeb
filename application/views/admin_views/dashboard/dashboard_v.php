@@ -146,7 +146,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div class="col-md-12" style="margin-top: 25px;">
                     <table id="example2" class="table table-bordered table-striped">
+                       <?php if($trip_info){?>
+                       
                         <h2>Recent Booking</h2>
+                       <?php } ?>
                         <tbody>
                             <?php $sl = 1; ?>
                             <?php foreach ($trip_info as $t_data) { ?>

@@ -18,13 +18,8 @@ if ($active_menu == 'driver') {
     echo 'active';
 }
 ?>"><a href="<?php echo base_url('owner/driver'); ?>"><i class="fa fa-user"></i> <span> Driver</span></a></li>
-<li class="<?php
-if ($active_menu == 'vehicle Type') {
-    echo 'active';
-}
-?>"><a href="<?php echo base_url('owner/vehicleType'); ?>"><i class="fa fa-truck "></i> <span> Vehicle Type</span></a>
 
-</li>
+
 <li class="<?php
 if ($active_menu == 'vehicle') {
     echo 'active';
