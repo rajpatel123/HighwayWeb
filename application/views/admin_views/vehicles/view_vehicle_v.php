@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php if ($vehicle_data['v_vehicle_Image']) {?>
                            <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleImage/<?php echo $vehicle_data['v_vehicle_Image'] ?>" class="img-responsive img-thumbnail">
                         <?php } else {?>
-                        <img src="http://dev.thehighways.in//assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                          <?php } ?>
                     </div>
                     
@@ -97,10 +97,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td class="text-success"> Vehicle Model :</td>
             <td><?php echo $vehicle_data['v_vehicle_model_no']; ?></td>
         </tr>
-        <tr>
-            <td class="text-success"> Vehicle Details  :</td>
+         <tr>
+            <td class="text-success"> Vehicle RC Number  :</td>
             <td><?php echo $vehicle_data['v_vehicle_detail']; ?></td>
         </tr>
+
 
                                 
                                

@@ -52,6 +52,54 @@ class Driver_model extends CI_Model {
             }
             
     }
+    public function get_StateDropdown() { 
+        $this->db->select(array('*')) 
+                ->from('state')
+                ->where(array('status' => 1));
+         $this->db->order_by('state_name', 'ASC');
+        $query_result = $this->db->get(); 
+        $result = $query_result->result(); 
+        if($query_result->num_rows() > 0){
+            return $result;
+            } else {
+               return array();  
+            }
+            
+    }
+    
+       public function get_CityDropdown($cityId) { 
+        $this->db->select(array('*')) 
+                ->from('city')
+                ->where(array('status' => 1,'c_id'=>$cityId));
+         $this->db->order_by('city_name', 'ASC');
+        $query_result = $this->db->get(); 
+        $result = $query_result->result(); 
+        if($query_result->num_rows() > 0){
+            return $result;
+            } else {
+               return array();  
+            }
+            
+    }
+    
+   
+        
+        /* fetch data of city respective state wise */
+        public function fetchstateidwisedata($state_id)
+        {
+            $this->db->select('*');
+            $this->db->from('city');
+            $this->db->where('state_id', $state_id);
+            $query  = $this->db->get();
+            $output = '<option value="">----------Select City----------</option>';
+            foreach ($query->result() as $row)
+            {
+                $output .= '<option value="' . $row->c_id . '">' . $row->city_name . '</option>';
+            }
+            return $output;
+        }
+    
+    
 	
     public function get_driver_info() { 
         $this->db->select('*') 
@@ -66,7 +114,7 @@ class Driver_model extends CI_Model {
         return $result; 
     } 
     public function getDriverViewData($driver_id) { 
-        $this->db->select('u.*,o.Name as OwnerName,d.License_Number,d.aadhar_front_image,d.aadhar_back_image,d.Image as dl_image,d.Status as dl_status,vt.*,v.*,vs.v_d_s_dimension_size,vc.v_l_c_load_capacity') 
+        $this->db->select('u.*,o.Name as OwnerName,d.License_Number,u.aadhar_front_image,u.aadhar_back_image,d.Image as dl_image,d.Status as dl_status,vt.*,v.*,vs.v_d_s_dimension_size,vc.v_l_c_load_capacity') 
                 ->from('users u')
                 ->join('drive_license d','d.User_Id=u.Id','left')
                 ->join('tbl_assign_vehicle_to_driver a', 'a.a_v_t_d_driver_id=u.Id','left')

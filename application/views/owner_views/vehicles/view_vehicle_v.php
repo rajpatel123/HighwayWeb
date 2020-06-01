@@ -25,49 +25,118 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
 <div class="box-body">
+    
     <div class="row">
-        <div class="col-md-12">
-                <div class="col-lg-2 col-md-3">
-                    <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleImage/<?php echo $vehicle_data['v_vehicle_Image'] ?>" class="img-responsive img-thumbnail">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">Vehicle Image </h3>
+                        <?php if ($vehicle_data['v_vehicle_Image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleImage/<?php echo $vehicle_data['v_vehicle_Image'] ?>" class="img-responsive img-thumbnail">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">RC Image</h3>
+                        <?php if ($vehicle_data['v_vehicle_rc']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/rcpic/<?php echo $vehicle_data['v_vehicle_rc'] ?>" class="img-responsive img-thumbnail">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">Vehicle Front Image </h3>
+                        <?php if ($vehicle_data['v_front_image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleFront/<?php echo $vehicle_data['v_front_image'] ?>" class="img-responsive img-thumbnail">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">Vehicle Back Image </h3>
+                        <?php if ($vehicle_data['v_back_image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleBack/<?php echo $vehicle_data['v_back_image'] ?>" class="img-responsive img-thumbnail">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                    
+                   
+                    
                 </div>
-            <div class="col-lg-2 col-md-3">
-                    <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/rcpic/<?php echo $vehicle_data['v_vehicle_rc'] ?>" class="img-responsive img-thumbnail">
-                </div>
-<div class="table-responsive panel">
-    <table class="table">
-    <tbody>
-        <tr>
+                <br>
+                
+                
+                <div class="col-md-6">
+                    <div class="table-responsive panel">
+                        <table class="table">
+                            <tbody>
+                                 <tr>
 
-        <td class="text-success"><i class="fa fa-user"></i> Vehicle Type :</td>
+        <td class="text-success"> Vehicle Type :</td>
 
         <td class="text-left"><?php echo $vehicle_data['v_vehicle_name']; ?></td>
     </tr>
 
         <tr>
-            <td class="text-success"><i class="fa fa-envelope-o"></i>Vehicle Name :</td>
+            <td class="text-success">Vehicle Name :</td>
             <td><?php echo $vehicle_data['v_vehicle_name']; ?></td>
         </tr>
         <tr>
-            <td class="text-success"><i class="fa fa-envelope-o"></i>Vehicle Number :</td>
+            <td class="text-success"></i>Vehicle Number :</td>
             <td><?php echo $vehicle_data['v_vehicle_number']; ?></td>
         </tr>
         <tr>
-            <td class="text-success"><i class="fa fa-envelope-o"></i>Chechis Number:</td>
+            <td class="text-success">Chechis Number:</td>
             <td><?php echo $vehicle_data['v_chechis_number']; ?></td>
         </tr>
         <tr>
-            <td class="text-success"><i class="fa fa-calendar"></i> Vehicle Model :</td>
+            <td class="text-success"> Vehicle Model :</td>
             <td><?php echo $vehicle_data['v_vehicle_model_no']; ?></td>
         </tr>
         <tr>
-            <td class="text-success"><i class="fa fa-home"></i> Vehicle Details  :</td>
+            <td class="text-success"> Vehicle RC Number  :</td>
             <td><?php echo $vehicle_data['v_vehicle_detail']; ?></td>
         </tr>
 
-        </tbody>
-    </table>
-</div>
-</div>
+
+                                
+                               
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                 <div class="col-md-6">
+                        <h3 style="text-align: center;">Vehicle Left Image </h3>
+                        <?php if ($vehicle_data['v_left_image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleLeft/<?php echo $vehicle_data['v_left_image'] ?>" class="img-responsive img-thumbnail">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                 <div class="col-md-6">
+                        <h3 style="text-align: center;">Vehicle Right Image </h3>
+                        <?php if ($vehicle_data['v_right_image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleRight/<?php echo $vehicle_data['v_right_image'] ?>" class="img-responsive img-thumbnail">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                 <div class="col-md-6">
+                        <h3 style="text-align: center;">Vehicle Engine </h3>
+                        <?php if ($vehicle_data['v_engine_image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleEngine/<?php echo $vehicle_data['v_engine_image'] ?>" class="img-responsive img-thumbnail">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                </div>
+                
 </div>
 </div>
 </div>

@@ -993,9 +993,7 @@ curl_close( $ch );
             $error = "please provide trip id";
         } else if (empty($cancel_reason_id)) {
             $error = "please provide cancel reson id";
-        } else if (empty($cancel_reason_comment)) {
-            $error = "please provide cancel reason comment";
-        }  
+        }   
             $this->load->model("user_model");
             $this->load->model("book_trip_link_model");
             $this->load->model("trip_rating_model");

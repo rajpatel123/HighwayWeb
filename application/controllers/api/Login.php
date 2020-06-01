@@ -65,10 +65,7 @@ class Login extends REST_Controller {
             $error = "please provide driver email";
         }  else if (empty($driverDLNo)) {
             $error = "please provide driver dl no";
-        }  else if (empty($driverAddress)) {
-            $error = "please provide driver address";
-        
-        } else if (empty($ExpiryDate)) {
+        }  else if (empty($ExpiryDate)) {
             $error = "please provide driver license expiry date";
         
         
@@ -133,17 +130,17 @@ class Login extends REST_Controller {
             }
             } else {
                 $this->set_response([
-                    'status' => false,
+                    'status' => true,
                     'message' => "user Alerady register",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
         }
             
              }
         } else {
                 $this->set_response([
-                    'status' => false,
+                    'status' => true,
                     'message' => "you are not owner",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
         }
     }
     function getAlldriverDetails_post() {
@@ -243,9 +240,9 @@ class Login extends REST_Controller {
         }
         } else {
                 $this->set_response([
-                    'status' => false,
+                    'status' => true,
                     'message' => "you are not customer",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
         }
     }
     function confirmReceiver_post() { //when user add book trip after user add receiver details
@@ -316,9 +313,9 @@ class Login extends REST_Controller {
         }
         } else {
                 $this->set_response([
-                    'status' => false,
+                    'status' => true,
                     'message' => "you are not customer",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
         }
     }
     function login_register_post() {
@@ -375,9 +372,9 @@ class Login extends REST_Controller {
         } 
             if(($Mobile==$checkUserRole->Mobile) && ($RoleId!=$checkUserRole->Role_Id)){
                 $this->set_response([
-                    'status' => false,
+                    'status' => true,
                     'message' => "You Are allready register with $checkUserRole->Title",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
                 }
         }
         else{
@@ -440,9 +437,9 @@ class Login extends REST_Controller {
            
             if($otpStatus==1){
              $this->set_response([
-                    'status' => false,
+                    'status' => true,
                     'message' => "Your Otp expired",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
             
             
             } 
@@ -486,6 +483,9 @@ class Login extends REST_Controller {
         $Email = $this->post('Email');
         $Name = $this->post('Name');
        // $Address = $this->post('Address');
+        
+       
+        
         if (empty($user_id)) {
             $error = "please provide user id";
         } 
@@ -502,6 +502,16 @@ class Login extends REST_Controller {
         //     $error = "please provide address";
         // } 
         $this->load->model("user_model");
+        
+         $roleData =$this->user_model->getUserDetailsForToken($user_id);
+         $roleId = $roleData->Role_Id;
+         $status="";
+         if($roleId==3){
+             $status =0;
+         } else {
+           $status =1;  
+         }
+        // echo '<pre>' ;print_r($roleId) ;die;
         if (isset($error) && !empty($error)) {
             
             echo json_encode($error);
@@ -517,7 +527,7 @@ class Login extends REST_Controller {
                 "Name" => $Name,
                 "Email" => $Email,
                 //"Address" => $Address,
-                "Status" => 1,
+                "Status" => $status,
                  "u_date"=>date("Y-m-d")
             ),$user_id);
             

@@ -4,13 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        customer
-        <small>Edit Customer </small>
+        Goods Provider
+        <small>Edit Goods Provider </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li> 
-        <li><a href="<?php echo base_url('admin/customer'); ?>"><i class="fa fa-cogs"></i> Manage Customer</a></li>
-        <li class="active"><i class="fa fa-circle-o"></i> Edit Customer </li>
+        <li><a href="<?php echo base_url('admin/milluser'); ?>"><i class="fa fa-cogs"></i> Manage Goods Provider</a></li>
+        <li class="active"><i class="fa fa-circle-o"></i> Edit Goods Provider </li>
     </ol>
 </section>
 
@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <section class="content">
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">Edit Customer </h3>
+            <h3 class="box-title">Edit Goods Provider </h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -41,18 +41,71 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Name'); ?></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Status">Active Status</label>
-                            <select name="Status" class="form-control required" id="Status">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
+                            <label for="Mobile">Mobile</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" name="Mobile" value="<?php echo $user_data['Mobile']; ?>" class="form-control required" id="Mobile" placeholder="Enter mobile">
+                            </div>
+                            <span class="help-block error-message"><?php echo form_error('Mobile'); ?></span>
                         </div>
                     </div>
+                    
+                    
+                    
                     </div>
+                
+                 <div class="row">
+                            <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select name="state" class="form-control required" id="state">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($state as $rows) {
+                                      echo '<option value ="'.$rows->s_id.'">'.$rows->state_name.'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('state'); ?></span>
+                        </div>
+                    </div>
+                    
+                    
+                      <?php if($user_data['u_city_id']){ ?>
+                        <div class="col-md-6">
+                     <div class="form-group">
+                                <label for="city">City</label>
+                                <select name="city" class="form-control required" id="city">
+                                    <option value="" selected="" disabled="">select</option>
+                                    <?php
+                                    foreach ($city as $row) {
+                                          echo '<option value ="'.$row->c_id.'">'.$row->city_name.'</option>';
+
+                                    }
+                                    ?>
+                                </select>
+                                <span class="help-block error-message"><?php echo form_error('city'); ?></span>
+                        </div>
+                        </div>
+                   <?php }  else {?>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <select name="city" class="form-control required" id="city">
+                               
+                                 <option value="">----------Select City----------</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('city'); ?></span>
+                        </div>
+                    </div>
+                     
+                      <?php } ?>
+                  </div> 
+                
+                
                    <div class="row"> 
                     
                     <div class="col-md-6">
@@ -66,16 +119,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
                         </div>
                     </div>
+                       
                        <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Mobile">Mobile</label>
+                            <label for="Email">Email</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="Mobile" value="<?php echo $user_data['Mobile']; ?>" class="form-control required" id="Mobile" placeholder="Enter mobile">
+                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control" id="Email" placeholder="Enter email">
                             </div>
-                            <span class="help-block error-message"><?php echo form_error('Mobile'); ?></span>
+                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
                         </div>
                     </div>
+                    
+                      
                     </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -88,30 +144,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Address'); ?></span>
                         </div>
                     </div>
+                    
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Email">Email</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control required" id="Email" placeholder="Enter email">
-                            </div>
-                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
+                            <label for="Status">Active Status</label>
+                            <select name="Status" class="form-control required" id="Status">
+                                <option value="" selected="" disabled="">Select one</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
                         </div>
                     </div>
                     
-<!--                    <div class="col-md-6">
-                        <div class="form-group">
-                        <label for="Dob">Dob</label>
-                        <div class="input-group date" data-provide="datepicker">
-                            <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-th"></span>
-                        </div>
-                        <input class="form-control" type="text" id="Dob" name="Dob"  value="<?php echo $user_data['Dob']; ?>" >
-                        
-                        </div>
-                        <span class="help-block error-message"><?php echo form_error('Dob'); ?></span>
-                      </div>   
-                    </div>-->
+                    
                     </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -139,6 +185,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Aadhar_front">Aadhar Front Picture <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'aadharfrontfile','class'=>'form-control'])?>
+                            </div>
+                            <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/milluser/aadhar/<?php echo $user_data['aadhar_front_image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                 <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Aadhar_back">Aadhar Back Picture<span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'aadharbackfile','class'=>'form-control'])?>
+                            </div>
+                            <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/milluser/aadhar/<?php echo $user_data['aadhar_back_image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                    
+                </div>
+                                 
+
                 
                 <div class="row">
                     <div class="col-md-6">
@@ -168,7 +243,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.form -->
     </div>
 </section>
+<script>
+    /* JQuery to bind City according to State selection */
+    $(document).ready(function () {
+        $('#state').change(function () {
+            var state_id = $('#state').val();
+            if (state_id != '') {
+                $.ajax({
+                    url: "<?php echo base_url(); ?>admin/owner/fetchcity",
+                    method: "POST",
+                    data: { state_id: state_id },
+                    success: function (data) {
+                        $('#city').html(data);
+                    }
+                });
+            }
+            else {
+                $('#city').html('<option value="">Select City</option>');
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
+    document.forms['edit_form'].elements['state'].value = '<?php echo $user_data['u_state_id']; ?>';
+    document.forms['edit_form'].elements['city'].value = '<?php echo $user_data['u_city_id']; ?>';
 </script>

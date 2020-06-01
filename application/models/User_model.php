@@ -177,7 +177,6 @@ class User_model extends CI_Model {
                 
          if($query->num_rows() > 0){
                 $row= $query->result();
-                
                 $user=array();
                 $user['User_Id'] = $row[0]->Id;
                 $user['Name'] = $row[0]->Name;
@@ -190,6 +189,15 @@ class User_model extends CI_Model {
                 $user['User_Status'] = $row[0]->Status;
                 $user['Otp_Status'] = $row[0]->Otp_Status;
                 $user['isBoolean'] = $row[0]->isBoolean;
+                
+                $roleData =$this->getCheckUserRoleByUserId($row[0]->add_by);
+                if($roleData){
+                    if($roleData[0]->Role_Id=='5'){
+                     $user['driverVerifyBy'] = $row[0]->add_by;
+                }} else {
+                    $user['driverVerifyBy'] = $row[0]->add_by;
+                    }
+                
                 
                 return $user;
             } else {

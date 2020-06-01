@@ -53,6 +53,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                 </div>
+                 <div class="row">
+                            <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select name="state" class="form-control required" id="state">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($state as $rows) {
+                                      echo '<option value ="'.$rows->s_id.'">'.$rows->state_name.'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('state'); ?></span>
+                        </div>
+                    </div>
+                    
+                    
+                      <?php if($user_data['u_city_id']){ ?>
+                        <div class="col-md-6">
+                     <div class="form-group">
+                                <label for="city">City</label>
+                                <select name="city" class="form-control required" id="city">
+                                    <option value="" selected="" disabled="">select</option>
+                                    <?php
+                                    foreach ($city as $row) {
+                                          echo '<option value ="'.$row->c_id.'">'.$row->city_name.'</option>';
+
+                                    }
+                                    ?>
+                                </select>
+                                <span class="help-block error-message"><?php echo form_error('city'); ?></span>
+                        </div>
+                        </div>
+                   <?php }  else {?>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <select name="city" class="form-control required" id="city">
+                               
+                                 <option value="">----------Select City----------</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('city'); ?></span>
+                        </div>
+                    </div>
+                     
+                      <?php } ?>
+                  </div> 
                     
                     <div class="row">
                    <div class="col-md-6">
@@ -101,7 +149,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Email">Email</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control required" id="Email" placeholder="Enter email">
+                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control" id="Email" placeholder="Enter email">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
                         </div>
@@ -197,7 +245,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.form -->
     </div>
 </section>
+<script>
+    /* JQuery to bind City according to State selection */
+    $(document).ready(function () {
+        $('#state').change(function () {
+            var state_id = $('#state').val();
+            if (state_id != '') {
+                $.ajax({
+                    url: "<?php echo base_url(); ?>admin/owner/fetchcity",
+                    method: "POST",
+                    data: { state_id: state_id },
+                    success: function (data) {
+                        $('#city').html(data);
+                    }
+                });
+            }
+            else {
+                $('#city').html('<option value="">Select City</option>');
+               
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
+    document.forms['edit_form'].elements['state'].value = '<?php echo $user_data['u_state_id']; ?>';
+    document.forms['edit_form'].elements['city'].value = '<?php echo $user_data['u_city_id']; ?>';
 </script>

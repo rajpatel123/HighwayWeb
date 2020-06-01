@@ -69,6 +69,25 @@ class Vehicle_model extends CI_Model {
         return $result; 
     } 
 
+    public function get_year_dropdown() { 
+        $this->db->select(array('y_id','year')) 
+                ->from('year')
+                ;
+        $query_result = $this->db->get(); 
+       // echo  $this->db->last_query();die;
+        $result = $query_result->result_array(); 
+        return $result; 
+    }     
+    public function get_month_dropdown() { 
+        $this->db->select(array('m_id','month')) 
+                ->from('month')
+                ;
+        $query_result = $this->db->get(); 
+       // echo  $this->db->last_query();die;
+        $result = $query_result->result_array(); 
+        return $result; 
+    }     
+    
     public function get_Vehicle_by_vehicle_id($vehicle_id) {
         $this->db->select(array("*")) 
                 ->from('vehicle')

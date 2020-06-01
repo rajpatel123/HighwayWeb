@@ -75,30 +75,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     
                     
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label for="Model Number">Vehicle Model Number</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="vehicle_model_no" value="<?php echo $user_data['v_vehicle_model_no']; ?>" class="form-control required" id="vehicle_model_no" placeholder="Enter vehicle model number">
-                            </div>
-                            <span class="help-block error-message"><?php echo form_error('vehicle_model_no'); ?></span>
+                            <label for="YearId">Vehicle Model Year</label>
+                            
+                            
+                             <select name="YearId" class="form-control required" id="YearId">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($dropdownYear as $rows) {
+                                      echo '<option value ="'.$rows['year'].'">'.$rows['year'].'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('YearId'); ?></span>
+                        </div>
+                    </div>
+                    
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MonthId">Month</label>
+                            <select name="MonthId" class="form-control required" id="MonthId">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($dropdownMonth as $row) {
+                                 echo '<option value ="'.$row['month'].'">'.$row['month'].'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('MonthId'); ?></span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Details">Vehicle Detail</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="vehicle_detail" value="<?php echo $user_data['v_vehicle_detail'];  ?>" class="form-control required" id="vehicle_detail" placeholder="Enter vehicle details">
-                            </div>
-                            <span class="help-block error-message"><?php echo form_error('vehicle_detail'); ?></span>
-                        </div>
-                    </div>
-              
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Chechis Number">Chechis Number </label>
@@ -107,6 +119,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" name="chechis_number" value="<?php echo $user_data['v_chechis_number'];  ?>" class="form-control required" id="chechis_number" placeholder="Enter Chechis Number">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('chechis_number'); ?></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="vehicle_rc_number">Vehicle Rc Number</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" name="vehicle_rc_number" value="<?php echo $user_data['v_vehicle_detail'];  ?>" class="form-control required" id="vehicle_rc_number" placeholder="Enter Vehicle Rc Number">
+                            </div>
+                            <span class="help-block error-message"><?php echo form_error('vehicle_rc_number'); ?></span>
                         </div>
                     </div>
                         
@@ -227,4 +249,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     document.forms['edit_form'].elements['vehicle_type'].value = '<?php echo $user_data['v_type_id']; ?>';
+    document.forms['edit_form'].elements['YearId'].value = '<?php echo $year; ?>';
+    document.forms['edit_form'].elements['MonthId'].value = '<?php echo $month; ?>';
 </script>

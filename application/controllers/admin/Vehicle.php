@@ -31,9 +31,11 @@ class Vehicle extends CI_Controller {
         $data['active_menu'] = 'vehicle';
         $data['active_sub_menu'] = 'vehicle';
         $data['active_sub_sub_menu'] = '';
-        $data['dropdownData'] = $this->vehicle_mdl->get_driver_dropdown();
         $data['vehicleData'] = $this->vehicle_mdl->get_vehicle_dropdown();
-        //echo '<pre>' ;print_r($data['vehicleData']);die;
+        $data['dropdownYear'] = $this->vehicle_mdl->get_year_dropdown();
+        $data['dropdownMonth'] = $this->vehicle_mdl->get_month_dropdown();
+       // echo '<pre>' ;print_r($data['dropdownYear']);die;
+        //echo '<pre>' ;print_r($data['dropdownMonth']);die;
         $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('admin_views/vehicles/add_vehicle_v', $data, TRUE);
         $this->load->view('admin_views/admin_master_v', $data);
@@ -46,20 +48,26 @@ class Vehicle extends CI_Controller {
                 'label' => 'vehicle_type',
                 'rules' => 'trim|required'
             ),
-            array(
-                'field' => 'vehicle_detail',
-                'label' => 'vehicle_detail',
-                'rules' => 'trim|required|max_length[250]|min_length[3]'
-            ),
+           
             array(
                 'field' => 'vehicle_number',
                 'label' => 'vehicle_number',
                 'rules' => 'trim|required|max_length[20]|min_length[3]'
             ),
             array(
-                'field' => 'vehicle_model_no',
-                'label' => 'vehicle_model_no',
-                'rules' => 'trim|required|max_length[25]|min_length[3]'
+                'field' => 'vehicle_rc_number',
+                'label' => 'vehicle_rc_number',
+                'rules' => 'trim|required|max_length[50]|min_length[3]'
+            ),
+            array(
+                'field' => 'YearId',
+                'label' => 'YearId',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'MonthId',
+                'label' => 'MonthId',
+                'rules' => 'trim|required'
             ),
             array(
                 'field' => 'vehicle_name',
@@ -83,10 +91,10 @@ class Vehicle extends CI_Controller {
             
         } else {
             $data['v_type_id'] = $this->input->post('vehicle_type', TRUE); 
-            $data['v_vehicle_detail'] = $this->input->post('vehicle_detail', TRUE); 
             $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
+            $data['v_vehicle_detail'] = $this->input->post('vehicle_rc_number', TRUE); 
             $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
-            $data['v_vehicle_model_no'] = $this->input->post('vehicle_model_no', TRUE); 
+            $data['v_vehicle_model_no'] = $this->input->post('YearId', TRUE).'-'.$this->input->post('MonthId', TRUE); 
             $data['v_chechis_number'] = $this->input->post('chechis_number', TRUE); 
             $data['v_status'] = 1; 
            // $data['Image'] = $this->input->post('Image', TRUE); 
@@ -97,7 +105,7 @@ class Vehicle extends CI_Controller {
             $vehicleTypeId= $data['v_type_id'];
             $this->load->model('admin_models/Vehicle_type_model', 'vehicle_type_mdl');    
             $vehicleTypeData = $this->vehicle_type_mdl->get_vehicle_type_by_id($vehicleTypeId); 
-            
+            $data['v_type'] =$vehicleTypeData['v_t_type'];
            
             $insert_id = $this->vehicle_mdl->add_vehicle_data($data); 
             
@@ -338,14 +346,18 @@ class Vehicle extends CI_Controller {
 
     public function edit_vehicle($vehicle_id) { 
         $data = array(); 
-        $data['user_data'] = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id);  
-        //echo '<pre>' ;print_r($data['user_data']);die;
+        $data['user_data'] = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id); 
+        $data['yearMonth'] = explode('-',$data['user_data']['v_vehicle_model_no']);
+        $data['year'] = $data['yearMonth'][0];
+        $data['month'] = $data['yearMonth'][1];
+        //echo '<pre>' ;print_r($data['year']);die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Vehicle'; 
             $data['active_menu'] = 'vehicle'; 
             $data['active_sub_menu'] = 'vehicle'; 
             $data['active_sub_sub_menu'] = ''; 
-            //$data['dropdownData'] = $this->vehicle_mdl->get_driver_dropdown();
+            $data['dropdownYear'] = $this->vehicle_mdl->get_year_dropdown();
+            $data['dropdownMonth'] = $this->vehicle_mdl->get_month_dropdown();
             $data['vehicleData'] = $this->vehicle_mdl->get_vehicle_dropdown();
             $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
             $data['main_content'] = $this->load->view('admin_views/vehicles/edit_vehicle_v', $data, TRUE);
@@ -359,6 +371,7 @@ class Vehicle extends CI_Controller {
 
     public function update_vehicle($vehicle_id) { 
         $vehicle_info = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id); 
+        //echo '<pre>' ;print_r($vehicle_info);die;
         if (!empty($vehicle_info)) { 
             $config = array( 
               array(
@@ -366,25 +379,32 @@ class Vehicle extends CI_Controller {
                 'label' => 'vehicle_type',
                 'rules' => 'trim|required'
             ),
-            array(
-                'field' => 'vehicle_detail',
-                'label' => 'vehicle_detail',
-                'rules' => 'trim|required|max_length[250]|min_length[3]'
-            ),
+            
             array(
                 'field' => 'vehicle_number',
                 'label' => 'vehicle_number',
                 'rules' => 'trim|required|max_length[20]|min_length[3]'
             ),
+                
             array(
-                'field' => 'vehicle_model_no',
-                'label' => 'vehicle_model_no',
-                'rules' => 'trim|required|max_length[25]|min_length[3]'
-            ),
-            array(
+                'field' => 'vehicle_rc_number',
+                'label' => 'vehicle_rc_number',
+                'rules' => 'trim|required|max_length[50]|min_length[3]'
+            ),    
+                array(
                 'field' => 'vehicle_name',
                 'label' => 'vehicle_name',
                 'rules' => 'trim|required|max_length[30]|min_length[3]'
+            ),
+            array(
+                'field' => 'YearId',
+                'label' => 'YearId',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'MonthId',
+                'label' => 'MonthId',
+                'rules' => 'trim|required'
             ),
                 array(
                 'field' => 'chechis_number',
@@ -393,14 +413,14 @@ class Vehicle extends CI_Controller {
             )
 
         );
+           
             $this->form_validation->set_rules($config); 
             if ($this->form_validation->run() == FALSE) { 
                 $this->edit_vehicle($vehicle_id); 
             } else { 
                 $data['v_type_id'] = $this->input->post('vehicle_type', TRUE); 
-                $data['v_vehicle_detail'] = $this->input->post('vehicle_detail', TRUE); 
                 $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
-                $data['v_vehicle_model_no'] = $this->input->post('vehicle_model_no', TRUE); 
+                $data['v_vehicle_model_no'] = $this->input->post('YearId', TRUE).'-'.$this->input->post('MonthId', TRUE); 
                 $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
                 $data['v_chechis_number'] = $this->input->post('chechis_number', TRUE); 
                 $data['v_status'] = 1; 
@@ -410,6 +430,7 @@ class Vehicle extends CI_Controller {
                 $vehicleTypeId= $data['v_type_id'];
                 $this->load->model('admin_models/Vehicle_type_model', 'vehicle_type_mdl');    
                 $vehicleTypeData = $this->vehicle_type_mdl->get_vehicle_type_by_id($vehicleTypeId); 
+                $data['v_type'] =$vehicleTypeData['v_t_type'];
                 $result = $this->vehicle_mdl->update_vehicle($vehicle_id, $data); 
                 
                 

@@ -73,6 +73,7 @@ class Vehicle_model extends CI_Model {
                 $counter=0;
                 $cat=array();
                 foreach($data as $row){
+                    $cat[$counter]['VehicleId']=$row->v_Id ;
                     $cat[$counter]['VehicleName']=$row->v_t_vehicle_name ;
                     $cat[$counter]['VehicleNumber']=$row->v_vehicle_number ;
                     $cat[$counter]['VehicleModelNo']=$row->v_vehicle_model_no;
@@ -128,6 +129,11 @@ class Vehicle_model extends CI_Model {
                     $cat[$counter]['Address']=$row->Address;
                     $cat[$counter]['Latitude']=$row->d_l_latitude;
                     $cat[$counter]['Longitude']=$row->d_l_longitude;
+                    if($row->v_vehicle_on_off=='ON'){
+                    $cat[$counter]['VehicleOnOff']=$row->v_vehicle_on_off;
+                    } else {
+                     $cat[$counter]['VehicleOnOff']='OFF';   
+                    }
                     $counter++;
                 }
                 return $cat;
@@ -497,6 +503,20 @@ class Vehicle_model extends CI_Model {
                 $counter= $count=0;
                 $cat = $info = array();
                 
+                $time = '00:1:00';   // 1 min me 1 km
+                $distance = $distanceData;
+                list($h,$m,$s) = explode(':',$time);
+                $nbSec = $h * 3600 + $m * 60 + $s;
+                $totalDuration = $nbSec * $distance;
+                $ToTTimeInMineutHour = gmdate("H:i:s", $totalDuration);
+                $totalTime = explode(':',$ToTTimeInMineutHour);
+                
+                $hour = $totalTime[0];
+                $minute = $totalTime[1];
+                $seconds = $totalTime[2];
+                $ttinhour = $hour.' Hour '.$minute.' Minute';
+                
+                
                 $this->db->select(array('v_i_information'))
                 ->from("tbl_vehicle_info")
                 ->where(array("tbl_vehicle_info.v_i_status" => 1,"tbl_vehicle_info.v_i_delete" => 0,));
@@ -524,6 +544,7 @@ class Vehicle_model extends CI_Model {
                     $cat[$counter]['VehicleName']=$row->v_t_vehicle_name ;
                     $cat[$counter]['VehicleType']=$row->v_t_type ;
                     $cat[$counter]['VehicleFare']=$distancePrice;
+                    $cat[$counter]['TimeDuration']=$ttinhour;
                     
                     $cat[$counter]['v_info']=$info;
                     $counter++;
@@ -665,6 +686,34 @@ class Vehicle_model extends CI_Model {
                 return $cat;
             } else {
             return array();
+        }
+    }
+    
+    
+      public function getvehicleOwnerDetails($vehicleId,$userId) {
+         if((isset($vehicleId)>0) && (isset($userId)>0)) {
+            $this->db->select(array("*"))
+                ->from("vehicle");
+            $this->db->where(array("v_Id" => $vehicleId, "v_owner_id" => $userId,));
+                }
+        $query = $this->db->get();
+        $resultData = $query->result();
+        if ($query->num_rows() > 0) {
+            $result = $resultData[0];
+            return $result;
+        } else {
+            return array();
+        }
+        
+    }
+    
+    public function updateVehicleApi($data,$VehicleId){
+      if ($VehicleId > 0) {
+        $this->db->where(['v_Id'=>$VehicleId]);
+        $this->db->update('vehicle',$data);
+            return $data['v_vehicle_on_off'];
+        } else {
+            return false;
         }
     }
 }

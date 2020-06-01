@@ -373,6 +373,54 @@ class Vehicle extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
+    
+    function vehicleOnOff_post() {
+        $error = "";
+        $UserId = $this->post('UserId');
+        $VehicleId = $this->post('VehicleId');
+        $VehicleOnOff = $this->post('VehicleOnOff');
+        if (empty($UserId)) {
+            $error = "please provide user id";
+        }   else if (empty($VehicleId)) {
+            $error = "please provide vehicle id";
+        }  else if (empty($VehicleOnOff)) {
+            $error = "please provide vehicle on off";
+        }  
+        if (isset($error) && !empty($error)) {
+            $this->set_response([
+                'status' => false,
+                'message' => $error,
+                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+            return;
+        } else {
+            $this->load->model("vehicle_model");
+            $vehicleData = $this->vehicle_model->getvehicleOwnerDetails($VehicleId,$UserId);
+            if($vehicleData){
+            $saveUserAnswer = $this->vehicle_model->updateVehicleApi(array(
+                "v_vehicle_on_off" => $VehicleOnOff,
+                
+            ),$VehicleId);
+            if ($saveUserAnswer) {
+                $this->set_response([
+                    'status' => true,
+                    'message' => 'success',
+                    'vehicle_on_off'=>$saveUserAnswer
+                        ], REST_Controller::HTTP_OK);
+            } else {
+                $this->set_response([
+                    'status' => false,
+                    'message' => "unable to save the reply. please try again",
+                        ], REST_Controller::HTTP_BAD_REQUEST);
+            }
+            
+            } else {
+                $this->set_response([
+                    'status' => false,
+                    'message' => "You are not owner of this vehicle",
+                        ], REST_Controller::HTTP_BAD_REQUEST);
+            }
+        }
+    }
    
     
 }

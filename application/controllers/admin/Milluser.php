@@ -10,6 +10,7 @@ class Milluser extends CI_Controller {
         }
         $this->load->model('admin_models/milluser_model', 'milluser_mdl'); 
         $this->load->model('admin_models/customer_model', 'customer_mdl'); 
+        $this->load->model('admin_models/driver_model', 'driver_mdl'); 
         
         // $memberObj = $this->session->userdata;
        // echo '<pre>' ; print_r($memberObj);die;
@@ -34,10 +35,19 @@ class Milluser extends CI_Controller {
         $data['active_menu'] = 'Goods Provider';
         $data['active_sub_menu'] = 'Goods Provider';
         $data['active_sub_sub_menu'] = '';
+        $data['state'] = $this->driver_mdl->get_StateDropdown();
         $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('admin_views/millusers/add_milluser_v', $data, TRUE);
         $this->load->view('admin_views/admin_master_v', $data);
     }
+    
+    public function fetchcity()
+        {
+            if ($this->input->post('state_id'))
+            {
+                echo $this->driver_mdl->fetchstateidwisedata($this->input->post('state_id'));
+            }
+        }
     public function create_milluser() {
         // $imgPath = base_url(). '/assets/backend/img/milluser/';
         $config = array(
@@ -54,7 +64,7 @@ class Milluser extends CI_Controller {
             array(
                 'field' => 'Email',
                 'label' => 'Email',
-                'rules' => 'trim|required|max_length[250]|min_length[10]'
+                'rules' => 'trim|max_length[250]|min_length[10]'
             ),
             array(
                 'field' => 'Address',
@@ -66,6 +76,16 @@ class Milluser extends CI_Controller {
                 'label' => 'Status',
                 'rules' => 'trim|required'
             ),
+             array(
+                'field' => 'state',
+                'label' => 'state',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'city',
+                'label' => 'city',
+                'rules' => 'trim|required'
+            ), 
             array(
                 'field' => 'Gender',
                 'label' => 'Gender',
@@ -96,6 +116,8 @@ class Milluser extends CI_Controller {
             $data['Email'] = $this->input->post('Email', TRUE); 
             $data['Status'] = $this->input->post('Status', TRUE); 
             $data['Gender'] = $this->input->post('Gender', TRUE); 
+            $data['u_state_id'] = $this->input->post('state', TRUE); 
+            $data['u_city_id'] = $this->input->post('city', TRUE); 
          //   $data['Image'] = '';
             $data['Role_Id'] = 2; 
             $data['add_by'] = $this->session->userdata('admin_id'); 
@@ -195,6 +217,66 @@ class Milluser extends CI_Controller {
                     }
                 }
              //=============mil second image  end===============//
+                
+                
+                 //=============aadhaar front===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharfrontfile']['error'] == 0) {
+                    $imgaf = $_FILES['aadharfrontfile']['name'];
+                    $tmp = $_FILES['aadharfrontfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgaf, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $Name=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $addharFPic=$insert_id.'_aadharFront_'.$name_replace_with_underscore.'.'.$ext;
+                        if($imgaf){
+                            $path = "./assets/backend/img/milluser/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharfrontfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_front_image']=$addharFPic;
+                    $this->milluser_mdl->update_milluser($insert_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============aadhaar front end===============//  
+                
+                
+                 //=============aadhaar back===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharbackfile']['error'] == 0) {
+                    $imgab = $_FILES['aadharbackfile']['name'];
+                    $tmp = $_FILES['aadharbackfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgab, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $Name=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $addharFPic=$insert_id.'_aadharBack_'.$name_replace_with_underscore.'.'.$ext;
+                        if($imgab){
+                            $path = "./assets/backend/img/milluser/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharbackfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_back_image']=$addharFPic;
+                    $this->milluser_mdl->update_milluser($insert_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============aadhaar back end===============// 
+                
+                
+                
+                
             
             if (!empty($insert_id)) { 
                 $sdata['success'] = 'Add successfully . '; 
@@ -263,6 +345,8 @@ class Milluser extends CI_Controller {
             $data['active_menu'] = 'milluser'; 
             $data['active_sub_menu'] = 'milluser'; 
             $data['active_sub_sub_menu'] = ''; 
+            $data['state'] = $this->driver_mdl->get_StateDropdown();
+            $data['city'] = $this->driver_mdl->get_CityDropdown($data['user_data']['u_city_id']);
             $data['main_menu'] = $this->load->view('admin_views/main_menu_v', $data, TRUE);
             $data['main_content'] = $this->load->view('admin_views/millusers/edit_milluser_v', $data, TRUE);
             $this->load->view('admin_views/admin_master_v', $data); 
@@ -277,31 +361,42 @@ class Milluser extends CI_Controller {
         $milluser_info = $this->milluser_mdl->get_milluser_by_milluser_id($milluser_id); 
         if (!empty($milluser_info)) { 
             $config = array( 
-                array(
+             array(
                 'field' => 'Name',
                 'label' => 'Name',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[2]'
             ),
             array(
                 'field' => 'Mobile',
                 'label' => 'Mobile',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[15]|min_length[10]'
             ),
             array(
                 'field' => 'Email',
                 'label' => 'Email',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|max_length[250]|min_length[10]'
             ),
             array(
                 'field' => 'Address',
                 'label' => 'Address',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
             array(
                 'field' => 'Status',
                 'label' => 'Status',
                 'rules' => 'trim|required'
             ),
+            array(
+                'field' => 'state',
+                'label' => 'state',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'city',
+                'label' => 'city',
+                'rules' => 'trim|required'
+            ),    
+                
             array(
                 'field' => 'Gender',
                 'label' => 'Gender',
@@ -323,6 +418,8 @@ class Milluser extends CI_Controller {
                 $data['Role_Id'] = 2; 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
                 $data['add_by'] = $this->session->userdata('admin_id');
+                $data['u_state_id'] = $this->input->post('state', TRUE); 
+                $data['u_city_id'] = $this->input->post('city', TRUE); 
                 $data['created_on'] = date('Y-m-d H:i:s');  
                 $result = $this->milluser_mdl->update_milluser($milluser_id, $data);
                 
@@ -374,14 +471,14 @@ class Milluser extends CI_Controller {
                 
             $valid_extensions = array('jpeg','jpg','png','gif');
                 if ($_FILES['milFirstfile']['error'] == 0) {
-                    $img = $_FILES['milFirstfile']['name'];
+                    $imgFi = $_FILES['milFirstfile']['name'];
                     $tmp = $_FILES['milFirstfile']['tmp_name'];
-                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                    $ext = strtolower(pathinfo($imgFi, PATHINFO_EXTENSION));
                     if (in_array($ext, $valid_extensions)) {
                         $miluserName=$data['Name'];
                         $name_replace_with_underscore = str_replace(' ', '_', $miluserName);
                         $milfirst=$mill_user_id.'_milfirst_'.$name_replace_with_underscore.'.'.$ext;
-                        if($img){
+                        if($imgFi){
                             $pathF = "./assets/backend/img/milluser/" .$milfirst;
                         } else {
                             $pathF ='';
@@ -402,14 +499,14 @@ class Milluser extends CI_Controller {
                
             $valid_extensions = array('jpeg','jpg','png','gif');
                 if ($_FILES['milSecondfile']['error'] == 0) {
-                    $img = $_FILES['milSecondfile']['name'];
+                    $imgSc = $_FILES['milSecondfile']['name'];
                     $tmp = $_FILES['milSecondfile']['tmp_name'];
-                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                    $ext = strtolower(pathinfo($imgSc, PATHINFO_EXTENSION));
                     if (in_array($ext, $valid_extensions)) {
                         $miluserName=$data['Name'];
                         $name_replace_with_underscore = str_replace(' ', '_', $miluserName);
                         $mil_Secondfile=$mill_user_id.'_milsecond_'.$name_replace_with_underscore.'.'.$ext;
-                        if($img){
+                        if($imgSc){
                             $pathS = "./assets/backend/img/milluser/" .$mil_Secondfile;
                         } else {
                             $pathS ='';
@@ -425,7 +522,60 @@ class Milluser extends CI_Controller {
                 }
              //=============mil second image  end===============//
                 
+                 //=============aadhaar front===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharfrontfile']['error'] == 0) {
+                    $imgA = $_FILES['aadharfrontfile']['name'];
+                    $tmp = $_FILES['aadharfrontfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgA, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $Name=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $addharFPic=$mill_user_id.'_aadharFront_'.$name_replace_with_underscore.'.'.$ext;
+                        if($imgA){
+                            $path = "./assets/backend/img/milluser/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharfrontfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_front_image']=$addharFPic;
+                    $this->milluser_mdl->update_milluser($mill_user_id, $dataUpdate); 
+                    }
+                }
                 
+            //=============aadhaar front end===============//  
+                
+                
+                 //=============aadhaar back===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['aadharbackfile']['error'] == 0) {
+                    $imgB = $_FILES['aadharbackfile']['name'];
+                    $tmp = $_FILES['aadharbackfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgB, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $Name=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $Name);
+                        $addharFPic=$mill_user_id.'_aadharBack_'.$name_replace_with_underscore.'.'.$ext;
+                        if($imgB){
+                            $path = "./assets/backend/img/milluser/aadhar/" .$addharFPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['aadharbackfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataUpdate['aadhar_back_image']=$addharFPic;
+                    $this->milluser_mdl->update_milluser($mill_user_id, $dataUpdate); 
+                    }
+                }
+                
+            //=============aadhaar back end===============// 
                 
                 
                 

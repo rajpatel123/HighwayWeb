@@ -29,17 +29,29 @@ class Driver extends CI_Controller {
         $this->load->view('owner_views/admin_master_v', $data);
     } 
 
+     
+        
+    
     public function add_driver() { 
         $data = array(); 
         $data['title'] = 'Add Driver';
         $data['active_menu'] = 'driver';
         $data['active_sub_menu'] = 'driver';
         $data['active_sub_sub_menu'] = '';
-      //  $data['DropdownData'] = $this->driver_mdl->get_dropdownData();
+        $data['state'] = $this->driver_mdl->get_StateDropdown();
+       // echo '<pre>' ;print_r($data['stateDropdown']);die;
         $data['main_menu'] = $this->load->view('owner_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('owner_views/drivers/add_driver_v', $data, TRUE);
         $this->load->view('owner_views/admin_master_v', $data);
     }
+     public function fetchcity()
+        {
+            if ($this->input->post('state_id'))
+            {
+                echo $this->driver_mdl->fetchstateidwisedata($this->input->post('state_id'));
+            }
+        }
+    
     public function create_driver() {
         $config = array(
            array(
@@ -55,7 +67,7 @@ class Driver extends CI_Controller {
             array(
                 'field' => 'Email',
                 'label' => 'Email',
-                'rules' => 'trim|required|max_length[250]|min_length[10]'
+                'rules' => 'trim|max_length[250]|min_length[10]'
             ),
             array(
                 'field' => 'Address',
@@ -65,6 +77,16 @@ class Driver extends CI_Controller {
             array(
                 'field' => 'Status',
                 'label' => 'Status',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'state',
+                'label' => 'state',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'city',
+                'label' => 'city',
                 'rules' => 'trim|required'
             ),
             array(
@@ -95,6 +117,8 @@ class Driver extends CI_Controller {
             $data['Email'] = $this->input->post('Email', TRUE); 
             $data['Status'] = $this->input->post('Status', TRUE); 
             $data['Gender'] = $this->input->post('Gender', TRUE); 
+            $data['u_state_id'] = $this->input->post('state', TRUE); 
+            $data['u_city_id'] = $this->input->post('city', TRUE); 
             $data['Image'] ='';
             $data['Role_Id'] = 3; 
             $data['add_by'] = $this->session->userdata('admin_id'); 
@@ -186,7 +210,7 @@ class Driver extends CI_Controller {
                     }
                     if (file_exists($path)) {
                     $dataUpdate['aadhar_front_image']=$addharFPic;
-                    $this->driver_mdl->update_driver_dl($insert_id, $dataUpdate); 
+                    $this->driver_mdl->update_driver($insert_id, $dataUpdate); 
                     }
                 }
                 
@@ -214,7 +238,7 @@ class Driver extends CI_Controller {
                     }
                     if (file_exists($path)) {
                     $dataUpdate['aadhar_back_image']=$addharFPic;
-                    $this->driver_mdl->update_driver_dl($insert_id, $dataUpdate); 
+                    $this->driver_mdl->update_driver($insert_id, $dataUpdate); 
                     }
                 }
                 
@@ -281,12 +305,14 @@ class Driver extends CI_Controller {
     public function edit_driver($driver_id) { 
         $data = array(); 
         $data['user_data'] = $this->driver_mdl->getDriverViewData($driver_id); 
-       // echo '<pre>' ;print_r($data['user_data']);die;
+       // echo '<pre>' ;print_r($data['user_data']['u_city_id']);die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Driver'; 
             $data['active_menu'] = 'driver'; 
             $data['active_sub_menu'] = 'driver'; 
             $data['active_sub_sub_menu'] = ''; 
+            $data['state'] = $this->driver_mdl->get_StateDropdown();
+            $data['city'] = $this->driver_mdl->get_CityDropdown($data['user_data']['u_city_id']);
             $data['main_menu'] = $this->load->view('owner_views/main_menu_v', $data, TRUE);
             $data['main_content'] = $this->load->view('owner_views/drivers/edit_driver_v', $data, TRUE);
             $this->load->view('owner_views/admin_master_v', $data); 
@@ -301,26 +327,37 @@ class Driver extends CI_Controller {
         $driver_info = $this->driver_mdl->getDriverViewData($driver_id); 
         if (!empty($driver_info)) { 
             $config = array( 
-                array(
+            array(
                 'field' => 'Name',
                 'label' => 'Name',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[2]'
             ),
             array(
                 'field' => 'Mobile',
                 'label' => 'Mobile',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[15]|min_length[10]'
             ),
             array(
                 'field' => 'Email',
                 'label' => 'Email',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|max_length[250]|min_length[10]'
             ),
             array(
                 'field' => 'Address',
                 'label' => 'Address',
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
+            
+            array(
+                'field' => 'state',
+                'label' => 'state',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'city',
+                'label' => 'city',
+                'rules' => 'trim|required'
+            ),    
             array(
                 'field' => 'Status',
                 'label' => 'Status',
@@ -350,6 +387,8 @@ class Driver extends CI_Controller {
                 $data['Role_Id'] = 3; 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
                 $data['add_by'] = $this->session->userdata('admin_id');
+                $data['u_state_id'] = $this->input->post('state', TRUE); 
+                $data['u_city_id'] = $this->input->post('city', TRUE); 
                 $data['created_on'] = date('Y-m-d H:i:s');  
                 $result = $this->driver_mdl->update_driver($driver_id, $data); 
                 
@@ -437,7 +476,7 @@ class Driver extends CI_Controller {
                     }
                     if (file_exists($path)) {
                     $dataUpdate['aadhar_front_image']=$addharFPic;
-                    $this->driver_mdl->update_driver_dl($driver_id, $dataUpdate); 
+                    $this->driver_mdl->update_driver($driver_id, $dataUpdate); 
                     }
                 }
                 
@@ -465,7 +504,7 @@ class Driver extends CI_Controller {
                     }
                     if (file_exists($path)) {
                     $dataUpdate['aadhar_back_image']=$addharFPic;
-                    $this->driver_mdl->update_driver_dl($driver_id, $dataUpdate); 
+                    $this->driver_mdl->update_driver($driver_id, $dataUpdate); 
                     }
                 }
                 

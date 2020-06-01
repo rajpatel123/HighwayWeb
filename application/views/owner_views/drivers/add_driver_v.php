@@ -45,8 +45,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Name'); ?></span>
                         </div>
                     </div>
-                    
-                    
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="License_Number">License Number</label>
@@ -57,26 +55,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('License_Number'); ?></span>
                         </div>
                     </div>
-                    <!-- /.col -->
+                </div>
                     
-                    
-                    
-<!--                    <div class="col-md-6">
+               <div class="row">
+                            <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Vehicle">Vehicle</label>
-                            <select name="vehicle_id" class="form-control required" id="vehicle_id">
+                            <label for="state">State</label>
+                            <select name="state" class="form-control required" id="state">
                                 <option value="" selected="" disabled="">select</option>
                                 <?php
-                                foreach ($DropdownData as $row) {
-                                 echo '<option value ="'.$row->v_t_id.'">'.$row->v_t_vehicle_name.'-'.$row->v_vehicle_number.'</option>';
+                                foreach ($state as $rows) {
+                                      echo '<option value ="'.$rows->s_id.'">'.$rows->state_name.'</option>';
                                     
                                 }
                                 ?>
                             </select>
-                            <span class="help-block error-message"><?php echo form_error('vehicle_id'); ?></span>
+                            <span class="help-block error-message"><?php echo form_error('state'); ?></span>
                         </div>
-                    </div>-->
-                   </div>
+                    </div>
+                    
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <select name="city" class="form-control required" id="city">
+                               
+                                 <option value="">----------Select City----------</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('city'); ?></span>
+                        </div>
+                    </div>
+                  </div> 
                     
                 <div class="row">
                     <div class="col-md-6">
@@ -134,9 +142,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="Email">Email</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="Email" value="<?php echo set_value('Email'); ?>" class="form-control required" id="Email" placeholder="Enter email">
+                                <input type="text" name="Email"  class="form-control" id="Email" placeholder="Enter email">
                             </div>
-                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
                         </div>
                     </div>
                         <div class="col-md-6">
@@ -195,6 +202,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </form>
     </div>
 </section>
+<script>
+    /* JQuery to bind City according to State selection */
+    $(document).ready(function () {
+        $('#state').change(function () {
+            var state_id = $('#state').val();
+            if (state_id != '') {
+                $.ajax({
+                    url: "<?php echo base_url(); ?>admin/owner/fetchcity",
+                    method: "POST",
+                    data: { state_id: state_id },
+                    success: function (data) {
+                        $('#city').html(data);
+                    }
+                });
+            }
+            else {
+                $('#city').html('<option value="">Select City</option>');
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     document.forms['add_form'].elements['Status'].value = '<?php echo set_value('Status'); ?>';
      $(function () {

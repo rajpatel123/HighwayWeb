@@ -67,7 +67,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                     
                     <div class="row">
-                    
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Number">Vehicle Number</label>
@@ -78,33 +77,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('vehicle_number'); ?></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    
+                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="Model Number">Vehicle Model Number</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="vehicle_model_no" value="<?php echo set_value('vehicle_model_no'); ?>" class="form-control required" id="vehicle_model_no" placeholder="Enter vehicle model number">
-                            </div>
-                            <span class="help-block error-message"><?php echo form_error('vehicle_model_no'); ?></span>
+                            <label for="YearId">Vehicle Model Year</label>
+                            
+                            
+                             <select name="YearId" class="form-control required" id="YearId">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($dropdownYear as $rows) {
+                                      echo '<option value ="'.$rows['year'].'">'.$rows['year'].'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('YearId'); ?></span>
+                        </div>
+                    </div>
+                    
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="MonthId">Month</label>
+                            <select name="MonthId" class="form-control required" id="MonthId">
+                                <option value="" selected="" disabled="">select</option>
+                                <?php
+                                foreach ($dropdownMonth as $row) {
+                                 echo '<option value ="'.$row['month'].'">'.$row['month'].'</option>';
+                                    
+                                }
+                                ?>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('MonthId'); ?></span>
                         </div>
                     </div>
                     </div>
                 
                 <div class="row">
-                   
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Details">Vehicle Detail</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="vehicle_detail" value="<?php echo set_value('vehicle_detail'); ?>" class="form-control required" id="vehicle_detail" placeholder="Enter vehicle details">
-                            </div>
-                            <span class="help-block error-message"><?php echo form_error('vehicle_detail'); ?></span>
-                        </div>
-                    </div>
-                    
-                 
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Chechis Number">Chechis Number </label>
@@ -115,6 +124,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('chechis_number'); ?></span>
                         </div>
                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Vehicle RC Number">Vehicle RC Number</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" name="vehicle_rc_number" value=" " class="form-control required" id="vehicle_rc_number" placeholder="Enter Chechis Number">
+                            </div>
+                            <span class="help-block error-message"><?php echo form_error('vehicle_rc_number'); ?></span>
+                        </div>
+                    </div>
+              
                
                     
                     </div>
@@ -189,18 +209,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                 </div>
                 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="VehicleImage">Vehicle Engine Photo <span class="required">*</span></label>
-                            <div class="input-group">
-                                <?php echo form_upload(['name'=>'veimagefile','class'=>'form-control'])?>
-                            </div>
-                            
-                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
-                        </div>
-                    </div>
-                </div>
+                
                 
                 <!-- /.row -->
            
