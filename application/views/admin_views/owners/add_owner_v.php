@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="col-md-6">
                         <div class="form-group">
                             <label for="state">State</label>
-                            <select name="drpstate" class="form-control required" id="state">
+                            <select name="state" class="form-control " id="state">
                                 <option value="" selected="" disabled="">select</option>
                                 <?php
                                 foreach ($state as $rows) {
@@ -67,21 +67,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 }
                                 ?>
                             </select>
-                            <span class="help-block error-message"><?php echo form_error('state'); ?></span>
+                           
                         </div>
                     </div>
                     
                      <div class="col-md-6">
                         <div class="form-group">
                             <label for="city">City</label>
-                            <select name="drpcity" class="form-control required" id="city">
+                            <select name="city" class="form-control" id="city">
                                
                                  <option value="">----------Select City----------</option>
                             </select>
-                            <span class="help-block error-message"><?php echo form_error('city'); ?></span>
+                          
                         </div>
                     </div>
-                  </div> 
+                  </div>  
                 
                 <div class="row">
                     
@@ -111,18 +111,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                     
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Status">Active Status</label>
-                            <select name="Status" class="form-control required" id="Status">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
-                        </div>
-                    </div>
-                    
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Address">Address</label>
@@ -200,8 +188,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         });
     });
-</script>
-<script type="text/javascript">
-    document.forms['add_form'].elements['Status'].value = '<?php echo set_value('Status'); ?>';
-     
 </script>

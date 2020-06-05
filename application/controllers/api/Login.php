@@ -61,9 +61,7 @@ class Login extends REST_Controller {
             $error = "please provide driver name";
         }  else if (empty($driverMobile)) {
             $error = "please provide driver mobile number";
-        }  else if (empty($driverEmail)) {
-            $error = "please provide driver email";
-        }  else if (empty($driverDLNo)) {
+        }   else if (empty($driverDLNo)) {
             $error = "please provide driver dl no";
         }  else if (empty($ExpiryDate)) {
             $error = "please provide driver license expiry date";

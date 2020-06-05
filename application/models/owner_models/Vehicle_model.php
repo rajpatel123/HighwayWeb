@@ -38,6 +38,7 @@ class Vehicle_model extends CI_Model {
                 ->from('vehicle v')
                 ->join('tbl_vehicle_type vt', 'vt.v_t_id=v.v_type_id','left')
                  ->where(array('v.v_delete'=> 0,'v.v_owner_id'=>$loginId));
+        $this->db->order_by('v.v_Id', 'DESC');
         $query_result = $this->db->get(); 
        // echo  $this->db->last_query();die;
         $result = $query_result->result_array(); 

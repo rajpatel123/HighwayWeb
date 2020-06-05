@@ -68,11 +68,6 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
             array(
-                'field' => 'Status',
-                'label' => 'Status',
-                'rules' => 'trim|required'
-            ),
-            array(
                 'field' => 'Gender',
                 'label' => 'Gender',
                 'rules' => 'trim|required'
@@ -101,7 +96,6 @@ class Customer extends CI_Controller {
             $data['Address'] = $this->input->post('Address', TRUE); 
             $data['Role_Id'] = 2; 
             $data['Email'] = $this->input->post('Email', TRUE); 
-            $data['Status'] = $this->input->post('Status', TRUE); 
             $data['Gender'] = $this->input->post('Gender', TRUE); 
             $data['emergency_contact1'] = $this->input->post('emergency_contact1', TRUE); 
             $data['emergency_contact2'] = $this->input->post('emergency_contact2', TRUE); 
@@ -243,11 +237,6 @@ class Customer extends CI_Controller {
                 'rules' => 'trim|required|max_length[250]'
             ),
             array(
-                'field' => 'Status',
-                'label' => 'Status',
-                'rules' => 'trim|required'
-            ),
-            array(
                 'field' => 'Gender',
                 'label' => 'Gender',
                 'rules' => 'trim|required'
@@ -273,7 +262,6 @@ class Customer extends CI_Controller {
                 $data['Mobile'] = $this->input->post('Mobile', TRUE); 
                 $data['Address'] = $this->input->post('Address', TRUE); 
                 $data['Email'] = $this->input->post('Email', TRUE); 
-                $data['Status'] = $this->input->post('Status', TRUE); 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
                 $data['emergency_contact1'] = $this->input->post('emergency_contact1', TRUE); 
                 $data['emergency_contact2'] = $this->input->post('emergency_contact_two', TRUE); 

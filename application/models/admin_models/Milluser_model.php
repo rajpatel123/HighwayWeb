@@ -50,6 +50,7 @@ class Milluser_model extends CI_Model {
                 ->where('Role_Id', 2)
                 ->where('deletion_status', 0)
                 ;
+        $this->db->order_by('users.Id', 'DESC');
         $query_result = $this->db->get(); 
         $result = $query_result->result_array(); 
         return $result; 

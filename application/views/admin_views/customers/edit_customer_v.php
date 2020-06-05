@@ -43,16 +43,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                    
                     
-                    
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Status">Active Status</label>
-                            <select name="Status" class="form-control required" id="Status">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Role_Id'); ?></span>
+                            <label for="Email">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control required" id="Email" placeholder="Enter email">
+                            </div>
+                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
                         </div>
                     </div>
                      </div>
@@ -118,20 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('emergency_contact_two'); ?></span>
                         </div>
                     </div>
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Email">Email</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                                <input type="text" name="Email" value="<?php echo $user_data['Email']; ?>" class="form-control required" id="Email" placeholder="Enter email">
-                            </div>
-                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
-                        </div>
-                    </div>
-                    </div>
-                <div class="row">
-                    <div class="col-md-6">
+                        <div class="col-md-6">
                         <div class="form-group">
                             <label for="userImage">Profile Picture<span class="required">*</span></label>
                             <div class="input-group">
@@ -145,7 +130,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     
-                </div>
+                    
+                    </div>
+               
                 
                   
                
@@ -163,7 +150,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </section>
 <script type="text/javascript">
-    document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
     document.forms['edit_form'].elements['userType'].value = '<?php echo $user_data['Role_Id']; ?>';
 </script>

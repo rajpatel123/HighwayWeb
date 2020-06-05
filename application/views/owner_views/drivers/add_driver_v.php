@@ -45,6 +45,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Name'); ?></span>
                         </div>
                     </div>
+                    
+                    
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="License_Number">License Number</label>
@@ -55,13 +57,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('License_Number'); ?></span>
                         </div>
                     </div>
-                </div>
                     
-               <div class="row">
+                   </div>
+                
+                <div class="row">
                             <div class="col-md-6">
                         <div class="form-group">
                             <label for="state">State</label>
-                            <select name="state" class="form-control required" id="state">
+                            <select name="state" class="form-control " id="state">
                                 <option value="" selected="" disabled="">select</option>
                                 <?php
                                 foreach ($state as $rows) {
@@ -70,47 +73,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 }
                                 ?>
                             </select>
-                            <span class="help-block error-message"><?php echo form_error('state'); ?></span>
+                           
                         </div>
                     </div>
                     
                      <div class="col-md-6">
                         <div class="form-group">
                             <label for="city">City</label>
-                            <select name="city" class="form-control required" id="city">
+                            <select name="city" class="form-control" id="city">
                                
                                  <option value="">----------Select City----------</option>
                             </select>
-                            <span class="help-block error-message"><?php echo form_error('city'); ?></span>
+                          
                         </div>
                     </div>
-                  </div> 
+                  </div>   
                     
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Status">Active Status</label>
-                            <select name="Status" class="form-control required" id="Status">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Gender">Gender Type</label>
-                            <select name="Gender" class="form-control required" id="Gender">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Male</option>
-                                <option value="0">Female</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
-                        </div>
-                    </div>
-                    </div>
+                   
                 
                 <div class="row">
                     <div class="col-md-6">
@@ -136,7 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     
                     </div> 
-                    <div class="row">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Email">Email</label>
@@ -144,25 +123,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
                                 <input type="text" name="Email"  class="form-control" id="Email" placeholder="Enter email">
                             </div>
+                            <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
                         </div>
                     </div>
-                        <div class="col-md-6">
+                    
+                      <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Image">Picture <span class="required">*</span></label>
-                            <div class="input-group">
-                                <?php echo form_upload(['name'=>'userfile','class'=>'form-control'])?>
-                            </div>
-                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                            <label for="Gender">Gender Type</label>
+                            <select name="Gender" class="form-control required" id="Gender">
+                                <option value="" selected="" disabled="">Select one</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
                         </div>
                     </div>
+                
+                    
                     
                     
                   </div>  
                 
+                 
+                
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Aadhar_front">Aadhar Front Picture <span class="required">*</span></label>
+                            <label for="Dl_front">Dl Front Image <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'dlfrontfile','class'=>'form-control'])?>
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dl_back">Dl Back Image<span class="required">*</span></label>
+                        <div class="input-group">
+                            <?php echo form_upload(['name'=>'dlbackfile','class'=>'form-control'])?>
+                        </div>
+                        <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Aadhar_front">Aadhar Front Image <span class="required">*</span></label>
                             <div class="input-group">
                                 <?php echo form_upload(['name'=>'aadharfrontfile','class'=>'form-control'])?>
                             </div>
@@ -171,7 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="Aadhar_back">Aadhar Back Picture<span class="required">*</span></label>
+                        <label for="Aadhar_back">Aadhar Back Image<span class="required">*</span></label>
                         <div class="input-group">
                             <?php echo form_upload(['name'=>'aadharbackfile','class'=>'form-control'])?>
                         </div>
@@ -179,24 +188,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 </div>
-                    <div class="row">
-                     
-                    
-                    
-                    <div class="col-md-6">
+                <div class="row">                   
+                        <div class="col-md-6">
                         <div class="form-group">
-                            <label for="DL">Dl Picture<span class="required">*</span></label>
+                            <label for="Image"> Profile Image <span class="required">*</span></label>
                             <div class="input-group">
-                                <?php echo form_upload(['name'=>'dlfile','class'=>'form-control'])?>
+                                <?php echo form_upload(['name'=>'userfile','class'=>'form-control'])?>
                             </div>
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
-                    </div>
                     
+                      </div>
+                 </div>
                    
-                </div>
             <div class="box-footer">
-                <a href="<?php echo base_url('owner/driver'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
+                <a href="<?php echo base_url('admin/driver'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
                 <button type="submit" value="upload" class="btn btn-success"><i class="fa fa-plus"></i> Add Info</button>
             </div>
         </form>

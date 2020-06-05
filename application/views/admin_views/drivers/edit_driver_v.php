@@ -104,21 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </div> 
                     
                    <div class="row">
-                   <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Status">Active Status</label>
-                            <select name="Status" class="form-control required" id="Status">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
-                        </div>
-                    </div>
-                    
-
-                    
-                    <div class="col-md-6">
+                       <div class="col-md-6">
                         <div class="form-group">
                             <label for="Mobile">Mobile</label>
                             <div class="input-group">
@@ -128,24 +114,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Mobile'); ?></span>
                         </div>
                     </div>
-                        </div>
-                 <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Gender">Gender Type</label>
-                            <select name="Gender" class="form-control required" id="Gender">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
-                        </div>
-                    </div>
-                    
-                   
-                    
-                    <div class="col-md-6">
+                       
+                        <div class="col-md-6">
                         <div class="form-group">
                             <label for="Email">Email</label>
                             <div class="input-group">
@@ -155,12 +125,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('Email'); ?></span>
                         </div>
                     </div>
-                  
                 </div>
+                
                 
                 <div class="row">
                     
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="Address">Address</label>
                             <div class="input-group">
@@ -171,32 +141,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Gender">Gender Type</label>
+                            <select name="Gender" class="form-control required" id="Gender">
+                                <option value="" selected="" disabled="">Select one</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
+                        </div>
+                    </div>
+                
                  
                     
                     
                 </div>
                 
+                
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Image">Picture <span class="required">*</span></label>
+                            <label for="Dl_front">DL Front image <span class="required">*</span></label>
                             <div class="input-group">
-                                <?php echo form_upload(['name'=>'userfile','class'=>'form-control'])?>
+                                <?php echo form_upload(['name'=>'dlfrontfile','class'=>'form-control'])?>
                             </div>
                             <div class="input-group">
-                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/profile/<?php echo $user_data['Image'] ?>" style="width: 100px;height: 100px;">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['license_front_image'] ?>" style="width: 100px;height: 100px;">
                             </div>
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
                     </div>
                  <div class="col-md-6">
                         <div class="form-group">
-                            <label for="DL">Dl Picture<span class="required">*</span></label>
+                            <label for="dl_back">Dl Back Image<span class="required">*</span></label>
                             <div class="input-group">
-                                <?php echo form_upload(['name'=>'dlfile','class'=>'form-control'])?>
+                                <?php echo form_upload(['name'=>'dlbackfile','class'=>'form-control'])?>
                             </div>
                             <div class="input-group">
-                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['dl_image'] ?>" style="width: 100px;height: 100px;">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['license_back_image'] ?>" style="width: 100px;height: 100px;">
                             </div>
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
@@ -207,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Aadhar_front">Aadhar Front Picture <span class="required">*</span></label>
+                            <label for="Aadhar_front">Aadhar Front Image <span class="required">*</span></label>
                             <div class="input-group">
                                 <?php echo form_upload(['name'=>'aadharfrontfile','class'=>'form-control'])?>
                             </div>
@@ -219,7 +203,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                  <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Aadhar_back">Aadhar Back Picture<span class="required">*</span></label>
+                            <label for="Aadhar_back">Aadhar Back Image<span class="required">*</span></label>
                             <div class="input-group">
                                 <?php echo form_upload(['name'=>'aadharbackfile','class'=>'form-control'])?>
                             </div>
@@ -229,6 +213,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
                     </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Image"> Profile Image <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'userfile','class'=>'form-control'])?>
+                            </div>
+                            <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/driver/profile/<?php echo $user_data['Image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+                
                     
                 </div>
                 <!-- /.row -->
@@ -253,7 +254,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var state_id = $('#state').val();
             if (state_id != '') {
                 $.ajax({
-                    url: "<?php echo base_url(); ?>admin/owner/fetchcity",
+                    url: "<?php echo base_url(); ?>admin/driver/fetchcity",
                     method: "POST",
                     data: { state_id: state_id },
                     success: function (data) {
@@ -268,7 +269,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 </script>
 <script type="text/javascript">
-    document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
     document.forms['edit_form'].elements['state'].value = '<?php echo $user_data['u_state_id']; ?>';
     document.forms['edit_form'].elements['city'].value = '<?php echo $user_data['u_city_id']; ?>';

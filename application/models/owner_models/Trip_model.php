@@ -428,7 +428,7 @@ class Trip_model extends CI_Model {
                 ->join('users d', 'd.Id=b.b_l_t_driver_id','left')
                 ->where(array('b_l_t_delete' => 0,'v.v_owner_id'=>$loginId));
                 $this->db->order_by("b.b_l_t_id", "DESC");
-        $query = $this->db->get(); 
+            $query = $this->db->get(); 
         //echo $this->db->last_query();die;
          if($query->num_rows() > 0){
                 $data= $query->result();

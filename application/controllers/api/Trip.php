@@ -377,5 +377,95 @@ class Trip extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
+    function addNewDriver_post() {
+        $error = "";
+        $owner_id = $this->post('owner_id');
+        $driverName = $this->post('driverName');
+        $driverMobile = $this->post('driverMobile');
+        $driverEmail = $this->post('driverEmail');
+        $driverDLNo = $this->post('driverDLNo');
+        $driverAddress = $this->post('driverAddress');
+        $ExpiryDate = $this->post('dlexpiryDate');
+        $stateId = $this->post('stateId');
+        $cityId = $this->post('cityId');
+        if (empty($owner_id)) {
+            $error = "please provide owner id";
+        } else if (empty($driverName)) {
+            $error = "please provide driver name";
+        }  else if (empty($driverMobile)) {
+            $error = "please provide driver mobile number";
+        }   else if (empty($driverDLNo)) {
+            $error = "please provide driver dl no";
+        }  else if (empty($ExpiryDate)) {
+            $error = "please provide driver license expiry date";
+        } else if (empty($cityId)) {
+            $error = "please provide city id";
+        
+        } else if (empty($stateId)) {
+            $error = "please provide state id";
+        
+        } 
+        $roleId = 5;
+        $this->load->model("user_model");
+        $data = $this->user_model->getActiveUserData($owner_id,$roleId);
+        //echo '<pre>' ;print_r($owner_id);die;
+        
+        if($data){
+            if (isset($error) && !empty($error)) {
+            $this->set_response([
+                'status' => false,
+                'message' => $error,
+                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+            return;
+        } else {
+            
+            $mobileCheckData = $this->user_model->getDataByMobile($driverMobile); 
+            //echo '<pre>' ;print_r($mobileCheckData);die;
+            if(empty($mobileCheckData)){
+            $saveUser = $this->user_model->insertUserApi(array(
+                "Role_id" => 3,
+                "Name" => $driverName,
+                "Email" => $driverEmail,
+                "Mobile" => $driverMobile,
+                "Address" => $driverAddress,
+                "u_city_id" => $cityId,
+                "u_state_id" => $stateId,
+                "add_by" => $owner_id,
 
+            ));
+            $this->load->model("drive_model");
+            $saveDriver = $this->drive_model->insertDriverApi(array(
+                "User_Id" => $saveUser,
+                "License_Number" => $driverDLNo,
+                "Expiry_Date" => $ExpiryDate,
+
+            ));
+           // echo '' ;print_r($saveUser) ;die;
+            if (($saveUser) && ($saveDriver)) {
+                $this->set_response([
+                    'status' => true,
+                    'message' => 'success',
+                    'id'=>$saveUser
+                        ], REST_Controller::HTTP_OK);
+            } else {
+                $this->set_response([
+                    'status' => false,
+                    'message' => "unable to save the reply. please try again",
+                        ], REST_Controller::HTTP_BAD_REQUEST);
+            }
+            } else {
+                $this->set_response([
+                    'status' => true,
+                    'message' => "user Alerady register",
+                        ], REST_Controller::HTTP_OK);
+        }
+            
+             }
+        } else {
+                $this->set_response([
+                    'status' => true,
+                    'message' => "you are not owner",
+                        ], REST_Controller::HTTP_OK);
+        }
+    }
 }

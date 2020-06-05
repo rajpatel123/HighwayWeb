@@ -80,11 +80,7 @@ class Owner extends CI_Controller {
                 'label' => 'city',
                 'rules' => 'trim|required'
             ), 
-            array(
-                'field' => 'Status',
-                'label' => 'Status',
-                'rules' => 'trim|required'
-            ),
+           
             array(
                 'field' => 'Gender',
                 'label' => 'Gender',
@@ -112,7 +108,6 @@ class Owner extends CI_Controller {
             $data['Mobile'] = $this->input->post('Mobile', TRUE); 
             $data['Address'] = $this->input->post('Address', TRUE); 
             $data['Email'] = $this->input->post('Email', TRUE); 
-            $data['Status'] = $this->input->post('Status', TRUE); 
             $data['Gender'] = $this->input->post('Gender', TRUE); 
             $data['u_state_id'] = $this->input->post('state', TRUE); 
             $data['u_city_id'] = $this->input->post('city', TRUE); 
@@ -268,7 +263,8 @@ class Owner extends CI_Controller {
 
     public function edit_owner($owner_id) { 
         $data = array(); 
-        $data['user_data'] = $this->useradmin_mdl->get_owner_by_owner_id($owner_id);  
+        $data['user_data'] = $this->useradmin_mdl->get_owner_by_owner_id($owner_id); 
+       // echo '<pre>' ;print_r($data);die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Owner'; 
             $data['active_menu'] = 'owner'; 
@@ -310,12 +306,7 @@ class Owner extends CI_Controller {
                 'label' => 'Address',
                 'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
-            array(
-                'field' => 'Status',
-                'label' => 'Status',
-                'rules' => 'trim|required'
-            ),
-                
+            
              array(
                 'field' => 'state',
                 'label' => 'state',
@@ -342,7 +333,6 @@ class Owner extends CI_Controller {
                 $data['Mobile'] = $this->input->post('Mobile', TRUE); 
                 $data['Address'] = $this->input->post('Address', TRUE); 
                 $data['Email'] = $this->input->post('Email', TRUE); 
-                $data['Status'] = $this->input->post('Status', TRUE); 
                 $data['Role_Id'] = 5; 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
                 $data['u_state_id'] = $this->input->post('state', TRUE); 

@@ -32,12 +32,13 @@ class Customer_model extends CI_Model {
     }  
 	
     public function get_customer_info() { 
-        $userRole=array(2,4);
+        $userRole=array(4);
         $this->db->select('u.*,r.Title') 
                 ->from('users u')
                 ->join('roles r', 'r.Id=u.Role_Id','left')
                 ->where('u.deletion_status', 0);
         $this->db->where_in('u.Role_Id',$userRole);
+        $this->db->order_by('u.Id', 'DESC');
         $query=$this->db->get();
          if($query->num_rows() > 0){
                 $data= $query->result();

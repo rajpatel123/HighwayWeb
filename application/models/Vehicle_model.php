@@ -51,7 +51,7 @@ class Vehicle_model extends CI_Model {
         }
     }
     
-      public  function getVehicleDetailsApi() {
+      public  function getVehicleDetailsApi($ownerId) {
         $this->db->select(array("*"))
                 ->from("vehicle")
                 ->join('tbl_vehicle_type', 'vehicle.v_type_id=tbl_vehicle_type.v_t_id','left')
@@ -61,7 +61,7 @@ class Vehicle_model extends CI_Model {
                 ->join('users', 'users.Id=tbl_assign_vehicle_to_driver.a_v_t_d_driver_id','left')
                 ->join('tbl_driver_location', 'tbl_assign_vehicle_to_driver.a_v_t_d_driver_id=tbl_driver_location.d_l_driver_id','left')
                 ->join('drive_license', 'drive_license.User_Id=tbl_assign_vehicle_to_driver.a_v_t_d_driver_id','left')
-                ->where(array("vehicle.v_status" => 1,"vehicle.v_delete" => 0))
+                ->where(array("vehicle.v_status" => 1,"vehicle.v_delete" => 0,"vehicle.v_owner_id" =>$ownerId ))
                 ;
         $this->db->order_by("d_l_id", "DESC");            
         $this->db->GROUP_BY('d_l_driver_id');
@@ -116,19 +116,54 @@ class Vehicle_model extends CI_Model {
 //                    } else {
 //                        $cat[$counter]['vehicleRight']=''; 
 //                    } 
-                    $cat[$counter]['DriverId']=$row->a_v_t_d_driver_id;
+                    if($row->a_v_t_d_driver_id){
+                      $cat[$counter]['DriverId']=$row->a_v_t_d_driver_id;  
+                    } else {
+                        $cat[$counter]['DriverId']='';
+                    }
+                    
                     if($row->a_v_t_d_driver_id>0){
                     $cat[$counter]['DriverName']=$row->Name;   
                     } else {
                     $cat[$counter]['DriverName']='Currently vehicle is not assign !';     
                     }
-                    $cat[$counter]['Mobile']=$row->Mobile;
-                    $cat[$counter]['Email']=$row->Email;
+                    if($row->Mobile){
+                       $cat[$counter]['Mobile']=$row->Mobile; 
+                    } else {
+                        $cat[$counter]['Mobile']='';
+                    }
+                    
+                    if($row->Email){
+                        $cat[$counter]['Email']=$row->Email;
+                    }else {
+                        $cat[$counter]['Email']='';
+                    }
+                    if($row->License_Number){
                     $cat[$counter]['DLNumber']=$row->License_Number;
-                    $cat[$counter]['ExpiryDate']=$row->Expiry_Date;
-                    $cat[$counter]['Address']=$row->Address;
+                    } else {
+                      $cat[$counter]['DLNumber']='';  
+                    }
+                    if($row->Expiry_Date){
+                       $cat[$counter]['ExpiryDate']=$row->Expiry_Date; 
+                    }else {
+                        $cat[$counter]['ExpiryDate']='';
+                    }
+                    if($row->Address){
+                        $cat[$counter]['Address']=$row->Address;  
+                    }else {
+                          $cat[$counter]['Address']='';
+                    }
+                    if($row->d_l_latitude){
                     $cat[$counter]['Latitude']=$row->d_l_latitude;
-                    $cat[$counter]['Longitude']=$row->d_l_longitude;
+                    } else{
+                      $cat[$counter]['Latitude']='';  
+                    }
+                    if($row->d_l_longitude){
+                        $cat[$counter]['Longitude']=$row->d_l_longitude;
+                    } else {
+                        $cat[$counter]['Longitude']='';
+                    }
+                    
                     if($row->v_vehicle_on_off=='ON'){
                     $cat[$counter]['VehicleOnOff']=$row->v_vehicle_on_off;
                     } else {

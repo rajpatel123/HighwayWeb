@@ -106,33 +106,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </div> 
                 
                    
-                     <div class="row">
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Status">Active Status</label>
-                            <select name="Status" class="form-control required" id="Status">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Gender">Gender Type</label>
-                            <select name="Gender" class="form-control required" id="Gender">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
-                        </div>
-                    </div>
-                    </div>
+                     
                     
 
                      <div class="row">
@@ -155,6 +129,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" name="Address" value="<?php echo $user_data['Address']; ?>" class="form-control required" id="Address" placeholder="Enter address">
                             </div>
                             <span class="help-block error-message"><?php echo form_error('Address'); ?></span>
+                        </div>
+                    </div>
+                    </div>
+                <div class="row">
+                    
+                   
+                    
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Gender">Gender Type</label>
+                            <select name="Gender" class="form-control required" id="Gender">
+                                <option value="" selected="" disabled="">Select one</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                            <span class="help-block error-message"><?php echo form_error('Gender'); ?></span>
                         </div>
                     </div>
                     </div>
@@ -216,8 +207,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.form -->
    
 </section>
+<script>
+    /* JQuery to bind City according to State selection */
+    $(document).ready(function () {
+        $('#state').change(function () {
+            var state_id = $('#state').val();
+            if (state_id != '') {
+                $.ajax({
+                    url: "<?php echo base_url(); ?>admin/owner/fetchcity",
+                    method: "POST",
+                    data: { state_id: state_id },
+                    success: function (data) {
+                        $('#city').html(data);
+                    }
+                });
+            }
+            else {
+                $('#city').html('<option value="">Select City</option>');
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
-    document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
     document.forms['edit_form'].elements['state'].value = '<?php echo $user_data['u_state_id']; ?>';
     document.forms['edit_form'].elements['city'].value = '<?php echo $user_data['u_city_id']; ?>';

@@ -21,7 +21,8 @@ class Driver extends CI_Controller {
         $data['active_menu'] = 'driver';
         $data['active_sub_menu'] = 'driver';
         $data['active_sub_sub_menu'] = ''; 
-        $data['driver_info'] = $this->driver_mdl->get_driver_info();
+        $data['login_owner_id']=$this->session->userdata('admin_id'); 
+        $data['driver_info'] = $this->driver_mdl->get_driver_info($data['login_owner_id']);
        // echo '<pre>' ;print_r($data['driver_info']);die;
       
         $data['main_menu'] = $this->load->view('owner_views/main_menu_v', $data, TRUE);
@@ -32,26 +33,25 @@ class Driver extends CI_Controller {
      
         
     
-    public function add_driver() { 
+     public function add_driver() { 
         $data = array(); 
         $data['title'] = 'Add Driver';
         $data['active_menu'] = 'driver';
         $data['active_sub_menu'] = 'driver';
         $data['active_sub_sub_menu'] = '';
         $data['state'] = $this->driver_mdl->get_StateDropdown();
-       // echo '<pre>' ;print_r($data['stateDropdown']);die;
         $data['main_menu'] = $this->load->view('owner_views/main_menu_v', $data, TRUE);
         $data['main_content'] = $this->load->view('owner_views/drivers/add_driver_v', $data, TRUE);
         $this->load->view('owner_views/admin_master_v', $data);
     }
-     public function fetchcity()
+    
+    public function fetchcity()
         {
             if ($this->input->post('state_id'))
             {
                 echo $this->driver_mdl->fetchstateidwisedata($this->input->post('state_id'));
             }
         }
-    
     public function create_driver() {
         $config = array(
            array(
@@ -74,24 +74,21 @@ class Driver extends CI_Controller {
                 'label' => 'Address',
                 'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
+            
             array(
-                'field' => 'Status',
-                'label' => 'Status',
+                'field' => 'Gender',
+                'label' => 'Gender',
                 'rules' => 'trim|required'
             ),
-            array(
+             array(
                 'field' => 'state',
                 'label' => 'state',
                 'rules' => 'trim|required'
             ),
+           
             array(
                 'field' => 'city',
                 'label' => 'city',
-                'rules' => 'trim|required'
-            ),
-            array(
-                'field' => 'Gender',
-                'label' => 'Gender',
                 'rules' => 'trim|required'
             ),
            
@@ -100,22 +97,19 @@ class Driver extends CI_Controller {
                 'label' => 'License_Number',
                 'rules' => 'trim|required|max_length[250]'
             ),
-//             array(
-//                'field' => 'vehicle_id',
-//                'label' => 'vehicle_id',
-//                'rules' => 'trim|required'
-//            )
+
             );
         $this->load->library('upload', $config);
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run() == FALSE) {
+            // echo 'hi123';die;
             $this->add_driver();
         } else {
             $data['Name'] = $this->input->post('Name', TRUE); 
             $data['Mobile'] = $this->input->post('Mobile', TRUE); 
             $data['Address'] = $this->input->post('Address', TRUE); 
             $data['Email'] = $this->input->post('Email', TRUE); 
-            $data['Status'] = $this->input->post('Status', TRUE); 
+            $data['Status'] = 0;
             $data['Gender'] = $this->input->post('Gender', TRUE); 
             $data['u_state_id'] = $this->input->post('state', TRUE); 
             $data['u_city_id'] = $this->input->post('city', TRUE); 
@@ -157,49 +151,76 @@ class Driver extends CI_Controller {
             $dataDriver['User_Id'] = $insert_id; 
             $dataDriver['Status'] = 1; 
             $dataDriver['Image'] ='';
+            $dataDriver['license_front_image'] ='';
+            $dataDriver['license_back_image'] ='';
             $insert_driverid = $this->driver_mdl->add_driver_licence_data($dataDriver);  // Insert in drive_license table
             
-            //==========================DL Upload=========
-            $valid_extensions_dl = array('jpeg','jpg','png','gif');
-                if ($_FILES['dlfile']['error'] == 0) {
-                    $imgdl = $_FILES['dlfile']['name'];
-                    $tmpdl = $_FILES['dlfile']['tmp_name'];
-                    $extdl = strtolower(pathinfo($imgdl, PATHINFO_EXTENSION));
-                    if(in_array($extdl, $valid_extensions_dl)) {
-                          
+            
+                 //=============dl front===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['dlfrontfile']['error'] == 0) {
+                    $imgdl = $_FILES['dlfrontfile']['name'];
+                    $tmp = $_FILES['dlfrontfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgdl, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
                         $driverName=$data['Name'];
-                        $dl_driver_with_underscore = str_replace(' ', '_', $driverName);
-                        $dlPic=$insert_id.'_dl_'.$dl_driver_with_underscore.'.'.$extdl;
-                        
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $dlfPic=$insert_id.'_dlFront_'.$name_replace_with_underscore.'.'.$ext;
                         if($imgdl){
-                            $pathDl = "./assets/backend/img/driver/dl/" . $dlPic;
+                            $path = "./assets/backend/img/driver/dl/" .$dlfPic;
                         } else {
-                            $pathDl ='';
+                            $path ='';
                         }
-                        if (move_uploaded_file($tmpdl, $pathDl)){
-                            $_POST['dlfile'] = $pathDl;
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['dlfrontfile'] = $path;
                         }
-                        
                     }
-                    if (file_exists($pathDl)) {
-                        $dlUpdate['Image']=$dlPic;
-                        $this->driver_mdl->update_driver_dl($insert_id, $dlUpdate); 
-                    } 
+                    if (file_exists($path)) {
+                    $datadlUpdate['license_front_image']=$dlfPic;
+                    $this->driver_mdl->update_driver_dl($insert_id, $datadlUpdate); 
+                    }
                 }
-            
-            //  ========================Dl upload= End===========//
-            
+                
+            //=============dl front end===============//  
+                
+                
+                 //=============dl back===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['dlbackfile']['error'] == 0) {
+                    $imgdlb = $_FILES['dlbackfile']['name'];
+                    $tmp = $_FILES['dlbackfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgdlb, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $driverName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $dlbPic=$insert_id.'_dlBack_'.$name_replace_with_underscore.'.'.$ext;
+                        if($imgdlb){
+                            $path = "./assets/backend/img/driver/dl/" .$dlbPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['dlbackfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $datadlUpdate['license_back_image']=$dlbPic;
+                    $this->driver_mdl->update_driver_dl($insert_id, $datadlUpdate); 
+                    }
+                }
+                
+            //=============dl back end===============// 
                //=============aadhaar front===============//
             $valid_extensions = array('jpeg','jpg','png','gif');
                 if ($_FILES['aadharfrontfile']['error'] == 0) {
-                    $img = $_FILES['aadharfrontfile']['name'];
+                    $imgfa = $_FILES['aadharfrontfile']['name'];
                     $tmp = $_FILES['aadharfrontfile']['tmp_name'];
-                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                    $ext = strtolower(pathinfo($imgfa, PATHINFO_EXTENSION));
                      if (in_array($ext, $valid_extensions)) {
                         $driverName=$data['Name'];
                         $name_replace_with_underscore = str_replace(' ', '_', $driverName);
                         $addharFPic=$insert_id.'_aadharFront_'.$name_replace_with_underscore.'.'.$ext;
-                        if($img){
+                        if($imgfa){
                             $path = "./assets/backend/img/driver/aadhar/" .$addharFPic;
                         } else {
                             $path ='';
@@ -220,14 +241,14 @@ class Driver extends CI_Controller {
                  //=============aadhaar back===============//
             $valid_extensions = array('jpeg','jpg','png','gif');
                 if ($_FILES['aadharbackfile']['error'] == 0) {
-                    $img = $_FILES['aadharbackfile']['name'];
+                    $imgfb = $_FILES['aadharbackfile']['name'];
                     $tmp = $_FILES['aadharbackfile']['tmp_name'];
-                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                    $ext = strtolower(pathinfo($imgfb, PATHINFO_EXTENSION));
                      if (in_array($ext, $valid_extensions)) {
                         $driverName=$data['Name'];
                         $name_replace_with_underscore = str_replace(' ', '_', $driverName);
                         $addharFPic=$insert_id.'_aadharBack_'.$name_replace_with_underscore.'.'.$ext;
-                        if($img){
+                        if($imgfb){
                             $path = "./assets/backend/img/driver/aadhar/" .$addharFPic;
                         } else {
                             $path ='';
@@ -243,6 +264,9 @@ class Driver extends CI_Controller {
                 }
                 
             //=============aadhaar back end===============// 
+                
+                
+                
                 
                 
           if (!empty($insert_id) && (!empty($insert_driverid))) { 
@@ -302,10 +326,10 @@ class Driver extends CI_Controller {
         } 
     }  
 
-    public function edit_driver($driver_id) { 
+   public function edit_driver($driver_id) { 
         $data = array(); 
         $data['user_data'] = $this->driver_mdl->getDriverViewData($driver_id); 
-       // echo '<pre>' ;print_r($data['user_data']['u_city_id']);die;
+        //echo '<pre>' ;print_r($data['user_data']);die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Driver'; 
             $data['active_menu'] = 'driver'; 
@@ -327,7 +351,7 @@ class Driver extends CI_Controller {
         $driver_info = $this->driver_mdl->getDriverViewData($driver_id); 
         if (!empty($driver_info)) { 
             $config = array( 
-            array(
+               array(
                 'field' => 'Name',
                 'label' => 'Name',
                 'rules' => 'trim|required|max_length[250]|min_length[2]'
@@ -347,7 +371,12 @@ class Driver extends CI_Controller {
                 'label' => 'Address',
                 'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
-            
+           
+            array(
+                'field' => 'License_Number',
+                'label' => 'License_Number',
+                'rules' => 'trim|required|max_length[250]'
+            ),
             array(
                 'field' => 'state',
                 'label' => 'state',
@@ -357,16 +386,6 @@ class Driver extends CI_Controller {
                 'field' => 'city',
                 'label' => 'city',
                 'rules' => 'trim|required'
-            ),    
-            array(
-                'field' => 'Status',
-                'label' => 'Status',
-                'rules' => 'trim|required'
-            ),
-            array(
-                'field' => 'License_Number',
-                'label' => 'License_Number',
-                'rules' => 'trim|required|max_length[250]'
             ),
             array(
                 'field' => 'Gender',
@@ -383,7 +402,7 @@ class Driver extends CI_Controller {
                 $data['Mobile'] = $this->input->post('Mobile', TRUE); 
                 $data['Address'] = $this->input->post('Address', TRUE); 
                 $data['Email'] = $this->input->post('Email', TRUE); 
-                $data['Status'] = $this->input->post('Status', TRUE); 
+                $data['Status'] = 0;
                 $data['Role_Id'] = 3; 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
                 $data['add_by'] = $this->session->userdata('admin_id');
@@ -421,37 +440,63 @@ class Driver extends CI_Controller {
                 $dataDriver['User_Id'] = $driver_id; 
                 $dataDriver['Status'] = 1; 
                 $driverData = $this->driver_mdl->update_driver_dl($driver_id,$dataDriver);
-               // echo '<pre>' ;print_r($dataDriver); die;
+               
                 
-                 //==========================DL Upload=========
-                    if ($_FILES['dlfile']['error'] == 0) {
-                    $imgdl = $_FILES['dlfile']['name'];
-                    $tmpdl = $_FILES['dlfile']['tmp_name'];
-                    $extdl = strtolower(pathinfo($imgdl, PATHINFO_EXTENSION));
-                  
-                     if (in_array($extdl, $valid_extensions)) {
-                          
+                
+                //=============dl front===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['dlfrontfile']['error'] == 0) {
+                    $imgdl = $_FILES['dlfrontfile']['name'];
+                    $tmp = $_FILES['dlfrontfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgdl, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
                         $driverName=$data['Name'];
-                        $dl_driver_with_underscore = str_replace(' ', '_', $driverName);
-                        $dlPic=$driver_id.'_dl_'.$dl_driver_with_underscore.'.'.$extdl;
-                        
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $dlfPic=$driver_id.'_dlFront_'.$name_replace_with_underscore.'.'.$ext;
                         if($imgdl){
-                            $pathDl = "./assets/backend/img/driver/dl/" . $dlPic;
+                            $path = "./assets/backend/img/driver/dl/" .$dlfPic;
                         } else {
-                            $pathDl ='';
+                            $path ='';
                         }
-                        if (move_uploaded_file($tmpdl, $pathDl)){
-                            $_POST['dlfile'] = $pathDl;
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['dlfrontfile'] = $path;
                         }
-                        
                     }
-                    if (file_exists($pathDl)) {
-                        $dlUpdate['Image']=$dlPic;
-                        $this->driver_mdl->update_driver_dl($driver_id, $dlUpdate); 
-                    } 
+                    if (file_exists($path)) {
+                    $dataDLUpdate['license_front_image']=$dlfPic;
+                    $this->driver_mdl->update_driver_dl($driver_id, $dataDLUpdate); 
+                    }
                 }
-            
-            //  ========================Dl upload= End===========//
+                
+            //=============dl front end===============//  
+                
+                
+                 //=============dl back===============//
+            $valid_extensions = array('jpeg','jpg','png','gif');
+                if ($_FILES['dlbackfile']['error'] == 0) {
+                    $imgdlb = $_FILES['dlbackfile']['name'];
+                    $tmp = $_FILES['dlbackfile']['tmp_name'];
+                    $ext = strtolower(pathinfo($imgdlb, PATHINFO_EXTENSION));
+                     if (in_array($ext, $valid_extensions)) {
+                        $driverName=$data['Name'];
+                        $name_replace_with_underscore = str_replace(' ', '_', $driverName);
+                        $dlbPic=$driver_id.'_dlBack_'.$name_replace_with_underscore.'.'.$ext;
+                        if($imgdlb){
+                            $path = "./assets/backend/img/driver/dl/" .$dlbPic;
+                        } else {
+                            $path ='';
+                        }
+                        if (move_uploaded_file($tmp, $path)){
+                            $_POST['dlbackfile'] = $path;
+                        }
+                    }
+                    if (file_exists($path)) {
+                    $dataDLUpdate['license_back_image']=$dlbPic;
+                    $this->driver_mdl->update_driver_dl($driver_id, $dataDLUpdate); 
+                    }
+                }
+                
+            //=============dl back end===============// 
                 
                 
                 

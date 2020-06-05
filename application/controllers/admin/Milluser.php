@@ -71,11 +71,7 @@ class Milluser extends CI_Controller {
                 'label' => 'Address',
                 'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
-            array(
-                'field' => 'Status',
-                'label' => 'Status',
-                'rules' => 'trim|required'
-            ),
+            
              array(
                 'field' => 'state',
                 'label' => 'state',
@@ -114,7 +110,6 @@ class Milluser extends CI_Controller {
             $data['Mobile'] = $this->input->post('Mobile', TRUE); 
             $data['Address'] = $this->input->post('Address', TRUE); 
             $data['Email'] = $this->input->post('Email', TRUE); 
-            $data['Status'] = $this->input->post('Status', TRUE); 
             $data['Gender'] = $this->input->post('Gender', TRUE); 
             $data['u_state_id'] = $this->input->post('state', TRUE); 
             $data['u_city_id'] = $this->input->post('city', TRUE); 
@@ -381,11 +376,7 @@ class Milluser extends CI_Controller {
                 'label' => 'Address',
                 'rules' => 'trim|required|max_length[250]|min_length[5]'
             ),
-            array(
-                'field' => 'Status',
-                'label' => 'Status',
-                'rules' => 'trim|required'
-            ),
+           
             array(
                 'field' => 'state',
                 'label' => 'state',
@@ -414,7 +405,6 @@ class Milluser extends CI_Controller {
                 $data['Mobile'] = $this->input->post('Mobile', TRUE); 
                 $data['Address'] = $this->input->post('Address', TRUE); 
                 $data['Email'] = $this->input->post('Email', TRUE); 
-                $data['Status'] = $this->input->post('Status', TRUE); 
                 $data['Role_Id'] = 2; 
                 $data['Gender'] = $this->input->post('Gender', TRUE); 
                 $data['add_by'] = $this->session->userdata('admin_id');

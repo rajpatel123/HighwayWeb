@@ -35,10 +35,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                          <?php } ?>
                     </div>
+                   
                     <div class="col-md-3">
-                         <h3 style="text-align: center;">Driving Licence </h3>
-                         <?php if ($user_data['dl_image']) {?>
-                        <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['dl_image'] ?>" class="img-responsive img-thumbnail">
+                         <h3 style="text-align: center;">Driving Licence Front Image </h3>
+                         <?php if ($user_data['license_front_image']) {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['license_front_image'] ?>" class="img-responsive img-thumbnail">
+                     <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                    <div class="col-md-3">
+                         <h3 style="text-align: center;">Driving Licence Back Image </h3>
+                         <?php if ($user_data['license_back_image']) {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/driver/dl/<?php echo $user_data['license_back_image'] ?>" class="img-responsive img-thumbnail">
                      <?php } else {?>
                         <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                          <?php } ?>

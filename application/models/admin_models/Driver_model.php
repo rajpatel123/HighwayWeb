@@ -109,12 +109,13 @@ class Driver_model extends CI_Model {
                 ->where('Role_Id', 3)
                 ->where('u.deletion_status', 0)
                 ;
+        $this->db->order_by('u.Id', 'desc');
         $query_result = $this->db->get(); 
         $result = $query_result->result_array(); 
         return $result; 
     } 
     public function getDriverViewData($driver_id) { 
-        $this->db->select('u.*,o.Name as OwnerName,d.License_Number,u.aadhar_front_image,u.aadhar_back_image,d.Image as dl_image,d.Status as dl_status,vt.*,v.*,vs.v_d_s_dimension_size,vc.v_l_c_load_capacity') 
+        $this->db->select('u.*,o.Name as OwnerName,d.License_Number,d.license_front_image,d.license_back_image,d.Image as dl_image,d.Status as dl_status,vt.*,v.*,vs.v_d_s_dimension_size,vc.v_l_c_load_capacity') 
                 ->from('users u')
                 ->join('drive_license d','d.User_Id=u.Id','left')
                 ->join('tbl_assign_vehicle_to_driver a', 'a.a_v_t_d_driver_id=u.Id','left')

@@ -10,16 +10,16 @@ public function insertDriverApi($data) {
         }
     }
 public function getDriverDetailsApi($ownerId) {
-        $this->db->select(array("*"))
-                ->from("tbl_assign_vehicle_to_driver av")
-                ->join('users', 'users.Id=av.a_v_t_d_driver_id','left')
-                ->join('drive_license', 'av.a_v_t_d_driver_id=drive_license.User_Id','left')
-                ->join('vehicle', 'vehicle.v_Id=av.a_v_t_d_vehicle_id','left')
-                ->join('tbl_vehicle_type vt', 'vehicle.v_type_id=vt.v_t_id','left')
-                ->where(array("av.a_v_t_d_owner_id" => $ownerId, "av.a_v_t_d_status" => 1, "av.a_v_t_d_delete" => 0))
+        $this->db->select('u.*,dl.License_Number,dl.Expiry_Date,vt.*,v.*,av.*') 
+                ->from("users u")
+                ->join('tbl_assign_vehicle_to_driver av', 'u.Id=av.a_v_t_d_driver_id','left')
+                ->join('drive_license dl', 'u.Id=dl.User_Id','left')
+                ->join('vehicle v', 'v.v_Id=av.a_v_t_d_vehicle_id','left')
+                ->join('tbl_vehicle_type vt', 'v.v_type_id=vt.v_t_id','left')
+                ->where(array("u.add_by" => $ownerId, "u.deletion_status" => 0))
               ;
         $query = $this->db->get();
-       // echo  $this->db->last_query();die;
+        //echo  $this->db->last_query();die;
          if($query->num_rows() > 0){
                 $data= $query->result();
                 $counter=0;
@@ -33,16 +33,24 @@ public function getDriverDetailsApi($ownerId) {
                     $cat[$counter]['DLNumber']=$row->License_Number;
                     $cat[$counter]['ExpiryDate']=$row->Expiry_Date;
                     $cat[$counter]['Address']=$row->Address;
-                    $cat[$counter]['Latitude']=$row->Latitude;
-                    $cat[$counter]['Longitude']=$row->Longitude;
-                    if($row->v_Id>0){
-                       $cat[$counter]['VehicleName']=$row->v_t_vehicle_name ; 
-                    } else {
-                       $cat[$counter]['VehicleName']='Currently vehicle is not assign !';  
+                    if($row->Latitude){
+                     $cat[$counter]['Latitude']=$row->Latitude; 
+                     } else {
+                        $cat[$counter]['Latitude']='';
                     }
-                    
-                    $cat[$counter]['VehicleNumber']=$row->v_vehicle_number ;
-                    $cat[$counter]['VehicleModelNo']=$row->v_vehicle_model_no 	 ;
+                    if($row->Longitude){
+                     $cat[$counter]['Longitude']=$row->Longitude; 
+                     } else {
+                        $cat[$counter]['Longitude']='';
+                    }
+//                    if($row->v_Id>0){
+//                       $cat[$counter]['VehicleName']=$row->v_t_vehicle_name ; 
+//                    } else {
+//                       $cat[$counter]['VehicleName']='Currently vehicle is not assign !';  
+//                    }
+//                    
+//                    $cat[$counter]['VehicleNumber']=$row->v_vehicle_number ;
+//                    $cat[$counter]['VehicleModelNo']=$row->v_vehicle_model_no 	 ;
                     $counter++;
                 }
                 return $cat;

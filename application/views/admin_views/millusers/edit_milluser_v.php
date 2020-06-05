@@ -145,15 +145,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
+                   <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Status">Active Status</label>
-                            <select name="Status" class="form-control required" id="Status">
-                                <option value="" selected="" disabled="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            <span class="help-block error-message"><?php echo form_error('Status'); ?></span>
+                            <label for="profile">Profile Picture <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'milprofilefile','class'=>'form-control'])?>
+                            </div>
+                             <div class="input-group">
+                                <img src="<?php echo base_url() ?>/assets/backend/img/milluser/<?php echo $user_data['Image'] ?>" style="width: 100px;height: 100px;">
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
                     </div>
                     
@@ -215,21 +216,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                  
 
                 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="profile">Profile Picture <span class="required">*</span></label>
-                            <div class="input-group">
-                                <?php echo form_upload(['name'=>'milprofilefile','class'=>'form-control'])?>
-                            </div>
-                             <div class="input-group">
-                                <img src="<?php echo base_url() ?>/assets/backend/img/milluser/<?php echo $user_data['Image'] ?>" style="width: 100px;height: 100px;">
-                            </div>
-                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
-                        </div>
-                    </div>
-               
-                </div>
+
                 <!-- /.row -->
             </div>
                 
@@ -264,8 +251,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     });
 </script>
+<script>
+    /* JQuery to bind City according to State selection */
+    $(document).ready(function () {
+        $('#state').change(function () {
+            var state_id = $('#state').val();
+            if (state_id != '') {
+                $.ajax({
+                    url: "<?php echo base_url(); ?>admin/owner/fetchcity",
+                    method: "POST",
+                    data: { state_id: state_id },
+                    success: function (data) {
+                        $('#city').html(data);
+                    }
+                });
+            }
+            else {
+                $('#city').html('<option value="">Select City</option>');
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
-    document.forms['edit_form'].elements['Status'].value = '<?php echo $user_data['Status']; ?>';
     document.forms['edit_form'].elements['Gender'].value = '<?php echo $user_data['Gender']; ?>';
     document.forms['edit_form'].elements['state'].value = '<?php echo $user_data['u_state_id']; ?>';
     document.forms['edit_form'].elements['city'].value = '<?php echo $user_data['u_city_id']; ?>';
