@@ -132,7 +132,7 @@ class Owner extends CI_Controller {
                         $name_replace_with_underscore = str_replace(' ', '_', $Name);
                         $profilePic=$insert_id.'_'.$name_replace_with_underscore.'.'.$ext;
                         if($img){
-                            $path = "./assets/backend/img/owner/profile/" . strtolower($profilePic);
+                            $path = "./assets/backend/img/owner/profile/" . $profilePic;
                         } else {
                             $path ='';
                         }
@@ -343,25 +343,25 @@ class Owner extends CI_Controller {
                 //=============profile upload===============//
             $valid_extensions = array('jpeg','jpg','png','gif');
                 if ($_FILES['userfile']['error'] == 0) {
-                    $img = $_FILES['userfile']['name'];
+                    $imgP = $_FILES['userfile']['name'];
                     $tmp = $_FILES['userfile']['tmp_name'];
-                    $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
+                    $ext = strtolower(pathinfo($imgP, PATHINFO_EXTENSION));
                      if (in_array($ext, $valid_extensions)) {
                         $Name=$data['Name'];
                         $name_replace_with_underscore = str_replace(' ', '_', $Name);
                         $profilePic=$owner_id.'_'.$name_replace_with_underscore.'.'.$ext;
-                        if($img){
-                            $path = "./assets/backend/img/owner/profile/" . strtolower($profilePic);
+                        if($imgP){
+                            $pathP = "./assets/backend/img/owner/profile/" .$profilePic;
                         } else {
-                            $path ='';
+                            $pathP ='';
                         }
-                        if (move_uploaded_file($tmp, $path)){
-                            $_POST['userfile'] = $path;
+                        if (move_uploaded_file($tmp, $pathP)){
+                            $_POST['userfile'] = $pathP;
                         }
                     }
-                    if (file_exists($path)) {
-                    $dataUpdate['Image']=$profilePic;
-                    $this->useradmin_mdl->update_owner($owner_id, $dataUpdate); 
+                    if (file_exists($pathP)) {
+                    $dataUpdates['Image']=$profilePic;
+                    $this->useradmin_mdl->update_owner($owner_id, $dataUpdates); 
                     }
                 }
                 
@@ -378,15 +378,15 @@ class Owner extends CI_Controller {
                         $name_replace_with_underscore = str_replace(' ', '_', $Name);
                         $addharFPic=$owner_id.'_aadharFront_'.$name_replace_with_underscore.'.'.$ext;
                         if($imgA){
-                            $path = "./assets/backend/img/owner/aadhar/" .$addharFPic;
+                            $patha = "./assets/backend/img/owner/aadhar/" .$addharFPic;
                         } else {
-                            $path ='';
+                            $patha ='';
                         }
-                        if (move_uploaded_file($tmp, $path)){
-                            $_POST['aadharfrontfile'] = $path;
+                        if (move_uploaded_file($tmp, $patha)){
+                            $_POST['aadharfrontfile'] = $patha;
                         }
                     }
-                    if (file_exists($path)) {
+                    if (file_exists($patha)) {
                     $dataUpdate['aadhar_front_image']=$addharFPic;
                     $this->useradmin_mdl->update_owner($owner_id, $dataUpdate); 
                     }
@@ -406,15 +406,15 @@ class Owner extends CI_Controller {
                         $name_replace_with_underscore = str_replace(' ', '_', $Name);
                         $addharFPic=$owner_id.'_aadharBack_'.$name_replace_with_underscore.'.'.$ext;
                         if($imgB){
-                            $path = "./assets/backend/img/owner/aadhar/" .$addharFPic;
+                            $pathb = "./assets/backend/img/owner/aadhar/" .$addharFPic;
                         } else {
-                            $path ='';
+                            $pathb ='';
                         }
-                        if (move_uploaded_file($tmp, $path)){
-                            $_POST['aadharbackfile'] = $path;
+                        if (move_uploaded_file($tmp, $pathb)){
+                            $_POST['aadharbackfile'] = $pathb;
                         }
                     }
-                    if (file_exists($path)) {
+                    if (file_exists($pathb)) {
                     $dataUpdate['aadhar_back_image']=$addharFPic;
                     $this->useradmin_mdl->update_owner($owner_id, $dataUpdate); 
                     }

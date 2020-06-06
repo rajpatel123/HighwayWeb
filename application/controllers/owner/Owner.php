@@ -304,7 +304,8 @@ class Owner extends CI_Controller {
     
     public function view_owner($owner_id) { 
         $data = array(); 
-        $data['user_data'] = $this->useradmin_mdl->get_owner_by_owner_id($owner_id);  
+        $data['user_data'] = $this->useradmin_mdl->get_owner_by_owner_id($owner_id); 
+        echo $data['user_data']; die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'View Owner'; 
             $data['active_menu'] = 'owner'; 

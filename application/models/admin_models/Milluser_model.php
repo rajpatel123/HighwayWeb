@@ -60,6 +60,7 @@ class Milluser_model extends CI_Model {
         $result = $this->db->get_where($this->_users, array('Id' => $milluser_id , 'deletion_status' => 0)); 
         return $result->row_array(); 
     } 
+   
     
     public function get_millimageData($milluser_id) { 
         $result = $this->db->get_where($this->_goods_provider, array('g_p_goods_provider_id' => $milluser_id , 'g_p_delete' => 0)); 

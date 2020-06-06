@@ -609,6 +609,7 @@ class Milluser extends CI_Controller {
      public function view_milluser($milluser_id) { 
         $data = array(); 
         $data['user_data'] = $this->milluser_mdl->get_milluser_by_milluser_id($milluser_id);  
+        $data['first_second_image'] = $this->milluser_mdl->get_millimageData($milluser_id);  
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Milluser'; 
             $data['active_menu'] = 'milluser'; 

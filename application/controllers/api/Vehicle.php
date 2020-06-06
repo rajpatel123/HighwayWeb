@@ -37,15 +37,9 @@ class Vehicle extends REST_Controller {
             $error = "please provide vehicle number";
         }  else if (empty($vehicleModelNo)) {
             $error = "please provide vehicle model no";
-        }  else if (empty($vehicleDescription)) {
-            $error = "please provide vehicle description";
-        } else if (empty($vehicle_type_id)) {
+        }  else if (empty($vehicle_type_id)) {
             $error = "please provide vehicle type";  
-        }  else if (empty($vehicleCapacity)) {
-            $error = "please provide vehicle capacity";
-        } else if (empty($vehicleSize)) {
-            $error = "please provide vehicle size";
-        }   
+        }     
         if (isset($error) && !empty($error)) {
             $this->set_response([
                 'status' => false,

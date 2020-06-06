@@ -123,7 +123,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php echo form_error('chechis_number'); ?></span>
                         </div>
                     </div>
-                  <div class="col-md-6">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleImage">Chechis Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'veimagefile','class'=>'form-control'])?>
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+<!--                  <div class="col-md-6">
                         <div class="form-group">
                             <label for="Vehicle RC Number">Vehicle RC Number</label>
                             <div class="input-group">
@@ -132,31 +142,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <span class="help-block error-message"><?php echo form_error('vehicle_rc_number'); ?></span>
                         </div>
-                    </div>
+                    </div>-->
                     </div>
                 
                 
                 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Image">RC Picture <span class="required">*</span></label>
-                            <div class="input-group">
-                                <?php echo form_upload(['name'=>'rcfile','class'=>'form-control'])?>
-                            </div>
-                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="VehicleImage">Vehicle Picture <span class="required">*</span></label>
-                            <div class="input-group">
-                                <?php echo form_upload(['name'=>'vimagefile','class'=>'form-control'])?>
-                            </div>
-                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
-                        </div>
-                    </div>
-                </div>
+                
                 
                 <div class="row">
                      <div class="col-md-6">
@@ -204,15 +195,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="VehicleImage">Vehicle Engine Photo <span class="required">*</span></label>
+                            <label for="Image">RC Photo <span class="required">*</span></label>
                             <div class="input-group">
-                                <?php echo form_upload(['name'=>'veimagefile','class'=>'form-control'])?>
+                                <?php echo form_upload(['name'=>'rcfile','class'=>'form-control'])?>
                             </div>
-                            
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
                     </div>
+<!--                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleImage">Vehicle Picture <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'vimagefile','class'=>'form-control'])?>
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>-->
                 </div>
+               
 
                  
                 
