@@ -101,9 +101,9 @@ class Vehicle_model extends CI_Model {
         
         public function get_active_inactive_by_vehicle_id($vehicle_id) {
         $this->db->select(array("*")) 
-                ->from('vehicle')
-                ->join('tbl_vehicle_type', 'tbl_vehicle_type.v_t_id=vehicle.v_type_id','left')
-                ->where(array('v_Id' => $vehicle_id ,'v_delete'=>0))
+                ->from('vehicle v')
+                ->join('tbl_vehicle_type vt', 'vt.v_t_id=v.v_type_id','left')
+                ->where(array('v.v_Id' => $vehicle_id ,'v.v_delete'=>0))
                 ;
         $query_result = $this->db->get(); 
         $result = $query_result->row_array(); 

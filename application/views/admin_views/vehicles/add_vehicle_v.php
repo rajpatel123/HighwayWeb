@@ -103,7 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <option value="" selected="" disabled="">select</option>
                                 <?php
                                 foreach ($dropdownMonth as $row) {
-                                 echo '<option value ="'.$row['month'].'">'.$row['month'].'</option>';
+                                 echo '<option value ="'.$row['m_id'].'">'.$row['month'].'</option>';
                                     
                                 }
                                 ?>

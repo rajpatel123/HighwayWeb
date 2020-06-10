@@ -78,7 +78,7 @@ class Vehicle extends CI_Controller {
 
         );
        
-        //echo '<pre>' ;print_r($config) ;die;
+        //echo '<pre>' ;print_r($data) ;die;
         $this->form_validation->set_rules($config);
        // $this->load->library('upload', $config);
      
@@ -89,7 +89,7 @@ class Vehicle extends CI_Controller {
             $data['v_type_id'] = $this->input->post('vehicle_type', TRUE); 
             $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
             $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
-            $data['v_vehicle_model_no'] = $this->input->post('YearId', TRUE).'-'.$this->input->post('MonthId', TRUE); 
+            $data['v_vehicle_model_no'] = $this->input->post('MonthId', TRUE).'/'.$this->input->post('YearId', TRUE); 
             $data['v_chechis_number'] = $this->input->post('chechis_number', TRUE); 
             $data['v_status'] = 1; 
            // $data['Image'] = $this->input->post('Image', TRUE); 
@@ -98,7 +98,8 @@ class Vehicle extends CI_Controller {
             $data['v_add_by'] = $this->session->userdata('admin_id'); 
             //$data['date_added'] = date('Y-m-d H:i:s');  
             $vehicleTypeId= $data['v_type_id'];
-            $this->load->model('admin_models/Vehicle_type_model', 'vehicle_type_mdl');    
+            $this->load->model('admin_models/Vehicle_type_model', 'vehicle_type_mdl');  
+           // echo '<pre>' ;print_r($data) ;die;
             $vehicleTypeData = $this->vehicle_type_mdl->get_vehicle_type_by_id($vehicleTypeId); 
             $data['v_type'] =$vehicleTypeData['v_t_type'];
            
@@ -321,9 +322,9 @@ class Vehicle extends CI_Controller {
     public function edit_vehicle($vehicle_id) { 
         $data = array(); 
         $data['user_data'] = $this->vehicle_mdl->get_active_inactive_by_vehicle_id($vehicle_id); 
-        $data['yearMonth'] = explode('-',$data['user_data']['v_vehicle_model_no']);
-        $data['year'] = $data['yearMonth'][0];
-        $data['month'] = $data['yearMonth'][1];
+        $data['yearMonth'] = explode('/',$data['user_data']['v_vehicle_model_no']);
+        $data['month'] = $data['yearMonth'][0];
+        $data['year'] = $data['yearMonth'][1];
         //echo '<pre>' ;print_r($data['year']);die;
         if (!empty($data['user_data'])) { 
             $data['title'] = 'Edit Vehicle'; 
@@ -390,7 +391,7 @@ class Vehicle extends CI_Controller {
             } else { 
                 $data['v_type_id'] = $this->input->post('vehicle_type', TRUE); 
                 $data['v_vehicle_number'] = $this->input->post('vehicle_number', TRUE); 
-                $data['v_vehicle_model_no'] = $this->input->post('YearId', TRUE).'-'.$this->input->post('MonthId', TRUE); 
+                $data['v_vehicle_model_no'] = $this->input->post('MonthId', TRUE).'/'.$this->input->post('YearId', TRUE); 
                 $data['v_vehicle_name'] = $this->input->post('vehicle_name', TRUE); 
                 $data['v_chechis_number'] = $this->input->post('chechis_number', TRUE); 
                 $data['v_status'] = 1; 

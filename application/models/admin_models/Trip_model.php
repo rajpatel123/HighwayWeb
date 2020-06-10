@@ -91,7 +91,7 @@ class Trip_model extends CI_Model {
     }
     
     public function get_trip_data_by_id($trip_id) { 
-          $this->db->select('t.*,a.*,b.*,c.Name as customerName,c.Mobile as customerMobile,c.Role_Id as customer_role_id,d.Name as driverName,d.Mobile as driverMobile,o.Name as ownerName,o.Mobile as ownerMobile,vt.*,v.*,ds.*,lc.*') 
+          $this->db->select('t.*,gt.g_t_title,a.*,b.*,c.Name as customerName,c.Mobile as customerMobile,c.Role_Id as customer_role_id,d.Name as driverName,d.Mobile as driverMobile,o.Name as ownerName,o.Mobile as ownerMobile,vt.*,v.*,ds.*,lc.*') 
                ->from('tbl_book_trip_link b ')
                 ->join('tbl_trip t', 't.t_id=b.b_l_t_trip_id','left')
                 ->join('tbl_accept_booking_trip a', 'a.a_b_t_booking_trip_id=b.b_l_t_trip_id','left')
@@ -99,6 +99,7 @@ class Trip_model extends CI_Model {
                 ->join('tbl_vehicle_type vt','vt.v_t_id=b.b_l_t_vehicle_type','left')   
                ->join('tbl_vehicle_dimension_size ds','ds.v_d_s_id=vt.v_t_vehicle_size_id','left') 
                ->join('tbl_vehicle_load_capacity lc','lc.v_l_c_id=vt.v_t_vehicle_load_capacity_id','left') 
+               ->join('tbl_good_type gt','gt.g_t_id=b.b_l_t_goodsType_id','left') 
                 ->join('users d', 'd.Id=b.b_l_t_driver_id','left') 
                 ->join('users o', 'o.Id=v.v_owner_id','left')
                 ->join('users c', 'c.Id=b.b_l_t_customer_id','left')
@@ -125,6 +126,8 @@ class Trip_model extends CI_Model {
                     $tripData['t_end_longitude']=$row->t_end_longitude;
                     $tripData['t_start_latitude']=$row->t_start_latitude;
                     $tripData['vehicleType']=$row->v_t_type;
+                    $tripData['good_type']=$row->g_t_title;
+                    $tripData['v_t_per_km_charge']=$row->v_t_per_km_charge;
                     
                     $vehicleTypeId=$row->v_t_id;
                     $startlat=$row->t_start_latitude;
@@ -150,16 +153,16 @@ class Trip_model extends CI_Model {
                     } else {
                         $tripData['vehicleName']='';   
                     }
-                    if($row->t_status==1){
+                    if($row->b_l_t_status==1){
                         $tripData['tripStatus']='Upcoming';
                     }
-                    if($row->t_status==2){
+                    if($row->b_l_t_status==2){
                         $tripData['tripStatus']='Ongoing';
                     }
-                    if($row->t_status==3){
+                    if($row->b_l_t_status==3){
                         $tripData['tripStatus']='Completed';
                     }
-                    if($row->t_status==4){
+                    if($row->b_l_t_status==4){
                         $tripData['tripStatus']='Cancel';
                     }
                     if($row->t_type==1){

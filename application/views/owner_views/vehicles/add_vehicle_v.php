@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                     
-                    <div class="row">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Number">Vehicle Number</label>
@@ -103,7 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <option value="" selected="" disabled="">select</option>
                                 <?php
                                 foreach ($dropdownMonth as $row) {
-                                 echo '<option value ="'.$row['month'].'">'.$row['month'].'</option>';
+                                 echo '<option value ="'.$row['m_id'].'">'.$row['month'].'</option>';
                                     
                                 }
                                 ?>
@@ -112,7 +112,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     </div>
-                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -126,6 +125,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                      <div class="col-md-6">
                         <div class="form-group">
+                            <label for="VehicleImage">Chechis Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'veimagefile','class'=>'form-control'])?>
+                            </div>
+                            
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+<!--                  <div class="col-md-6">
+                        <div class="form-group">
                             <label for="Vehicle RC Number">Vehicle RC Number</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-tag"></i></span>
@@ -133,33 +142,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <span class="help-block error-message"><?php echo form_error('vehicle_rc_number'); ?></span>
                         </div>
+                    </div>-->
                     </div>
-              
-               
-                    
-                    </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Image">RC Picture <span class="required">*</span></label>
-                            <div class="input-group">
-                                <?php echo form_upload(['name'=>'rcfile','class'=>'form-control'])?>
-                            </div>
-                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="VehicleImage">Vehicle Picture <span class="required">*</span></label>
-                            <div class="input-group">
-                                <?php echo form_upload(['name'=>'vimagefile','class'=>'form-control'])?>
-                            </div>
-                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
-                        </div>
-                    </div>
-                </div>
                 
-                 <div class="row">
+                
+                
+                
+                
+                <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
                             <label for="VehicleFront">Vehicle Front Photo <span class="required">*</span></label>
@@ -179,11 +169,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
                     </div>
-                     
-                     
-                    
                 </div>
-                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -205,10 +191,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
                         </div>
                     </div>
-                    
-                    
                 </div>
-                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Image">RC Photo <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'rcfile','class'=>'form-control'])?>
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>
+<!--                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="VehicleImage">Vehicle Picture <span class="required">*</span></label>
+                            <div class="input-group">
+                                <?php echo form_upload(['name'=>'vimagefile','class'=>'form-control'])?>
+                            </div>
+                            <span class="help-block error-message"><?php if(isset($upload_error)) echo $upload_error ?></span>
+                        </div>
+                    </div>-->
+                </div>
+               
+
+                 
                 
                 
                 <!-- /.row -->
@@ -218,8 +224,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a href="<?php echo base_url('owner/vehicle'); ?>" class="btn btn-danger" data-toggle="tooltip" title="Go back"><i class="fa fa-remove"></i> Cancel</a>
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Add Info</button>
             </div>
+             </div>
         </form>
-         </div>
-        <!-- /.form -->
+        
+  </div>      <!-- /.form -->
     
 </section>

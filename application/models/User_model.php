@@ -30,7 +30,6 @@ class User_model extends CI_Model {
         $this->db->where([
                 'Id'=>$user_id,
                 'Role_id'=>$roleId,
-                'Status'=>1,
                 ]);
         $query =$this->db->get('users');
        //echo  $this->db->last_query();die;

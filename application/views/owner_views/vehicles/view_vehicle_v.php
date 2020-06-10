@@ -29,27 +29,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-3">
-                        <h3 style="text-align: center;">Vehicle Image </h3>
-                        <?php if ($vehicle_data['v_vehicle_Image']) {?>
-                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleImage/<?php echo $vehicle_data['v_vehicle_Image'] ?>" class="img-responsive img-thumbnail">
-                        <?php } else {?>
-                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
-                         <?php } ?>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <h3 style="text-align: center;">RC Image</h3>
-                        <?php if ($vehicle_data['v_vehicle_rc']) {?>
-                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/rcpic/<?php echo $vehicle_data['v_vehicle_rc'] ?>" class="img-responsive img-thumbnail">
-                        <?php } else {?>
-                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
-                         <?php } ?>
-                    </div>
-                    
-                    <div class="col-md-3">
                         <h3 style="text-align: center;">Vehicle Front Image </h3>
                         <?php if ($vehicle_data['v_front_image']) {?>
-                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleFront/<?php echo $vehicle_data['v_front_image'] ?>" class="img-responsive img-thumbnail">
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleFront/<?php echo $vehicle_data['v_front_image'] ?>" class="img-responsive img-thumbnail" style="min-height: 160px;max-height: 160px;min-width: 220px;max-width: 220px;">
                         <?php } else {?>
                         <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                          <?php } ?>
@@ -58,7 +40,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-md-3">
                         <h3 style="text-align: center;">Vehicle Back Image </h3>
                         <?php if ($vehicle_data['v_back_image']) {?>
-                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleBack/<?php echo $vehicle_data['v_back_image'] ?>" class="img-responsive img-thumbnail">
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleBack/<?php echo $vehicle_data['v_back_image'] ?>" class="img-responsive img-thumbnail" style="min-height: 160px;max-height: 160px;min-width: 220px;max-width: 220px;">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="text-align: center;">Vehicle Left Image </h3>
+                        <?php if ($vehicle_data['v_left_image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleLeft/<?php echo $vehicle_data['v_left_image'] ?>" class="img-responsive img-thumbnail" style="min-height: 160px;max-height: 160px;min-width: 220px;max-width: 220px;">
+                        <?php } else {?>
+                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
+                         <?php } ?>
+                    </div>
+                 <div class="col-md-3">
+                        <h3 style="text-align: center;">Vehicle Right Image </h3>
+                        <?php if ($vehicle_data['v_right_image']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleRight/<?php echo $vehicle_data['v_right_image'] ?>" class="img-responsive img-thumbnail" style="min-height: 160px;max-height: 160px;min-width: 220px;max-width: 220px;">
                         <?php } else {?>
                         <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                          <?php } ?>
@@ -97,10 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td class="text-success"> Vehicle Model :</td>
             <td><?php echo $vehicle_data['v_vehicle_model_no']; ?></td>
         </tr>
-        <tr>
-            <td class="text-success"> Vehicle RC Number  :</td>
-            <td><?php echo $vehicle_data['v_vehicle_detail']; ?></td>
-        </tr>
+         
 
 
                                 
@@ -111,26 +106,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="col-md-6">
-                 <div class="col-md-6">
-                        <h3 style="text-align: center;">Vehicle Left Image </h3>
-                        <?php if ($vehicle_data['v_left_image']) {?>
-                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleLeft/<?php echo $vehicle_data['v_left_image'] ?>" class="img-responsive img-thumbnail">
+                     <div class="col-md-6">
+                        <h3 style="text-align: center;">RC Image</h3>
+                        <?php if ($vehicle_data['v_vehicle_rc']) {?>
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/rcpic/<?php echo $vehicle_data['v_vehicle_rc'] ?>" class="img-responsive img-thumbnail" style="min-height: 160px;max-height: 160px;min-width: 220px;max-width: 220px;">
                         <?php } else {?>
                         <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                          <?php } ?>
                     </div>
+                 
                  <div class="col-md-6">
-                        <h3 style="text-align: center;">Vehicle Right Image </h3>
-                        <?php if ($vehicle_data['v_right_image']) {?>
-                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleRight/<?php echo $vehicle_data['v_right_image'] ?>" class="img-responsive img-thumbnail">
-                        <?php } else {?>
-                        <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
-                         <?php } ?>
-                    </div>
-                 <div class="col-md-6">
-                        <h3 style="text-align: center;">Vehicle Engine </h3>
+                        <h3 style="text-align: center;">Chechis Photo </h3>
                         <?php if ($vehicle_data['v_engine_image']) {?>
-                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleEngine/<?php echo $vehicle_data['v_engine_image'] ?>" class="img-responsive img-thumbnail">
+                           <img src="<?php echo base_url() ?>/assets/backend/img/vehicle/vehicleEngine/<?php echo $vehicle_data['v_engine_image'] ?>" class="img-responsive img-thumbnail" style="min-height: 160px;max-height: 160px;min-width: 220px;max-width: 220px;">
                         <?php } else {?>
                         <img src="<?php echo base_url() ?>/assets/backend/img/admin/pro.jfif" class="img-responsive img-thumbnail">
                          <?php } ?>

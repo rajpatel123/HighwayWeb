@@ -408,9 +408,15 @@ class Trip extends REST_Controller {
         $roleId = 5;
         $this->load->model("user_model");
         $data = $this->user_model->getActiveUserData($owner_id,$roleId);
-        //echo '<pre>' ;print_r($owner_id);die;
+       // echo '<pre>' ;print_r($data[0]->Status);die;
         
         if($data){
+            if($data[0]->Status==0){
+               $this->set_response([
+                    'status' => true,
+                    'message' => "Owner is not active",
+                        ], REST_Controller::HTTP_OK); 
+            } else {
             if (isset($error) && !empty($error)) {
             $this->set_response([
                 'status' => false,
@@ -459,7 +465,7 @@ class Trip extends REST_Controller {
                     'message' => "user Alerady register",
                         ], REST_Controller::HTTP_OK);
         }
-            
+        }  
              }
         } else {
                 $this->set_response([

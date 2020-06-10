@@ -175,6 +175,15 @@ class Vehicle extends REST_Controller {
             return;
         } else {
             $this->load->model("assign_vehicle_to_driver_model");
+            $assignVehicleData = $this->assign_vehicle_to_driver_model->CheckAssignVehicleData($driver_id,$vehicle_id);
+             
+            if($assignVehicleData){
+                $this->set_response([
+                    'status' => false,
+                    'message' => "already assign vehicle",
+                        ], REST_Controller::HTTP_OK);
+            } else {
+            
             $saveData = $this->assign_vehicle_to_driver_model->addAssignDataApi(array(
                 "a_v_t_d_owner_id" => $owner_id,
                 "a_v_t_d_vehicle_id" => $vehicle_id,
@@ -194,6 +203,7 @@ class Vehicle extends REST_Controller {
                     'status' => false,
                     'message' => "unable to save the reply. please try again",
                         ], REST_Controller::HTTP_BAD_REQUEST);
+            }
             }
         }
     }

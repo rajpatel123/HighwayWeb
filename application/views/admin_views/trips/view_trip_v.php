@@ -1,7 +1,3 @@
-
-
-
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
@@ -54,6 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <dd class="col-sm-7"><?php echo $user_data['distance'].' KM' ?></dd>
                         <?php } ?>
                         
+                        <?php  if($user_data['v_t_per_km_charge']) { ?>
+                        <dt class="col-sm-7">Distance Charge per Km :</dt>
+                        <dd class="col-sm-5"><?php echo '₹'.$user_data['v_t_per_km_charge']?></dd>
+                        <?php } ?>
+                        
                         <?php  if($user_data['basePrice']) { ?>
                         <dt class="col-sm-5">Base Price :</dt>
                         <dd class="col-sm-7"><?php echo '₹ '.$user_data['basePrice'] ?></dd>
@@ -61,18 +62,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <?php  if($user_data['v_t_gst']) { ?>
                         <dt class="col-sm-5">GST:</dt>
-                        <dd class="col-sm-7"><?php echo $user_data['v_t_gst']; ?></dd>
+                        <dd class="col-sm-7"><?php echo $user_data['v_t_gst'].'%'; ?></dd>
                         <?php } ?>
                         
                          <?php  if($user_data['totalAmount']) { ?>
                         <dt class="col-sm-5">Total Amount:</dt>
                         <dd class="col-sm-7"><?php echo '₹ '.$user_data['totalAmount']; ?></dd>
                         <?php } ?>
-                            
-                        <?php  if($user_data['tripType']) { ?>
-                        <dt class="col-sm-5">TRIP Type :</dt>
-                        <dd class="col-sm-7"><?php echo $user_data['tripType']; ?></dd>
-                        <?php } ?>
+                      
                                                     
                         <?php  if($user_data['t_start_date']) { ?>
                         <dt class="col-sm-5">Trip Start Time :</dt>
@@ -117,6 +114,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php  if($user_data['vehicle_load_capacity']) { ?>
                         <dt class="col-sm-5">Load Capacity:</dt>
                         <dd class="col-sm-7"><?php echo $user_data['vehicle_load_capacity']; ?></dd>
+                        <?php } ?>
+                        
+                        <?php  if($user_data['good_type']) { ?>
+                        <dt class="col-sm-5">Good Type:</dt>
+                        <dd class="col-sm-7"><?php echo $user_data['good_type']; ?></dd>
                         <?php } ?>
                         
                         <?php  if($user_data['userName']) { ?>

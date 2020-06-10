@@ -19,6 +19,27 @@ class Assign_vehicle_to_driver_model extends CI_Model {
     
     
    
+    public function CheckAssignVehicleData($driver_id,$vehicle_id) {
+        $this->db->select(array('a.a_v_t_d_driver_id','a_v_t_d_vehicle_id'))
+                ->from("tbl_assign_vehicle_to_driver a");
+        if(isset($driver_id)>0){
+               $this->db->where(array("a.a_v_t_d_driver_id" => $driver_id, "a.a_v_t_d_status" => 1));
+        }
+        if(isset($vehicle_id)>0){
+               $this->db->where(array("a.a_v_t_d_vehicle_id" => $vehicle_id, "a.a_v_t_d_status" => 1));
+        }
+        $query = $this->db->get();
+        $resultData = $query->result();
+        if (count($resultData) > 0) {
+            $result = $resultData[0];
+             return $result;
+        } else {
+            return array();
+        }
+       
+    }
+    
+   
     public function geDriverDetailsById($user_id) {
         $this->db->select(array('a.a_v_t_d_driver_id','a_v_t_d_vehicle_id'))
                 ->from("tbl_assign_vehicle_to_driver a");
