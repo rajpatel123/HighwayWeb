@@ -5,6 +5,7 @@ class Useradmin_model extends CI_Model {
         parent::__construct(); 
     }
     private $_users = 'users';  
+    private $_fb_token = 'tbl_fb_token'; 
     
     public function check_login_info() {
         $username_or_email_address = $this->input->post('username_or_email_address', true);
@@ -83,6 +84,7 @@ class Useradmin_model extends CI_Model {
 	
     public function remove_owner_by_id($owner_id) { 
         $this->db->update($this->_users, array('deletion_status' => 1), array('Id' => $owner_id)); 
+        $this->db->update($this->_fb_token, array('fb_status' => 0), array('fb_u_id' => $owner_id));   
         return $this->db->affected_rows(); 
     } 
     public function get_userList($roleId) { 

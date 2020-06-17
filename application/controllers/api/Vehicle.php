@@ -175,7 +175,7 @@ class Vehicle extends REST_Controller {
             return;
         } else {
             $this->load->model("assign_vehicle_to_driver_model");
-            $assignVehicleData = $this->assign_vehicle_to_driver_model->CheckAssignVehicleData($driver_id,$vehicle_id);
+            $assignVehicleData = $this->assign_vehicle_to_driver_model->CheckAssignVehicleData($vehicle_id);
              
             if($assignVehicleData){
                 $this->set_response([

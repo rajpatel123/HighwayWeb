@@ -5,6 +5,7 @@ class Customer_model extends CI_Model {
         parent::__construct(); 
     }
     private $_users = 'users';  
+    private $_fb_token = 'tbl_fb_token';  
     
     public function check_login_info() {
         $username_or_email_address = $this->input->post('username_or_email_address', true);
@@ -90,6 +91,7 @@ class Customer_model extends CI_Model {
 	
     public function remove_customer_by_id($customer_id) { 
         $this->db->update($this->_users, array('deletion_status' => 1), array('Id' => $customer_id)); 
+        $this->db->update($this->_fb_token, array('fb_status' => 0), array('fb_u_id' => $customer_id)); 
         return $this->db->affected_rows(); 
     } 
     public function newCustomerList(){

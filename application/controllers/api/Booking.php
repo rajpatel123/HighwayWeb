@@ -1791,10 +1791,15 @@ curl_close( $ch );
         $userId = $this->post('driverId');
         $this->load->model("book_trip_link_model");
         $this->load->model("role_model");
-        $roleData = $this->role_model->getroleByUserid($userId);
+        $roleData = $this->role_model->getroleId($userId);
         $roleId = $roleData->Role_Id;
-        //echo '<pre>' ;print_r($roleData->Role_Id);die;
+        
+        
         if(($roleId)==3){
+            
+        if(($roleData->Status)==1){
+        
+            
         if (empty($userId)) {
             $error = "please provide user id";
         } 
@@ -1820,13 +1825,22 @@ curl_close( $ch );
                     'message' => "No trip accepted by driver",
                         ], REST_Controller::HTTP_BAD_REQUEST);
             }
+            }
+          } else {
+                
+          $this->set_response([
+                    'status' => false,
+                    'message' => "Drive Not Active",
+                        ], REST_Controller::HTTP_OK);
         }
         } else {
                 $this->set_response([
                     'status' => false,
                     'message' => "You are not driver",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
             }
+            
+        
     
        }
     function updateTripStatusByDriver_post() {

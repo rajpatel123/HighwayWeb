@@ -385,19 +385,36 @@ class Book_trip_link_model extends CI_Model {
                     $totalAmount=$distancePrice+$gstPrise;
                     $cat['bookingId']=$row->b_l_t_trip_id ;
                     $cat['bookingTripCode']=$row->t_trip_id ;
+                    if($row->a_b_t_start_date){
                     $cat['startDate']=$row->a_b_t_start_date;
-                    $cat['endDate']=$row->a_b_t_end_date ;
-                    $cat['startTime']=$row->a_b_t_start_time;
-                    $cat['endTime']=$row->a_b_t_end_time ;
-                    $cat['totDistance']=$distanceData;
+                    } else {
+                       $cat['startDate']='';
+                    }
+                    if($row->a_b_t_end_date){
+                    $cat['endDate']=$row->a_b_t_end_date;
+                    } else {
+                       $cat['endDate']='';
+                    }
+                    if($row->a_b_t_start_time=='00:00:00'){
+                       $cat['startTime']=''; 
+                    } else {
+                       $cat['startTime']=$row->a_b_t_start_time;
+                    }
+                    if($row->a_b_t_end_time=='00:00:00'){
+                        
+                    $cat['endTime']='';
+                    } else {
+                        $cat['endTime']=$row->a_b_t_end_time ;
+                    }
+                    $cat['totDistance']=$distanceData.' KM';
                      $cat['travelTime']=$totalTime;
-                    $cat['basedFarefixed']=$distancePrice;
-                    $cat['distancePrice']=$distancePrice ;
-                    $cat['peekHourCharges']=$row->v_t_per_km_charge;
-                    $cat['nightFare']=$row->v_t_nigh_charge_per_km;
-                    $cat['tax']=$row->v_t_gst;
-                    $cat['totalAmount']=$totalAmount;
-                    $cat['walletDetection']=$totalAmount;
+                    $cat['basedFarefixed']='₹ '.$distancePrice;
+                    $cat['distancePrice']='₹ '.$distancePrice ;
+                    $cat['peekHourCharges']='₹ '.$row->v_t_per_km_charge;
+                    $cat['nightFare']='₹ '.$row->v_t_nigh_charge_per_km;
+                    $cat['tax']=$row->v_t_gst.' %';
+                    $cat['totalAmount']='₹ '.$totalAmount;
+                    $cat['walletDetection']='₹ '.$totalAmount;
                     $cat['discount']='';
                     $cat['paymentMode']='paytm';
                     

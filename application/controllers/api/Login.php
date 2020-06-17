@@ -437,7 +437,7 @@ class Login extends REST_Controller {
            
             if($otpStatus==1){
              $this->set_response([
-                    'status' => true,
+                    'status' => false,
                     'message' => "Your Otp expired",
                         ], REST_Controller::HTTP_OK);
             
@@ -469,7 +469,7 @@ class Login extends REST_Controller {
                 $this->set_response([
                     'status' => false,
                     'message' => "Your otp is not valid",
-                        ], REST_Controller::HTTP_BAD_REQUEST);
+                        ], REST_Controller::HTTP_OK);
             
             
             }
@@ -586,5 +586,45 @@ class Login extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
         }
     }
+    function getDriverCurrentStatus_post(){
+        $error = "";
+        $userId = $this->post('driverId');
+        $this->load->model("role_model");
+        $this->load->model("user_model");
+        $roleData = $this->role_model->getroleId($userId);
+        $roleId = $roleData->Role_Id;
+        
+        
+        if(($roleId)==3){
+            if (empty($userId)) {
+            $error = "please provide user id";
+        } 
+         if (isset($error) && !empty($error)) {
+            
+            echo json_encode($error);
+            $this->set_response([
+                'status' => false,
+                'message' => $error,
+                    ], REST_Controller::HTTP_BAD_REQUEST); // NOT_FOUND (404) being the HTTP response code
+            return;
+        } else {
+          
+            $this->set_response([
+                'status' => true,
+                "driverStatus" => $this->user_model->getDriverStatus($userId),
+                    ], REST_Controller::HTTP_OK);
+            
+            }
+          
+        } else {
+                $this->set_response([
+                    'status' => false,
+                    'message' => "You are not driver",
+                        ], REST_Controller::HTTP_OK);
+            }
+            
+        
+    
+       }
   
 }

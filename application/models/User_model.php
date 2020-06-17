@@ -188,13 +188,10 @@ class User_model extends CI_Model {
                 $user['User_Status'] = $row[0]->Status;
                 $user['Otp_Status'] = $row[0]->Otp_Status;
                 $user['isBoolean'] = $row[0]->isBoolean;
-                
-                $roleData =$this->getCheckUserRoleByUserId($row[0]->add_by);
-                if($roleData){
-                    if($roleData[0]->Role_Id=='5'){
-                     $user['driverVerifyBy'] = $row[0]->add_by;
-                }} else {
-                    $user['driverVerifyBy'] = $row[0]->add_by;
+                if($row[0]->Status==0){
+                     $user['driverVerifyBy'] = 1;
+                } else {
+                    $user['driverVerifyBy'] = 0;
                     }
                 
                 
@@ -224,6 +221,18 @@ class User_model extends CI_Model {
         $this->db->select(array("Role_Id"))
                 ->from("users")
                 ->where(array("users.Id" => $user_id, "users.Status" => 1));
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array();
+        }
+    }
+    
+      public function getCheckUserRoleId($user_id) {
+        $this->db->select(array('u.Role_Id','u.Status'))
+                ->from("users u")
+                ->where(array("u.Id" => $user_id));
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -405,6 +414,52 @@ class User_model extends CI_Model {
         }
          
         
+    }
+    public  function getDriverStatus($userId) {
+         if(($userId)>0){
+         $this->db->select(array("*"))
+                ->from("users u");
+                
+        $this->db->where([
+            'u.Id'=>$userId,
+          'u.deletion_status'=>0,
+          ]);
+         }
+        $query = $this->db->get();
+       /// echo  $this->db->last_query();die;
+         if($query->num_rows() > 0){
+                $data= $query->result();
+                $cat  = array();
+                foreach($data as $row){
+                    $cat['Id']=$row->Id;
+                    if($row->Status==1){
+                        $cat['driverVerifyBy']=0;
+                        $cat['Status']='Active';
+                    }
+                    if($row->Status==0){
+                        $cat['driverVerifyBy']=1;
+                        $cat['Status']='Inactive';
+                    }
+                    $cat['Name']=$row->Name;
+                    $cat['email']=$row->Email;
+                    if($row->Gender==1){
+                        $cat['gender']="Male";
+                    } 
+                    if($row->Gender==2){
+                        $cat['gender']="Female";
+                    } 
+                    $cat['mobile']=$row->Mobile;
+                    $cat['created_at']=$row->created_on;
+                    
+                    
+                    
+                    
+                }
+                return $cat;
+                
+            } else {
+            return array();
+        }
     }
     
    

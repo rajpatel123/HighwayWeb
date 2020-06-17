@@ -5,7 +5,8 @@ class Milluser_model extends CI_Model {
         parent::__construct(); 
     }
     private $_users = 'users';  
-    private $_goods_provider = 'tbl_goods_provider';  
+    private $_goods_provider = 'tbl_goods_provider'; 
+    private $_fb_token = 'tbl_fb_token';   
     
     public function check_login_info() {
         $username_or_email_address = $this->input->post('username_or_email_address', true);
@@ -85,7 +86,9 @@ class Milluser_model extends CI_Model {
     } 
 	
     public function remove_milluser_by_id($milluser_id) { 
-        $this->db->update($this->_users, array('deletion_status' => 1), array('Id' => $milluser_id)); 
+        $this->db->update($this->_users, array('deletion_status' => 1), array('Id' => $milluser_id));
+        $this->db->update($this->_fb_token, array('fb_status' => 0), array('fb_u_id' => $milluser_id));  
+        
         return $this->db->affected_rows(); 
     } 
     

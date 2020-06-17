@@ -6,6 +6,8 @@ class Driver_model extends CI_Model {
     }
     private $_users = 'users'; 
     private $_drive_license = 'drive_license'; 
+    private $_fb_token = 'tbl_fb_token';  
+    
     
     public function check_login_info() {
         $username_or_email_address = $this->input->post('username_or_email_address', true);
@@ -158,6 +160,7 @@ class Driver_model extends CI_Model {
 	
     public function remove_driver_by_id($driver_id) { 
         $this->db->update($this->_users, array('deletion_status' => 1), array('Id' => $driver_id)); 
+        $this->db->update($this->_fb_token, array('fb_status' => 0), array('fb_u_id' => $driver_id)); 
         return $this->db->affected_rows(); 
     } 
     

@@ -19,12 +19,9 @@ class Assign_vehicle_to_driver_model extends CI_Model {
     
     
    
-    public function CheckAssignVehicleData($driver_id,$vehicle_id) {
-        $this->db->select(array('a.a_v_t_d_driver_id','a_v_t_d_vehicle_id'))
+    public function CheckAssignVehicleData($vehicle_id) {
+        $this->db->select(array('a_v_t_d_vehicle_id'))
                 ->from("tbl_assign_vehicle_to_driver a");
-        if(isset($driver_id)>0){
-               $this->db->where(array("a.a_v_t_d_driver_id" => $driver_id, "a.a_v_t_d_status" => 1));
-        }
         if(isset($vehicle_id)>0){
                $this->db->where(array("a.a_v_t_d_vehicle_id" => $vehicle_id, "a.a_v_t_d_status" => 1));
         }

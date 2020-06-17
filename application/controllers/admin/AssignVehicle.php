@@ -57,6 +57,17 @@ class AssignVehicle extends CI_Controller {
             $data['a_v_t_d_owner_id'] = $this->session->userdata('admin_id'); 
             $data['a_v_t_d_add_by'] = $this->session->userdata('admin_id'); 
             $data['a_v_t_d_date'] = date('Y-m-d'); 
+            
+            $vehicleId= $this->input->post('vehicle', TRUE);
+            
+            $assignVehicle = $this->assign_vehicle_mdl->checkAssignVehicleData($vehicleId);
+          
+            if($assignVehicle){
+                $sdata['exception'] = 'Assign vehicle to driver already !'; 
+                $this->session->set_userdata($sdata); 
+                    redirect('/admin/driver', 'refresh'); 
+            } else {
+                 // echo '<pre>' ; print_r($assignVehicle);die;
             $insert_id = $this->assign_vehicle_mdl->add_assign_vehicle_data($data); 
             if (!empty($insert_id)) { 
                 $sdata['success'] = 'Add successfully . '; 
@@ -67,6 +78,8 @@ class AssignVehicle extends CI_Controller {
                 $this->session->set_userdata($sdata); 
                     redirect('/admin/driver', 'refresh'); 
             } 
+            }
+           
         } 
     }
    
@@ -111,7 +124,14 @@ class AssignVehicle extends CI_Controller {
                 $data['a_v_t_d_owner_id'] = $this->session->userdata('admin_id'); 
                 $data['a_v_t_d_add_by'] = $this->session->userdata('admin_id'); 
                 $data['a_v_t_d_e_date'] = date('Y-m-d'); 
-                $result = $this->assign_vehicle_mdl->update_assign_vehicle($assign_vehicle_id, $data); 
+                $vehicleId= $this->input->post('vehicle', TRUE);
+                $assignVehicle = $this->assign_vehicle_mdl->checkAssignVehicleData($vehicleId);
+                if($assignVehicle){
+                    $sdata['exception'] = 'Assign vehicle to driver already !'; 
+                    $this->session->set_userdata($sdata); 
+                    redirect('/admin/driver', 'refresh'); 
+                 } else {
+                     $result = $this->assign_vehicle_mdl->update_assign_vehicle($assign_vehicle_id, $data); 
                 if (!empty($result)) { 
                     $sdata['success'] = 'Update successfully .'; 
                     $this->session->set_userdata($sdata); 
@@ -121,6 +141,7 @@ class AssignVehicle extends CI_Controller {
                     $this->session->set_userdata($sdata); 
                     redirect('admin/driver', 'refresh'); 
                 } 
+                }
             } 
         } else { 
             $sdata['exception'] = 'Content not found !'; 
